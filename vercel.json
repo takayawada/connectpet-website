@@ -1,0 +1,57 @@
+{
+	"version": 2,
+	"builds": [
+		{
+			"src": "**/*.html",
+			"use": "@vercel/static"
+		},
+		{
+			"src": "css/**",
+			"use": "@vercel/static"
+		},
+		{
+			"src": "js/**",
+			"use": "@vercel/static"
+		}
+	],
+	"routes": [
+		{
+			"src": "/",
+			"dest": "/index.html"
+		},
+		{
+			"src": "/about",
+			"dest": "/about.html"
+		},
+		{
+			"src": "/service",
+			"dest": "/service.html"
+		},
+		{
+			"src": "/carestore",
+			"dest": "/carestore.html"
+		},
+		{
+			"src": "/homecare",
+			"dest": "/homecare.html"
+		},
+		{
+			"src": "/news",
+			"dest": "/news.html"
+		},
+		{
+			"src": "/contact",
+			"dest": "/contact.html"
+		},
+		{
+			"src": "/legal",
+			"dest": "/legal.html"
+		},
+		{
+			"src": "/privacy",
+			"dest": "/privacy.html"
+		}
+	],
+	"cleanUrls": true,
+	"trailingSlash": false
+}

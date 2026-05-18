@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ConnectPetへのお問い合わせはこちらから。お気軽にご相談ください。">
+  <title>お問い合わせ - ConnectPet</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Connect<span>Pet</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="about.html">会社概要</a></li>
+        <li><a href="service.html">サービス</a></li>
+        <li><a href="carestore.html">ケアストア</a></li>
+        <li><a href="homecare.html">ホームケア</a></li>
+        <li><a href="news.html">お知らせ</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul>
+      <button class="mobile-menu-btn">☰</button>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <h1>お問い合わせ</h1>
+    <p>お気軽にご相談ください</p>
+  </div>
+
+  <main>
+    <div class="container">
+      <section class="content-section" style="max-width: 800px; margin: 0 auto;">
+        <p style="text-align: center; margin-bottom: 2rem;">
+          サービスに関するご質問、ご相談など、お気軽にお問い合わせください。<br>
+          担当者より2営業日以内にご連絡させていただきます。
+        </p>
+
+        <form id="contact-form" class="contact-form">
+          <div class="form-group">
+            <label for="name">お名前 <span style="color: var(--accent-color);">*</span></label>
+            <input type="text" id="name" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">メールアドレス <span style="color: var(--accent-color);">*</span></label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">電話番号</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+
+          <div class="form-group">
+            <label for="category">お問い合わせ種別 <span style="color: var(--accent-color);">*</span></label>
+            <select id="category" name="category" required>
+              <option value="">選択してください</option>
+              <option value="adoption">保護猫譲渡について</option>
+              <option value="carestore">ケアストアについて</option>
+              <option value="homecare">ホームケアについて</option>
+              <option value="partnership">提携・協業について</option>
+              <option value="other">その他</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">件名 <span style="color: var(--accent-color);">*</span></label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">お問い合わせ内容 <span style="color: var(--accent-color);">*</span></label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" required style="width: auto; margin-right: 0.5rem;">
+              <a href="privacy.html" style="color: var(--accent-color);">プライバシーポリシー</a>に同意する
+            </label>
+          </div>
+
+          <button type="submit" class="submit-button">送信する</button>
+        </form>
+      </section>
+
+      <section class="content-section" style="margin-top: 3rem;">
+        <h2>その他のお問い合わせ方法</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>📞 お電話</h3>
+            <p style="font-size: 1.5rem; font-weight: bold; color: var(--accent-color); margin: 1rem 0;">
+              03-1234-5678
+            </p>
+            <p>受付時間：10:00-18:00（年中無休）</p>
+          </div>
+          <div class="card">
+            <h3>✉️ メール</h3>
+            <p style="font-size: 1.2rem; font-weight: bold; color: var(--accent-color); margin: 1rem 0;">
+              info@connectpet.jp
+            </p>
+            <p>24時間受付。2営業日以内に返信いたします。</p>
+          </div>
+          <div class="card">
+            <h3>🏢 ご来店</h3>
+            <p style="font-weight: bold; margin: 1rem 0;">
+              東京都渋谷区神宮前1-2-3
+            </p>
+            <p>営業時間：10:00-19:00（年中無休）<br>※ご来店の際は事前予約をお願いします</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" style="margin-top: 3rem;">
+        <h2>よくあるご質問</h2>
+        <div style="line-height: 2;">
+          <h3 style="margin-top: 2rem; margin-bottom: 1rem;">保護猫の譲渡について</h3>
+          <p><strong>Q: 譲渡にかかる費用はどのくらいですか？</strong></p>
+          <p>A: 医療費実費として20,000円〜30,000円程度をご負担いただいております。詳しくはお問い合わせください。</p>
+
+          <h3 style="margin-top: 2rem; margin-bottom: 1rem;">ホームケアについて</h3>
+          <p><strong>Q: 対応エリア外でもサービスを受けられますか？</strong></p>
+          <p>A: エリア外の場合でも、別途交通費をご負担いただければ対応可能な場合があります。まずはご相談ください。</p>
+
+          <h3 style="margin-top: 2rem; margin-bottom: 1rem;">ケアストアについて</h3>
+          <p><strong>Q: オンラインストアでの支払い方法は？</strong></p>
+          <p>A: クレジットカード、銀行振込、代金引換に対応しております。</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>ConnectPet</h3>
+        <p>保護猫の幸せな未来をつなぐ</p>
+      </div>
+      <div class="footer-section">
+        <h3>サービス</h3>
+        <ul>
+          <li><a href="service.html">保護猫譲渡</a></li>
+          <li><a href="carestore.html">ケアストア</a></li>
+          <li><a href="homecare.html">ホームケア</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>会社情報</h3>
+        <ul>
+          <li><a href="about.html">会社概要</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="legal.html">特定商取引法</a></li>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>お問い合わせ</h3>
+        <p>Email: info@connectpet.jp</p>
+        <p>TEL: 03-1234-5678</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ConnectPet. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
