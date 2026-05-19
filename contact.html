@@ -1,173 +1,422 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ConnectPetへのお問い合わせはこちらから。お気軽にご相談ください。">
-  <title>お問い合わせ - ConnectPet</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける</title>
+<meta name="description" content="ConnectPetは、ペットの殺処分ゼロをビジネスで実現し続ける、 ソーシャルスタートアップカンパニーです ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">Connect<span>Pet</span></a>
-      <ul class="nav-links">
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href="about.html">会社概要</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="carestore.html">ケアストア</a></li>
-        <li><a href="homecare.html">ホームケア</a></li>
-        <li><a href="news.html">お知らせ</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
-      </ul>
-      <button class="mobile-menu-btn">☰</button>
-    </nav>
-  </header>
 
-  <div class="page-header">
-    <h1>お問い合わせ</h1>
-    <p>お気軽にご相談ください</p>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<div id="cat-runner" aria-hidden="true">
+  <svg width="100" height="68" viewBox="0 0 100 68" fill="none">
+    <g class="cg">
+      <ellipse cx="48" cy="40" rx="26" ry="15" fill="#ff8c42"/>
+      <circle cx="76" cy="26" r="14" fill="#ff8c42"/>
+      <polygon points="66,16 60,3 73,12" fill="#ff8c42"/>
+      <polygon points="82,12 80,1 90,10" fill="#ff8c42"/>
+      <path d="M22 38 C8 28 3 14 9 6 C14 0 19 4 18 11 C17 17 23 30 22 38Z" fill="#ff8c42"/>
+      <circle cx="79" cy="24" r="2.2" fill="#0a0e1a"/>
+      <line x1="76" y1="32" x2="92" y2="29" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
+      <line x1="76" y1="34" x2="93" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="60" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
+      <rect x="70" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
+      <rect x="34" y="51" width="7" height="14" rx="3.5" fill="#ff8c42"/>
+      <rect x="45" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
+    </g>
+  </svg>
+</div>
+
+<nav id="nav">
+  <a class="nav-logo" href="index.html">
+    <img class="logo-img" src="images/logo.svg" alt="Connect Pet"
+         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
+    <span class="logo-fb" id="lf" style="display:none">Connect<em>Pet</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">について</a></li>
+    <li><a href="service.html">サービス</a></li>
+    <li><a href="carestore.html">にゃんほっと</a></li>
+    <li><a href="homecare.html">HomeCare</a></li>
+    <li><a href="news.html">ニュース</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul>
+  <button id="mbtn" aria-label="メニューを開く" aria-expanded="false">
+    <span class="mbl"></span><span class="mbl"></span><span class="mbl"></span>
+  </button>
+</nav>
+
+<div id="fullmenu" role="dialog" aria-modal="true">
+  <div id="menu-bg"></div>
+  <div id="menu-in">
+    <nav class="m-nav">
+      <a class="m-item" href="index.html"><span class="mn">00</span>トップ</a>
+      <a class="m-item" href="about.html"><span class="mn">01</span>について</a>
+      <a class="m-item" href="service.html"><span class="mn">02</span>サービス</a>
+      <a class="m-item" href="carestore.html"><span class="mn">03</span>にゃんほっと</a>
+      <a class="m-item" href="homecare.html"><span class="mn">04</span>HomeCare</a>
+      <a class="m-item" href="news.html"><span class="mn">05</span>ニュース</a>
+      <a class="m-item" href="contact.html"><span class="mn">06</span>お問い合わせ</a>
+    </nav>
+    <div class="m-foot">
+      <div class="m-foot-row">
+        <a href="legal.html">特定商取引法</a>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
+      </div>
+      <p class="m-esc">esc or click to close</p>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <div class="eyebrow">06 — CONTACT</div>
+      <h1 class="page-h1">お問い合わせ</h1>
+    </div>
+  </div>
+  <div class="cp-in">
+    
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける 読み込まれました</p>
+    </div>
+    
   </div>
 
-  <main>
-    <div class="container">
-      <section class="content-section" style="max-width: 800px; margin: 0 auto;">
-        <p style="text-align: center; margin-bottom: 2rem;">
-          サービスに関するご質問、ご相談など、お気軽にお問い合わせください。<br>
-          担当者より2営業日以内にご連絡させていただきます。
-        </p>
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Contact</p>
+    </div>
+    
+  </div>
 
-        <form id="contact-form" class="contact-form">
-          <div class="form-group">
-            <label for="name">お名前 <span style="color: var(--accent-color);">*</span></label>
-            <input type="text" id="name" name="name" required>
-          </div>
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">お問い合わせ</p>
+    </div>
+    
+  </div>
 
-          <div class="form-group">
-            <label for="email">メールアドレス <span style="color: var(--accent-color);">*</span></label>
-            <input type="email" id="email" name="email" required>
-          </div>
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">名前 必須</p>
+    </div>
+    
+  </div>
 
-          <div class="form-group">
-            <label for="phone">電話番号</label>
-            <input type="tel" id="phone" name="phone">
-          </div>
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">メールアドレス 必須</p>
+    </div>
+    
+  </div>
 
-          <div class="form-group">
-            <label for="category">お問い合わせ種別 <span style="color: var(--accent-color);">*</span></label>
-            <select id="category" name="category" required>
-              <option value="">選択してください</option>
-              <option value="adoption">保護猫譲渡について</option>
-              <option value="carestore">ケアストアについて</option>
-              <option value="homecare">ホームケアについて</option>
-              <option value="partnership">提携・協業について</option>
-              <option value="other">その他</option>
-            </select>
-          </div>
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">メールアドレス</p>
+    </div>
+    
+  </div>
 
-          <div class="form-group">
-            <label for="subject">件名 <span style="color: var(--accent-color);">*</span></label>
-            <input type="text" id="subject" name="subject" required>
-          </div>
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">問い合わせ理由</p>
+    </div>
+    
+  </div>
 
-          <div class="form-group">
-            <label for="message">お問い合わせ内容 <span style="color: var(--accent-color);">*</span></label>
-            <textarea id="message" name="message" required></textarea>
-          </div>
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">取材・提携に関して</p>
+    </div>
+    
+  </div>
 
-          <div class="form-group">
-            <label>
-              <input type="checkbox" required style="width: auto; margin-right: 0.5rem;">
-              <a href="privacy.html" style="color: var(--accent-color);">プライバシーポリシー</a>に同意する
-            </label>
-          </div>
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">事業・サービスに関して</p>
+    </div>
+    
+  </div>
 
-          <button type="submit" class="submit-button">送信する</button>
-        </form>
-      </section>
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">出資・融資に関して</p>
+    </div>
+    
+  </div>
 
-      <section class="content-section" style="margin-top: 3rem;">
-        <h2>その他のお問い合わせ方法</h2>
-        <div class="cards">
-          <div class="card">
-            <h3>📞 お電話</h3>
-            <p style="font-size: 1.5rem; font-weight: bold; color: var(--accent-color); margin: 1rem 0;">
-              03-1234-5678
-            </p>
-            <p>受付時間：10:00-18:00（年中無休）</p>
-          </div>
-          <div class="card">
-            <h3>✉️ メール</h3>
-            <p style="font-size: 1.2rem; font-weight: bold; color: var(--accent-color); margin: 1rem 0;">
-              info@connectpet.jp
-            </p>
-            <p>24時間受付。2営業日以内に返信いたします。</p>
-          </div>
-          <div class="card">
-            <h3>🏢 ご来店</h3>
-            <p style="font-weight: bold; margin: 1rem 0;">
-              東京都渋谷区神宮前1-2-3
-            </p>
-            <p>営業時間：10:00-19:00（年中無休）<br>※ご来店の際は事前予約をお願いします</p>
-          </div>
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">採用に関して</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">お問い合わせ内容 必須</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">お問い合わせ内容</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">プライバシーポリシー に同意します</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">プライバシーポリシー</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">に同意します</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">About Us 私たちについて</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">About Us</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">私たちについて</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Service サービス紹介</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Service</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">サービス紹介</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Our Team チーム紹介</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Our Team</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">チーム紹介</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Our Policy 私たちのポリシー</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Our Policy</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">私たちのポリシー</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">News お知らせ</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Recruit 採用情報</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Recruit</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Contact お問い合わせ</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">特定商取引法に基づく表示</p>
+    </div>
+    
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">©CONNECT PET, Inc</p>
+    </div>
+    
+  </div>
+  </div>
+  <section id="cta">
+    <div class="cta-in">
+      <div class="sr">
+        <div class="cta-lbl">CONTACT</div>
+        <h2 class="cta-h2">お気軽にご相談ください。</h2>
+      </div>
+      <div class="cta-btns sr d2">
+        <a class="btn-w magnetic" href="contact.html">無料相談をする</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a id="line-cta" href="https://lin.ee/connectpet" target="_blank" rel="noopener" aria-label="LINEで相談する">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
+  <span>LINE相談</span>
+</a>
+
+<footer>
+  <div class="ft-in">
+    <div class="ft-top">
+      <div>
+        <div class="ft-name">Connect <em>Pet</em></div>
+        <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
+        <div class="ft-sns">
+          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
         </div>
-      </section>
-
-      <section class="content-section" style="margin-top: 3rem;">
-        <h2>よくあるご質問</h2>
-        <div style="line-height: 2;">
-          <h3 style="margin-top: 2rem; margin-bottom: 1rem;">保護猫の譲渡について</h3>
-          <p><strong>Q: 譲渡にかかる費用はどのくらいですか？</strong></p>
-          <p>A: 医療費実費として20,000円〜30,000円程度をご負担いただいております。詳しくはお問い合わせください。</p>
-
-          <h3 style="margin-top: 2rem; margin-bottom: 1rem;">ホームケアについて</h3>
-          <p><strong>Q: 対応エリア外でもサービスを受けられますか？</strong></p>
-          <p>A: エリア外の場合でも、別途交通費をご負担いただければ対応可能な場合があります。まずはご相談ください。</p>
-
-          <h3 style="margin-top: 2rem; margin-bottom: 1rem;">ケアストアについて</h3>
-          <p><strong>Q: オンラインストアでの支払い方法は？</strong></p>
-          <p>A: クレジットカード、銀行振込、代金引換に対応しております。</p>
-        </div>
-      </section>
+      </div>
+      <div class="ft-col"><h4>Pages</h4><ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="about.html">について</a></li>
+        <li><a href="service.html">サービス</a></li>
+        <li><a href="news.html">ニュース</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Services</h4><ul>
+        <li><a href="carestore.html">にゃんほっと</a></li>
+        <li><a href="carestore-cat.html">保護猫を迎える</a></li>
+        <li><a href="homecare.html">HomeCare</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Legal</h4><ul>
+        <li><a href="legal.html">特定商取引法</a></li>
+        <li><a href="privacy.html">プライバシーポリシー</a></li>
+      </ul></div>
     </div>
-  </main>
-
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>ConnectPet</h3>
-        <p>保護猫の幸せな未来をつなぐ</p>
-      </div>
-      <div class="footer-section">
-        <h3>サービス</h3>
-        <ul>
-          <li><a href="service.html">保護猫譲渡</a></li>
-          <li><a href="carestore.html">ケアストア</a></li>
-          <li><a href="homecare.html">ホームケア</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>会社情報</h3>
-        <ul>
-          <li><a href="about.html">会社概要</a></li>
-          <li><a href="contact.html">お問い合わせ</a></li>
-          <li><a href="legal.html">特定商取引法</a></li>
-          <li><a href="privacy.html">プライバシーポリシー</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>お問い合わせ</h3>
-        <p>Email: info@connectpet.jp</p>
-        <p>TEL: 03-1234-5678</p>
-      </div>
+    <div class="ft-bot">
+      <span>&copy; 2025 株式会社 Connect Pet. All rights reserved.</span>
+      <div class="ft-bot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 ConnectPet. All rights reserved.</p>
-    </div>
-  </footer>
+  </div>
+</footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="common.js"></script>
 </body>
 </html>

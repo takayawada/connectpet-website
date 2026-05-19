@@ -1,172 +1,986 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ConnectPetのサービス紹介。保護猫譲渡、ケアストア、ホームケアサービスについて詳しくご紹介します。">
-  <title>サービス - ConnectPet</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける</title>
+<meta name="description" content="ConnectPetは、ペットの殺処分ゼロをビジネスで実現し続ける、 ソーシャルスタートアップカンパニーです ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">Connect<span>Pet</span></a>
-      <ul class="nav-links">
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href="about.html">会社概要</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="carestore.html">ケアストア</a></li>
-        <li><a href="homecare.html">ホームケア</a></li>
-        <li><a href="news.html">お知らせ</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
-      </ul>
-      <button class="mobile-menu-btn">☰</button>
-    </nav>
-  </header>
 
-  <div class="page-header">
-    <h1>サービス</h1>
-    <p>私たちが提供するサービス</p>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<div id="cat-runner" aria-hidden="true">
+  <svg width="100" height="68" viewBox="0 0 100 68" fill="none">
+    <g class="cg">
+      <ellipse cx="48" cy="40" rx="26" ry="15" fill="#ff8c42"/>
+      <circle cx="76" cy="26" r="14" fill="#ff8c42"/>
+      <polygon points="66,16 60,3 73,12" fill="#ff8c42"/>
+      <polygon points="82,12 80,1 90,10" fill="#ff8c42"/>
+      <path d="M22 38 C8 28 3 14 9 6 C14 0 19 4 18 11 C17 17 23 30 22 38Z" fill="#ff8c42"/>
+      <circle cx="79" cy="24" r="2.2" fill="#0a0e1a"/>
+      <line x1="76" y1="32" x2="92" y2="29" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
+      <line x1="76" y1="34" x2="93" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="60" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
+      <rect x="70" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
+      <rect x="34" y="51" width="7" height="14" rx="3.5" fill="#ff8c42"/>
+      <rect x="45" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
+    </g>
+  </svg>
+</div>
+
+<nav id="nav">
+  <a class="nav-logo" href="index.html">
+    <img class="logo-img" src="images/logo.svg" alt="Connect Pet"
+         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
+    <span class="logo-fb" id="lf" style="display:none">Connect<em>Pet</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">について</a></li>
+    <li><a href="service.html">サービス</a></li>
+    <li><a href="carestore.html">にゃんほっと</a></li>
+    <li><a href="homecare.html">HomeCare</a></li>
+    <li><a href="news.html">ニュース</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul>
+  <button id="mbtn" aria-label="メニューを開く" aria-expanded="false">
+    <span class="mbl"></span><span class="mbl"></span><span class="mbl"></span>
+  </button>
+</nav>
+
+<div id="fullmenu" role="dialog" aria-modal="true">
+  <div id="menu-bg"></div>
+  <div id="menu-in">
+    <nav class="m-nav">
+      <a class="m-item" href="index.html"><span class="mn">00</span>トップ</a>
+      <a class="m-item" href="about.html"><span class="mn">01</span>について</a>
+      <a class="m-item" href="service.html"><span class="mn">02</span>サービス</a>
+      <a class="m-item" href="carestore.html"><span class="mn">03</span>にゃんほっと</a>
+      <a class="m-item" href="homecare.html"><span class="mn">04</span>HomeCare</a>
+      <a class="m-item" href="news.html"><span class="mn">05</span>ニュース</a>
+      <a class="m-item" href="contact.html"><span class="mn">06</span>お問い合わせ</a>
+    </nav>
+    <div class="m-foot">
+      <div class="m-foot-row">
+        <a href="legal.html">特定商取引法</a>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
+      </div>
+      <p class="m-esc">esc or click to close</p>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="page-hero">
+    <div class="page-hero-in">
+      <div class="eyebrow">02 — SERVICES</div>
+      <h1 class="page-h1">サービス一覧</h1>
+    </div>
+  </div>
+  <div class="cp-in">
+    
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける 読み込まれました</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
   </div>
 
-  <main>
-    <div class="container">
-      <section class="content-section">
-        <h2>🏠 保護猫譲渡サービス</h2>
-        <p>
-          ConnectPetでは、保護猫の適正な譲渡を通じて、人と猫の幸せな共生を支援しています。
-          一匹一匹の猫の性格や特徴を丁寧に把握し、ご家族のライフスタイルに最適な猫をご提案します。
-        </p>
-
-        <h3 style="margin-top: 2rem;">譲渡の流れ</h3>
-        <div class="cards">
-          <div class="card">
-            <h3>1. お問い合わせ</h3>
-            <p>WEBフォームまたはお電話にてお問い合わせください。ご希望の猫の条件などをお伺いします。</p>
-          </div>
-          <div class="card">
-            <h3>2. 面談・マッチング</h3>
-            <p>専門スタッフとの面談を行い、ライフスタイルや飼育環境を確認。最適な猫をご提案します。</p>
-          </div>
-          <div class="card">
-            <h3>3. トライアル</h3>
-            <p>2週間のトライアル期間を設け、実際に一緒に生活していただきます。</p>
-          </div>
-          <div class="card">
-            <h3>4. 正式譲渡</h3>
-            <p>トライアルが問題なければ、正式譲渡の手続きを行います。その後もサポートを継続します。</p>
-          </div>
-        </div>
-
-        <h3 style="margin-top: 2rem;">譲渡時に含まれるもの</h3>
-        <ul style="margin-left: 2rem; line-height: 2;">
-          <li>健康診断証明書</li>
-          <li>ワクチン接種証明書</li>
-          <li>避妊・去勢手術（実施済み）</li>
-          <li>マイクロチップ登録</li>
-          <li>初回ケアグッズセット</li>
-          <li>1ヶ月分のフード</li>
-        </ul>
-      </section>
-
-      <section class="content-section">
-        <h2>🛍️ ケアストア</h2>
-        <p>
-          猫の健康と幸せのために厳選した商品を取り揃えています。
-          フード、おもちゃ、ケア用品など、質の高い商品をオンラインでもご購入いただけます。
-        </p>
-
-        <div class="cards">
-          <div class="card">
-            <h3>プレミアムフード</h3>
-            <p>栄養バランスに優れた高品質なキャットフードを各種取り揃えています。</p>
-          </div>
-          <div class="card">
-            <h3>おもちゃ・用品</h3>
-            <p>猫の本能を刺激する知育おもちゃや、快適な生活をサポートする用品を販売しています。</p>
-          </div>
-          <div class="card">
-            <h3>健康ケア商品</h3>
-            <p>デンタルケア用品やサプリメントなど、健康維持に役立つ商品を提供しています。</p>
-          </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 2rem;">
-          <a href="carestore.html" class="cta-button">ケアストアへ</a>
-        </div>
-      </section>
-
-      <section class="content-section">
-        <h2>💝 ホームケアサービス</h2>
-        <p>
-          お留守番中の猫ちゃんのケアから、健康相談、しつけサポートまで、
-          飼い主様を全面的にサポートするサービスです。
-        </p>
-
-        <div class="cards">
-          <div class="card">
-            <h3>訪問ケア</h3>
-            <p>旅行や出張の際に、ご自宅を訪問して猫のお世話をします。食事、水の交換、トイレ掃除など。</p>
-          </div>
-          <div class="card">
-            <h3>健康相談</h3>
-            <p>動物看護師による健康相談サービス。些細な心配事もお気軽にご相談ください。</p>
-          </div>
-          <div class="card">
-            <h3>しつけサポート</h3>
-            <p>問題行動の改善や、基本的なしつけについて専門家がアドバイスします。</p>
-          </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 2rem;">
-          <a href="homecare.html" class="cta-button">詳しく見る</a>
-        </div>
-      </section>
-
-      <section style="text-align: center; margin-top: 3rem;">
-        <h2>サービスについてのご相談</h2>
-        <p style="margin-bottom: 2rem;">各サービスについて詳しく知りたい方は、お気軽にお問い合わせください。</p>
-        <a href="contact.html" class="cta-button">お問い合わせ</a>
-      </section>
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。 2026/3/31 動物保護施設で暮らす保護ペットに、スマートフォンやパソコンからリアルタイムでごはんをあげられる支援サービス「Paw Me」を提供する株式会社シグナルトークと提携し、当社が運営する保護猫譲渡特化型施設「にゃんほっと」での実証実験を開始しました。「Paw Me」は、ライブカメラで保護施設の様子を見守りな...</p>
     </div>
-  </main>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1366x768_77cc4fb6-1e98-49b7-8e2.webp" alt="">
+    </div>
+  </div>
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>ConnectPet</h3>
-        <p>保護猫の幸せな未来をつなぐ</p>
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1920x1080_v-frms_webp_2474af04-.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">2026/3/31</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-cms-assets_projects_nBW2APpeav_s-1366x768_v-fms_webp_3de3b185-a2f0-4166-.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">動物保護施設で暮らす保護ペットに、スマートフォンやパソコンからリアルタイムでごはんをあげられる支援サービス「Paw Me」を提供する株式会社シグナルトークと提携し、当社が運営する保護猫譲渡特化型施設「にゃんほっと」での実証実験を開始しました。「Paw Me」は、ライブカメラで保護施設の様子を見守りな...</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">【オープンハウスグループ】株式会社おうちリンク社と提携 2026/2/21 都心でのマイホーム提供を通じて「新しい住まい」を創造するオープンハウスグループと提携し、保護猫の殺処分問題を解決する社会貢献型インフラサービス提供を開始しました。＊プレスリリースはこちらからhttps://prtimes.jp/main/html/rd/p/000000905.000024241.h...</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-946x1034_v-fs_webp_b80dcd69-b74.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">【オープンハウスグループ】株式会社おうちリンク社と提携</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1296x2_13b80e49-119f-4e8b-954f-.svg" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">2026/2/21</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_4ef84597-8a.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">都心でのマイホーム提供を通じて「新しい住まい」を創造するオープンハウスグループと提携し、保護猫の殺処分問題を解決する社会貢献型インフラサービス提供を開始しました。＊プレスリリースはこちらからhttps://prtimes.jp/main/html/rd/p/000000905.000024241.h...</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1032x2_9b5092f9-7b71-4847-bbea-.svg" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">BS-TBS「ねこ自慢」に出演しました 2026/2/18 BS-TBSで毎週水曜日 23:00 - 23:54に放送している、猫専門のバラエティ番組「ねこ自慢」に出演しました（出演：2026年1月28日放映）。番組では、当社の運営する保護猫譲渡施設「にゃんほっと」の紹介、沖縄県・国頭村と連携した保護猫保護による「天然記念生物」の保全活動に関する取り組みにつ...</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">BS-TBS「ねこ自慢」に出演しました</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">2026/2/18</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">BS-TBSで毎週水曜日 23:00 - 23:54に放送している、猫専門のバラエティ番組「ねこ自慢」に出演しました（出演：2026年1月28日放映）。番組では、当社の運営する保護猫譲渡施設「にゃんほっと」の紹介、沖縄県・国頭村と連携した保護猫保護による「天然記念生物」の保全活動に関する取り組みにつ...</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-490x64_d35c0642-1769-482b-a676-.svg" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました 2024/12/5 弊社代表が経営者向けWebメディアに掲載されました！弊社代表が「アメリカン・エキスプレスの経営者向けWebマガジン『BUSINESS CLASS』」にメディア掲載されました！！株式会社Connect Pet 代表取締役／CEO 三浦朋之氏持続可能な「ソーシャルビジネス」でペットの課題解決を目指す。 ...</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">2024/12/5</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">弊社代表が経営者向けWebメディアに掲載されました！弊社代表が「アメリカン・エキスプレスの経営者向けWebマガジン『BUSINESS CLASS』」にメディア掲載されました！！株式会社Connect Pet 代表取締役／CEO 三浦朋之氏持続可能な「ソーシャルビジネス」でペットの課題解決を目指す。 ...</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">About Us</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">私たちについて</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">~ペットの殺処分ゼロをビジネスで実現し続ける~</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">行政・ボランティア・個人の力だけでは解決できないペットの殺処分問題を、「リリースをしないペットの飼い主様を増やし、適切に保護ペットをつなぐ」循環を産み出すことで解決します。</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">ペットと家族が安心して過ごせる</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">在宅ペットケアサービス「にゃんほっとHome Care」</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">旅行中・勤務中でも安心・快適・便利に猫のケアが全自動でできるアイテムが揃う。猫ケア家電サブスクサービス「にゃんほっとHomeCare」</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">詳しく見る</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">保護ペットと繋がれる</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">保護猫譲渡特化型施設「にゃんほっと」</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">最も殺処分数の多い猫の譲渡に特化した施設。ペットリリースの原因となる「お世話の負荷」を下げる猫ケア家電の体験ショールームを併設。</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Our Team</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">メンバー紹介</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">代表取締役/CEO</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">メンバー詳細</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Our Policy</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">私たちのポリシー</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">私たちは企業活動を通じて、ステークホルダーの皆様、それぞれの立場の方々に貢献するポリシーを保有しています。</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">POLICY FOR PET | ペットに対するポリシー</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">フレンドリーカスタマイズ</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">人間と同じようにペットも、十匹十色。性格も状況も異なります。一つの価値感によらず、それぞれにあったフレンドリー（親しみ）をカスタマイズし、安心を追求します。</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">POLICY FOR OWNER | 飼い主（オーナー）に対するポリシー</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">ペットと飼い主にとって、最適な選択肢を数多く提示する</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">多様な家族・ペットの状況にあった安心の移動の選択肢を常に探求すると共に、一つの選択肢に偏らない、最適な提案を開発し続けます。</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">POLICY FOR WORKER | アニマルワーカーに対するポリシー</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">アニマルファーストを貫ける環境を</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">弊社では、動物に向き合うアニマルワーカーの方にとって「アニマルファースト」の仕事環境の整備を追求し、その環境に集中できる仕組みづくりを経営陣・ビジネススタッフのミッションと定義し、取り組んでまいります。</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">POLICY FOR SOCIETY | 社会に対するポリシー</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">ソーシャルバリューを追求する</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">事業活動で構築する様々なサービス・インフラを通じて、私たちは「持続可能なペットの殺処分減少」「多様なペットに対する価値観をフラットに扱える文化創造」の２つのソーシャルバリューを追求します。</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">持続可能な殺処分減少</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">多様なペットに対する価値観をフラットに扱える文化創造</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Company</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">株式会社 Connect Pet</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">インターネット関連サービス、保護猫譲渡施設運営</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">2023年9月29日</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">〒104-0061 東京都中央区銀座4丁目13-11 松竹俱楽部ビル4階</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">10名（アルバイト、業務委託含む）</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">・ベンチャーサポート税理士法人/社会保険労務士法人 ・なかま弁護士事務所（ペット弁護士®︎）</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Contact</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">お問い合わせ</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">お問い合わせがフォームより受け付けております。</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">お問い合わせフォーム</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">About Us 私たちについて</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Service サービス紹介</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Service</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">サービス紹介</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Our Team チーム紹介</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">チーム紹介</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Our Policy 私たちのポリシー</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">News お知らせ</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Recruit 採用情報</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Recruit</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">Contact お問い合わせ</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">プライバシーポリシー</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">特定商取引法に基づく表示</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">©CONNECT PET, Inc</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section  sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">OUR VISION</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+
+  <div class="cp-section cp-rev sr">
+    <div class="cp-text">
+      
+      <p class="cp-p">ペットの殺処分ゼロを ビジネスで実現し続ける</p>
+    </div>
+    
+    <div class="cp-img sr d1">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-500x300_3ef1ca53-49e1-43de-ace2.webp" alt="">
+    </div>
+  </div>
+  </div>
+  <section id="cta">
+    <div class="cta-in">
+      <div class="sr">
+        <div class="cta-lbl">CONTACT</div>
+        <h2 class="cta-h2">お気軽にご相談ください。</h2>
       </div>
-      <div class="footer-section">
-        <h3>サービス</h3>
-        <ul>
-          <li><a href="service.html">保護猫譲渡</a></li>
-          <li><a href="carestore.html">ケアストア</a></li>
-          <li><a href="homecare.html">ホームケア</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>会社情報</h3>
-        <ul>
-          <li><a href="about.html">会社概要</a></li>
-          <li><a href="contact.html">お問い合わせ</a></li>
-          <li><a href="legal.html">特定商取引法</a></li>
-          <li><a href="privacy.html">プライバシーポリシー</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>お問い合わせ</h3>
-        <p>Email: info@connectpet.jp</p>
-        <p>TEL: 03-1234-5678</p>
+      <div class="cta-btns sr d2">
+        <a class="btn-w magnetic" href="contact.html">無料相談をする</a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 ConnectPet. All rights reserved.</p>
-    </div>
-  </footer>
+  </section>
+</main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="js/main.js"></script>
+<a id="line-cta" href="https://lin.ee/connectpet" target="_blank" rel="noopener" aria-label="LINEで相談する">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
+  <span>LINE相談</span>
+</a>
+
+<footer>
+  <div class="ft-in">
+    <div class="ft-top">
+      <div>
+        <div class="ft-name">Connect <em>Pet</em></div>
+        <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
+        <div class="ft-sns">
+          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="ft-col"><h4>Pages</h4><ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="about.html">について</a></li>
+        <li><a href="service.html">サービス</a></li>
+        <li><a href="news.html">ニュース</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Services</h4><ul>
+        <li><a href="carestore.html">にゃんほっと</a></li>
+        <li><a href="carestore-cat.html">保護猫を迎える</a></li>
+        <li><a href="homecare.html">HomeCare</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Legal</h4><ul>
+        <li><a href="legal.html">特定商取引法</a></li>
+        <li><a href="privacy.html">プライバシーポリシー</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bot">
+      <span>&copy; 2025 株式会社 Connect Pet. All rights reserved.</span>
+      <div class="ft-bot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="common.js"></script>
 </body>
 </html>

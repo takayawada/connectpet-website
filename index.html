@@ -1,134 +1,281 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ConnectPet - 保護猫の幸せな未来をつなぐ。保護猫の譲渡、ケアサービス、グッズ販売を通じて人と猫の豊かな共生を支援します。">
-  <title>ConnectPet - 保護猫の幸せな未来をつなぐ</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける</title>
+<meta name="description" content="ConnectPetは、ペットの殺処分ゼロをビジネスで実現し続ける、 ソーシャルスタートアップカンパニーです ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">Connect<span>Pet</span></a>
-      <ul class="nav-links">
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href="about.html">会社概要</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="carestore.html">ケアストア</a></li>
-        <li><a href="homecare.html">ホームケア</a></li>
-        <li><a href="news.html">お知らせ</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
-      </ul>
-      <button class="mobile-menu-btn">☰</button>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<div id="cat-runner" aria-hidden="true">
+  <svg width="100" height="68" viewBox="0 0 100 68" fill="none">
+    <g class="cg">
+      <ellipse cx="48" cy="40" rx="26" ry="15" fill="#ff8c42"/>
+      <circle cx="76" cy="26" r="14" fill="#ff8c42"/>
+      <polygon points="66,16 60,3 73,12" fill="#ff8c42"/>
+      <polygon points="82,12 80,1 90,10" fill="#ff8c42"/>
+      <path d="M22 38 C8 28 3 14 9 6 C14 0 19 4 18 11 C17 17 23 30 22 38Z" fill="#ff8c42"/>
+      <circle cx="79" cy="24" r="2.2" fill="#0a0e1a"/>
+      <line x1="76" y1="32" x2="92" y2="29" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
+      <line x1="76" y1="34" x2="93" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="60" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
+      <rect x="70" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
+      <rect x="34" y="51" width="7" height="14" rx="3.5" fill="#ff8c42"/>
+      <rect x="45" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
+    </g>
+  </svg>
+</div>
+
+<nav id="nav">
+  <a class="nav-logo" href="index.html">
+    <img class="logo-img" src="images/logo.svg" alt="Connect Pet"
+         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
+    <span class="logo-fb" id="lf" style="display:none">Connect<em>Pet</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">について</a></li>
+    <li><a href="service.html">サービス</a></li>
+    <li><a href="carestore.html">にゃんほっと</a></li>
+    <li><a href="homecare.html">HomeCare</a></li>
+    <li><a href="news.html">ニュース</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul>
+  <button id="mbtn" aria-label="メニューを開く" aria-expanded="false">
+    <span class="mbl"></span><span class="mbl"></span><span class="mbl"></span>
+  </button>
+</nav>
+
+<div id="fullmenu" role="dialog" aria-modal="true">
+  <div id="menu-bg"></div>
+  <div id="menu-in">
+    <nav class="m-nav">
+      <a class="m-item" href="index.html"><span class="mn">00</span>トップ</a>
+      <a class="m-item" href="about.html"><span class="mn">01</span>について</a>
+      <a class="m-item" href="service.html"><span class="mn">02</span>サービス</a>
+      <a class="m-item" href="carestore.html"><span class="mn">03</span>にゃんほっと</a>
+      <a class="m-item" href="homecare.html"><span class="mn">04</span>HomeCare</a>
+      <a class="m-item" href="news.html"><span class="mn">05</span>ニュース</a>
+      <a class="m-item" href="contact.html"><span class="mn">06</span>お問い合わせ</a>
     </nav>
-  </header>
-
-  <section class="hero">
-    <div class="cat-animation">🐱</div>
-    <h1>保護猫の<span class="accent">幸せな未来</span>をつなぐ</h1>
-    <p>人と猫の豊かな共生を支援します</p>
-    <a href="contact.html" class="cta-button">お問い合わせ</a>
-  </section>
-
-  <main>
-    <div class="container">
-      <section>
-        <h2>私たちのサービス</h2>
-        <div class="cards">
-          <div class="card">
-            <h3>🏠 保護猫譲渡</h3>
-            <p>適切なマッチングを通じて、保護猫と新しい家族をつなぎます。譲渡前の健康チェックやワクチン接種も完備。</p>
-            <a href="service.html" class="cta-button" style="margin-top: 1rem; padding: 0.8rem 2rem; font-size: 0.9rem;">詳しく見る</a>
-          </div>
-          <div class="card">
-            <h3>🛍️ ケアストア</h3>
-            <p>猫の健康と幸せのために厳選したフード、おもちゃ、ケア用品を取り揃えています。オンラインでも購入可能。</p>
-            <a href="carestore.html" class="cta-button" style="margin-top: 1rem; padding: 0.8rem 2rem; font-size: 0.9rem;">ストアへ</a>
-          </div>
-          <div class="card">
-            <h3>💝 ホームケア</h3>
-            <p>お留守番中の猫ちゃんのケア、健康相談、しつけサポートなど、飼い主様を全面的にサポートします。</p>
-            <a href="homecare.html" class="cta-button" style="margin-top: 1rem; padding: 0.8rem 2rem; font-size: 0.9rem;">詳しく見る</a>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>ConnectPetが選ばれる理由</h2>
-        <div class="cards">
-          <div class="card">
-            <h3>🎯 適切なマッチング</h3>
-            <p>猫の性格や特性を理解し、ご家族のライフスタイルに最適な猫をご提案します。</p>
-          </div>
-          <div class="card">
-            <h3>🏥 万全の健康管理</h3>
-            <p>提携動物病院での健康診断、ワクチン接種、避妊去勢手術を実施しています。</p>
-          </div>
-          <div class="card">
-            <h3>📞 アフターサポート</h3>
-            <p>譲渡後も飼育相談や健康相談など、長期的なサポート体制を整えています。</p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>最新のお知らせ</h2>
-        <div class="news-list">
-          <div class="news-item">
-            <div class="news-date">2026.05.15 <span class="news-category">お知らせ</span></div>
-            <h3>新しい保護猫カフェがオープンしました</h3>
-            <p>東京都渋谷区に新しい保護猫カフェ「Connect Cat Cafe」がオープンしました。</p>
-          </div>
-          <div class="news-item">
-            <div class="news-date">2026.05.10 <span class="news-category">イベント</span></div>
-            <h3>保護猫譲渡会を開催します</h3>
-            <p>5月25日（日）に保護猫譲渡会を開催します。事前予約制となっております。</p>
-          </div>
-        </div>
-        <div style="text-align: center; margin-top: 2rem;">
-          <a href="news.html" class="cta-button">すべてのお知らせを見る</a>
-        </div>
-      </section>
+    <div class="m-foot">
+      <div class="m-foot-row">
+        <a href="legal.html">特定商取引法</a>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
+      </div>
+      <p class="m-esc">esc or click to close</p>
     </div>
-  </main>
+  </div>
+</div>
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>ConnectPet</h3>
-        <p>保護猫の幸せな未来をつなぐ</p>
-      </div>
-      <div class="footer-section">
-        <h3>サービス</h3>
-        <ul>
-          <li><a href="service.html">保護猫譲渡</a></li>
-          <li><a href="carestore.html">ケアストア</a></li>
-          <li><a href="homecare.html">ホームケア</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>会社情報</h3>
-        <ul>
-          <li><a href="about.html">会社概要</a></li>
-          <li><a href="contact.html">お問い合わせ</a></li>
-          <li><a href="legal.html">特定商取引法</a></li>
-          <li><a href="privacy.html">プライバシーポリシー</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>お問い合わせ</h3>
-        <p>Email: info@connectpet.jp</p>
-        <p>TEL: 03-1234-5678</p>
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-in">
+    <div class="hero-txt">
+      <div class="hero-ey" id="hEy">SOCIAL STARTUP · TOKYO</div>
+      <h1 class="hero-h1" id="hH1">ペットの殺処分ゼロをビジネスで実現し続ける</h1>
+      <div class="hero-rule" id="hRule"></div>
+      <p class="hero-body" id="hBody">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</p>
+      <div class="hero-cta" id="hCta">
+        <a class="btn-p magnetic" href="contact.html">無料相談をする <svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
+        <a class="btn-g magnetic" href="about.html">ConnectPetとは</a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 ConnectPet. All rights reserved.</p>
+    <div class="hero-vis">
+      <div class="hero-ring-d"></div>
+      <div class="hero-frame" id="hFrame">
+        <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6" alt="ConnectPet" loading="eager">
+      </div>
     </div>
-  </footer>
+  </div>
+  <div class="hero-sc" id="hSc"><div class="sc-line"></div><span>scroll</span></div>
+</section>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="js/main.js"></script>
+<!-- TICKER -->
+<div id="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tkTrk">
+    
+    <div class="ti"><span class="td"></span><span class="ta">殺処分ゼロ</span>を目指して</div>
+    <div class="ti"><span class="td"></span>保護猫と新しい家族を繋ぐ</div>
+    <div class="ti"><span class="td"></span><span class="ta">にゃんほっと</span>保護猫譲渡施設</div>
+    <div class="ti"><span class="td"></span><span class="ta">HomeCare</span>猫ケア家電サブスク</div>
+    <div class="ti"><span class="td"></span>ソーシャルスタートアップ · 東京 · 銀座</div>
+    <div class="ti"><span class="td"></span>ビジネスで、命を救う</div>
+    <div class="ti"><span class="td"></span><span class="ta">殺処分ゼロ</span>を目指して</div>
+    <div class="ti"><span class="td"></span>保護猫と新しい家族を繋ぐ</div>
+    <div class="ti"><span class="td"></span><span class="ta">にゃんほっと</span>保護猫譲渡施設</div>
+    <div class="ti"><span class="td"></span><span class="ta">HomeCare</span>猫ケア家電サブスク</div>
+    <div class="ti"><span class="td"></span>ソーシャルスタートアップ · 東京 · 銀座</div>
+    <div class="ti"><span class="td"></span>ビジネスで、命を救う</div>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="mission-in">
+    <div class="mission-left sr">
+      <div class="eyebrow" style="margin-bottom:24px">MISSION</div>
+      <p class="mission-side">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。 2026/3/31 動物保護施設で暮らす保護ペットに、スマートフォンやパソコンからリアルタイムでごはんをあげられる支援サービス「Paw Me」を提供する株式会社シグナルトークと提携し、当社が運営する保護猫譲渡特化型施設「にゃんほっと」での実証実験を開始しました。「Paw Me」は、ライブカメラで保護施設の様子を見守りな...</p><p class="mission-side">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</p><p class="mission-side">2026/3/31</p>
+      <a class="alink" href="about.html">私たちのストーリー <span class="al-arr"></span></a>
+    </div>
+    <div class="mission-right">
+      <p class="mission-stmt" id="mStmt">
+        命を救うことを、<span class="ac">持続可能な<br>ビジネス</span>に変える。
+      </p>
+      <div class="mstats">
+        <div class="ms sr"><div class="ms-val"><span class="cnt" data-to="150">0</span><span class="u">匹+</span></div><div class="ms-lbl">保護猫 譲渡実績</div></div>
+        <div class="ms sr d1"><div class="ms-val"><span class="cnt" data-to="3">0</span><span class="u">年</span></div><div class="ms-lbl">活動年数</div></div>
+        <div class="ms sr d2"><div class="ms-val"><span class="cnt" data-to="2">0</span><span class="u">ブランド</span></div><div class="ms-lbl">展開中のサービス</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svc-in">
+    <div class="sec-hd sr">
+      <div class="sec-ey">SERVICES</div>
+      <h2 class="sec-h2">2つのブランドで、猫との未来を。</h2>
+    </div>
+    <div class="svc-grid">
+      <a class="svc-card sr" href="carestore.html">
+        <div class="svc-img-w">
+          <img class="svc-img-i" src="https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4" alt="にゃんほっと 保護猫譲渡施設" onerror="this.parentElement.classList.add('no-img')">
+          <span class="svc-badge">ADOPTION</span>
+        </div>
+        <div class="svc-body">
+          <div class="svc-bar"></div>
+          <div class="svc-no">01 — CARESTORE</div>
+          <div class="svc-name">にゃんほっと<br>保護猫譲渡特化型施設</div>
+          <div class="svc-en">Nyan-Hot Care Store</div>
+          <p class="svc-desc">保護猫譲渡特化型施設「にゃんほっと」は、株式会社Connect Petが運営する、最も殺処分数の多い猫の譲渡に特化した施設です。ペットリリースの原因となる「お世話の負荷」を下げる猫ケア家電の体験ショールームを併設しています。</p>
+          <div class="svc-ft">
+            <span class="svc-ft-info">東京 · 銀座エリア</span>
+            <span class="alink">詳しくはこちら <span class="al-arr"></span></span>
+          </div>
+        </div>
+      </a>
+      <a class="svc-card sr d1" href="homecare.html">
+        <div class="svc-img-w">
+          <img class="svc-img-i" src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6" alt="にゃんほっとHomeCare" onerror="this.parentElement.classList.add('no-img')">
+          <span class="svc-badge">SUBSCRIPTION</span>
+        </div>
+        <div class="svc-body">
+          <div class="svc-bar"></div>
+          <div class="svc-no">02 — HOMECARE</div>
+          <div class="svc-name">にゃんほっと<br>HomeCare</div>
+          <div class="svc-en">猫ケア家電サブスクサービス</div>
+          <p class="svc-desc">にゃんほっとHomeCareは、株式会社Connect Petが運営する、旅行中・勤務中でも安心・快適・便利に 猫のケアが全自動でできるアイテムが揃う猫ケア家電のサブスクサービスです。</p>
+          <div class="svc-ft">
+            <span class="svc-ft-info">月額サブスク · 初月実質無料</span>
+            <span class="alink">詳しくはこちら <span class="al-arr"></span></span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SNS -->
+<section id="social">
+  <div class="social-in">
+    <div class="social-top">
+      <div class="sr">
+        <div class="eyebrow" style="margin-bottom:22px">FOLLOW US</div>
+        <h2 class="social-h2">SNSでも発信中</h2>
+        <p class="social-sub">保護猫の日常・譲渡情報・<br>HomeCare最新情報をお届けしています。</p>
+      </div>
+    </div>
+    <div class="sns-grid">
+      <a class="sns-card sr" href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener">
+        <div class="sns-ic"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+        <div><div class="sns-at">@connectpet_nyan</div><div class="sns-name">Connect Pet</div><div class="sns-desc">保護猫の日常・譲渡情報・活動レポートを発信中</div></div>
+      </a>
+      <a class="sns-card sr d1" href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener">
+        <div class="sns-ic"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+        <div><div class="sns-at">@nyanhot</div><div class="sns-name">にゃんほっと</div><div class="sns-desc">にゃんほっとの保護猫たちとHomeCare情報を発信中</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-in">
+    <div class="sr">
+      <div class="cta-lbl">CONTACT</div>
+      <h2 class="cta-h2">あなたの選択が、<br>命を救う。</h2>
+      <p class="cta-body">猫を迎えたい。HomeCareを試したい。<br>どんなことでもお気軽にご相談ください。</p>
+    </div>
+    <div class="cta-btns sr d2">
+      <a class="btn-w magnetic" href="contact.html">無料相談をする</a>
+      <a class="btn-i magnetic" href="service.html">サービス一覧を見る</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<a id="line-cta" href="https://lin.ee/connectpet" target="_blank" rel="noopener" aria-label="LINEで相談する">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
+  <span>LINE相談</span>
+</a>
+
+<footer>
+  <div class="ft-in">
+    <div class="ft-top">
+      <div>
+        <div class="ft-name">Connect <em>Pet</em></div>
+        <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
+        <div class="ft-sns">
+          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="ft-col"><h4>Pages</h4><ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="about.html">について</a></li>
+        <li><a href="service.html">サービス</a></li>
+        <li><a href="news.html">ニュース</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Services</h4><ul>
+        <li><a href="carestore.html">にゃんほっと</a></li>
+        <li><a href="carestore-cat.html">保護猫を迎える</a></li>
+        <li><a href="homecare.html">HomeCare</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Legal</h4><ul>
+        <li><a href="legal.html">特定商取引法</a></li>
+        <li><a href="privacy.html">プライバシーポリシー</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bot">
+      <span>&copy; 2025 株式会社 Connect Pet. All rights reserved.</span>
+      <div class="ft-bot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="common.js"></script>
 </body>
 </html>
