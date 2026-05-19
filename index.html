@@ -2,142 +2,524 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける</title>
-<meta name="description" content="ConnectPetは、ペットの殺処分ゼロをビジネスで実現し続ける、 ソーシャルスタートアップカンパニーです ">
+<meta name="description" content="ConnectPetは、ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニーです">
+<meta property="og:title" content="株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける">
+<meta property="og:image" content="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="common.css">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --w:#fff;--cr:#fdf8f2;--bg:#f5ede0;
+  --or:#ff8c42;--or2:#f07030;--olt:#fff4ec;
+  --nv:#0a0e1a;--ink:#1a2240;--ink2:#4a5568;--sil:#8a9bb5;
+  --ln:rgba(26,34,64,.08);
+  --s:'Shippori Mincho B1',serif;
+  --b:'Noto Sans JP',sans-serif;
+  --m:'DM Mono',monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease2:cubic-bezier(.77,0,.18,1);
+}
+html{scroll-behavior:auto}
+body{background:var(--w);color:var(--ink);font-family:var(--b);
+  cursor:none;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit;cursor:none}
+img{display:block;max-width:100%;object-fit:cover}
+
+/* CURSOR */
+#c1{position:fixed;width:7px;height:7px;background:var(--or);border-radius:50%;
+  pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:opacity .2s}
+#c2{position:fixed;width:34px;height:34px;border:1.5px solid rgba(255,140,66,.35);
+  border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,border-color .25s}
+#c1.big{opacity:0}
+#c2.big{width:52px;height:52px;border-color:rgba(255,140,66,.6)}
+@media(hover:none){#c1,#c2{display:none}body{cursor:auto}a,button{cursor:auto}}
+
+/* CAT RUNNER */
+#cat{position:fixed;top:64px;left:-120px;z-index:700;pointer-events:none;opacity:0}
+#cat.go{opacity:1;animation:catrun .88s var(--ease) forwards}
+.cg{animation:catbob .18s ease-in-out infinite alternate;transform-origin:50px 32px}
+@keyframes catrun{0%{left:-120px}100%{left:calc(100vw + 120px)}}
+@keyframes catbob{from{transform:translateY(0) rotate(-2.5deg)}to{transform:translateY(-7px) rotate(2.5deg)}}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 56px;transition:padding .4s,background .4s,border-color .4s,backdrop-filter .4s}
+nav.solid{padding:14px 56px;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--ln)}
+.nlogo img{height:28px;display:block}
+.nlogo .fb{font-family:var(--s);font-size:16px;font-weight:700;color:var(--ink);letter-spacing:.04em}
+.nlogo .fb em{color:var(--or);font-style:normal}
+.nlinks{display:flex;gap:36px;list-style:none;
+  position:absolute;left:50%;transform:translateX(-50%)}
+.nlinks a{font-size:11.5px;font-weight:500;color:rgba(26,34,64,.55);
+  letter-spacing:.07em;transition:color .2s}
+.nlinks a:hover{color:var(--or)}
+#nbtn{background:none;border:1.5px solid rgba(26,34,64,.15);border-radius:50%;
+  width:44px;height:44px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:5px;flex-shrink:0;
+  transition:border-color .3s,background .3s}
+#nbtn:hover{border-color:var(--or);background:rgba(255,140,66,.06)}
+#nbtn span{display:block;width:15px;height:1.5px;background:var(--ink);border-radius:2px;
+  transition:transform .3s,opacity .2s;transform-origin:center}
+#nbtn.x span:nth-child(1){transform:translateY(3.25px) rotate(45deg)}
+#nbtn.x span:nth-child(2){opacity:0}
+#nbtn.x span:nth-child(3){transform:translateY(-3.25px) rotate(-45deg)}
+
+/* FULLSCREEN MENU */
+#menu{position:fixed;inset:0;z-index:450;pointer-events:none}
+#mbg{position:absolute;inset:0;background:#070a12;
+  clip-path:circle(0% at calc(100% - 78px) 40px);
+  transition:clip-path .7s var(--ease2)}
+#menu.open{pointer-events:all}
+#menu.open #mbg{clip-path:circle(160% at calc(100% - 78px) 40px)}
+#mwrap{position:relative;z-index:1;height:100dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.mlink{font-family:var(--s);font-size:clamp(30px,6vw,64px);font-weight:700;
+  color:rgba(255,255,255,.82);display:flex;align-items:center;gap:16px;
+  padding:8px 0;letter-spacing:.04em;
+  opacity:0;transform:translateX(-28px);transition:color .3s}
+.mlink em{font-family:var(--m);font-size:11px;color:rgba(255,140,66,.38);font-style:normal;letter-spacing:.1em}
+.mlink:hover{color:var(--or)}
+#menu.open .mlink{animation:mslide .4s var(--ease) forwards}
+#menu.open .mlink:nth-child(1){animation-delay:.05s}
+#menu.open .mlink:nth-child(2){animation-delay:.1s}
+#menu.open .mlink:nth-child(3){animation-delay:.15s}
+#menu.open .mlink:nth-child(4){animation-delay:.2s}
+#menu.open .mlink:nth-child(5){animation-delay:.25s}
+#menu.open .mlink:nth-child(6){animation-delay:.3s}
+#menu.open .mlink:nth-child(7){animation-delay:.35s}
+@keyframes mslide{to{opacity:1;transform:translateX(0)}}
+.msub{opacity:0;transform:translateY(8px);margin-top:36px;
+  display:flex;gap:24px;flex-wrap:wrap;justify-content:center;
+  transition:opacity .4s .48s,transform .4s .48s}
+#menu.open .msub{opacity:1;transform:translateY(0)}
+.msub a{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.07em;transition:color .3s}
+.msub a:hover{color:rgba(255,255,255,.65)}
+.mesc{font-size:9px;color:rgba(255,255,255,.12);letter-spacing:.18em;font-family:var(--m);margin-top:12px;opacity:0;transition:opacity .4s .55s}
+#menu.open .mesc{opacity:1}
+
+/* ── HERO ─────────────────────── */
+#hero{position:relative;height:100dvh;min-height:640px;overflow:hidden;
+  display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;will-change:transform}
+.hero-bg img{width:100%;height:115%;object-fit:cover;object-position:center 20%}
+.hero-ov{position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(7,10,18,.15) 0%,rgba(7,10,18,.55) 60%,rgba(7,10,18,.85) 100%)}
+.hero-in{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;
+  padding:0 56px 84px}
+.hero-sub{font-family:var(--m);font-size:10px;letter-spacing:.28em;color:rgba(255,255,255,.6);
+  margin-bottom:26px;display:flex;align-items:center;gap:12px}
+.hero-sub::before{content:'';width:22px;height:1px;background:var(--or);display:block;flex-shrink:0}
+.hero-h1{font-family:var(--s);font-size:clamp(42px,6.5vw,96px);font-weight:800;
+  line-height:1.22;color:#fff;letter-spacing:-.02em;margin-bottom:30px}
+.hero-h1 .line{display:block;overflow:hidden}
+.hero-h1 .word{display:inline-block;transform:translateY(100%);opacity:0}
+.hero-h1 .ac{color:var(--or)}
+.hero-desc{font-size:15px;color:rgba(255,255,255,.72);line-height:2.05;
+  max-width:520px;margin-bottom:40px;opacity:0;transform:translateY(14px)}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(10px)}
+/* scroll indicator */
+.hero-scroll{position:absolute;right:56px;bottom:50px;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;transition:opacity .6s 2.8s}
+.hero-scroll.on{opacity:1}
+.hs-line{width:1px;height:52px;background:linear-gradient(to bottom,var(--or),transparent);
+  animation:hsdrop 2s ease-in-out infinite}
+.hs-txt{font-family:var(--m);font-size:8px;letter-spacing:.22em;color:rgba(255,255,255,.4);
+  writing-mode:vertical-rl}
+@keyframes hsdrop{0%{transform:scaleY(0);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+  51%{transform:scaleY(1);transform-origin:bottom}
+  100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* BUTTONS */
+.btn-or{display:inline-flex;align-items:center;gap:10px;font-family:var(--b);
+  font-size:13px;font-weight:700;color:#fff;background:var(--or);
+  padding:15px 40px;letter-spacing:.07em;white-space:nowrap;
+  position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.btn-or::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);
+  transform:translateX(-101%);transition:transform .4s var(--ease2)}
+.btn-or:hover::after{transform:translateX(0)}
+.btn-or:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(255,140,66,.35)}
+.btn-or svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2;
+  stroke-linecap:round;flex-shrink:0;transition:transform .3s}
+.btn-or:hover svg{transform:translateX(4px)}
+.btn-wh{display:inline-flex;align-items:center;gap:10px;font-family:var(--b);
+  font-size:13px;font-weight:500;color:#fff;
+  border:1.5px solid rgba(255,255,255,.4);padding:14px 40px;
+  letter-spacing:.07em;white-space:nowrap;transition:border-color .3s,background .3s,transform .3s}
+.btn-wh:hover{border-color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);transform:translateY(-2px)}
+.btn-ink{display:inline-flex;align-items:center;gap:10px;font-family:var(--b);
+  font-size:13px;font-weight:500;color:var(--ink);
+  border:1.5px solid rgba(26,34,64,.18);padding:14px 40px;
+  letter-spacing:.07em;white-space:nowrap;transition:border-color .3s,color .3s,transform .3s}
+.btn-ink:hover{border-color:var(--or);color:var(--or);transform:translateY(-2px)}
+.btn-orw{display:inline-flex;align-items:center;gap:10px;font-family:var(--b);
+  font-size:13px;font-weight:700;color:var(--or);background:#fff;
+  padding:15px 40px;letter-spacing:.07em;white-space:nowrap;
+  transition:background .3s,transform .3s,box-shadow .3s}
+.btn-orw:hover{background:var(--cr);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.12)}
+.btn-inv{display:inline-flex;align-items:center;gap:10px;font-family:var(--b);
+  font-size:13px;font-weight:500;color:#fff;
+  border:1.5px solid rgba(255,255,255,.38);padding:14px 40px;
+  letter-spacing:.07em;white-space:nowrap;transition:border-color .3s,background .3s,transform .3s}
+.btn-inv:hover{border-color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);transform:translateY(-2px)}
+
+/* ── TICKER ─────────────────────── */
+#ticker{background:var(--nv);border-top:2.5px solid var(--or);overflow:hidden;line-height:1}
+.twr{display:flex;white-space:nowrap;animation:tscroll 28s linear infinite}
+.twr:hover{animation-play-state:paused}
+.titem{display:flex;align-items:center;gap:32px;padding:18px 0;
+  font-family:var(--s);font-size:14px;font-weight:600;
+  color:rgba(255,255,255,.65);letter-spacing:.08em;flex-shrink:0}
+.tdot{width:5px;height:5px;border-radius:50%;background:var(--or);flex-shrink:0}
+.tacc{color:var(--or)}
+@keyframes tscroll{to{transform:translateX(-50%)}}
+
+/* ── MISSION ─────────────────────── */
+#mission{background:var(--w);padding:160px 0;position:relative;overflow:hidden}
+.miss-in{max-width:1280px;margin:0 auto;padding:0 56px;
+  display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
+.miss-left{}
+.miss-label{font-family:var(--m);font-size:10px;letter-spacing:.28em;color:var(--or);
+  display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.miss-label::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.miss-stmt{font-family:var(--s);font-size:clamp(34px,4.2vw,62px);
+  font-weight:800;line-height:1.42;color:var(--ink);letter-spacing:-.01em}
+.miss-stmt .wd{overflow:hidden;display:inline-block}
+.miss-stmt .ch{display:inline-block;opacity:0;transform:translateY(108%)}
+.miss-stmt .ac{color:var(--or)}
+.miss-body{font-size:15px;line-height:2.2;color:var(--ink2);margin-top:28px;max-width:440px}
+.miss-right{display:flex;flex-direction:column;gap:0}
+/* 実績数値 */
+.miss-stats{display:flex;flex-direction:column;gap:1px;background:var(--ln);border:1px solid var(--ln)}
+.mstat{background:var(--w);padding:32px 30px;display:flex;align-items:baseline;gap:12px;
+  transition:background .3s}
+.mstat:hover{background:var(--cr)}
+.mstat-num{font-family:var(--s);font-size:clamp(44px,4.8vw,68px);font-weight:700;
+  color:var(--or);line-height:1}
+.mstat-unit{font-family:var(--s);font-size:20px;color:var(--or2)}
+.mstat-label{font-size:12px;color:var(--sil);letter-spacing:.1em;margin-left:auto;text-align:right;line-height:1.5}
+
+/* ── NEWS ─────────────────────── */
+#news{background:var(--cr);padding:120px 0}
+.news-in{max-width:1280px;margin:0 auto;padding:0 56px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px}
+.sec-label{font-family:var(--m);font-size:10px;letter-spacing:.28em;color:var(--or);
+  display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sec-label::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.sec-h2{font-family:var(--s);font-size:clamp(24px,3vw,40px);font-weight:700;color:var(--ink)}
+.news-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(26,34,64,.07)}
+.ncard{background:var(--w);padding:34px 36px;
+  display:flex;flex-direction:column;gap:10px;
+  transition:background .3s}
+.ncard:hover{background:var(--cr)}
+.ncard-date{font-family:var(--m);font-size:10px;color:var(--or);letter-spacing:.15em}
+.ncard-title{font-family:var(--s);font-size:16px;font-weight:700;color:var(--ink);
+  line-height:1.6;transition:color .3s}
+.ncard:hover .ncard-title{color:var(--or)}
+.ncard-body{font-size:13px;color:var(--ink2);line-height:1.95;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ncard-more{font-family:var(--m);font-size:10px;color:var(--or);letter-spacing:.12em;
+  margin-top:auto;padding-top:18px;border-top:1px solid var(--ln);
+  display:flex;align-items:center;gap:8px}
+.ncard-more::after{content:'→';transition:margin-left .25s}
+.ncard:hover .ncard-more::after{margin-left:4px}
+
+/* ── SERVICES ─────────────────────── */
+#services{background:var(--w);padding:140px 0}
+.svc-in{max-width:1280px;margin:0 auto;padding:0 56px}
+.svc-intro{margin-bottom:72px;max-width:600px}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.scard{display:flex;flex-direction:column;border:1px solid var(--ln);overflow:hidden;
+  transition:transform .4s var(--ease),box-shadow .4s}
+.scard:hover{transform:translateY(-8px);box-shadow:0 28px 64px rgba(26,34,64,.1)}
+.scard:hover .scard-img{transform:scale(1.04)}
+.scard:hover .scard-bar{width:100%}
+.scard-imgw{height:300px;overflow:hidden;position:relative;background:var(--bg)}
+.scard-img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.scard-badge{position:absolute;top:20px;left:20px;background:var(--or);
+  padding:5px 14px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.1em}
+.scard-body{padding:32px 34px 36px;flex:1;display:flex;flex-direction:column;position:relative}
+.scard-bar{position:absolute;top:0;left:0;height:3px;width:52px;
+  background:var(--or);transition:width .5s var(--ease2)}
+.scard-no{font-family:var(--m);font-size:10px;color:rgba(255,140,66,.42);
+  letter-spacing:.16em;margin-bottom:10px}
+.scard-name{font-family:var(--s);font-size:clamp(20px,2.2vw,27px);
+  font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:8px}
+.scard-en{font-family:var(--m);font-size:10px;color:var(--or);letter-spacing:.12em;margin-bottom:16px}
+.scard-desc{font-size:13.5px;color:var(--ink2);line-height:1.95;flex:1}
+.scard-foot{display:flex;align-items:center;justify-content:space-between;
+  margin-top:24px;padding-top:20px;border-top:1px solid var(--ln)}
+.scard-info{font-size:11px;color:var(--sil);letter-spacing:.07em}
+.scard-arr{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;
+  color:var(--or);letter-spacing:.06em;transition:gap .3s}
+.scard-arr::after{content:'→';transition:margin-left .25s}
+.scard:hover .scard-arr{gap:14px}
+
+/* ── CTA ─────────────────────── */
+#cta{background:var(--or);padding:140px 0;position:relative;overflow:hidden}
+#cta::before,#cta::after{content:'';position:absolute;border-radius:50%;pointer-events:none;
+  border:1px solid rgba(255,255,255,.1)}
+#cta::before{width:500px;height:500px;right:-120px;top:-120px}
+#cta::after{width:320px;height:320px;left:-80px;bottom:-80px}
+.cta-in{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 56px;
+  display:grid;grid-template-columns:1fr auto;gap:72px;align-items:center}
+.cta-label{font-family:var(--m);font-size:10px;letter-spacing:.28em;
+  color:rgba(255,255,255,.55);display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.cta-label::before{content:'';width:22px;height:1px;background:rgba(255,255,255,.5);flex-shrink:0}
+.cta-h2{font-family:var(--s);font-size:clamp(32px,4.8vw,64px);
+  font-weight:800;line-height:1.38;color:#fff;margin-bottom:16px}
+.cta-body{font-size:15px;color:rgba(255,255,255,.78);line-height:2.1}
+.cta-btns{display:flex;flex-direction:column;gap:13px;flex-shrink:0}
+
+/* ── LINE FLOAT ─────────────────────── */
+#linecta{position:fixed;bottom:28px;right:26px;z-index:600;
+  display:flex;align-items:center;gap:8px;
+  background:#06C755;color:#fff;font-family:var(--b);
+  font-size:12px;font-weight:700;padding:13px 22px;border-radius:100px;
+  box-shadow:0 8px 28px rgba(6,199,85,.32);letter-spacing:.06em;
+  transition:transform .3s,box-shadow .3s}
+#linecta:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(6,199,85,.45)}
+#linecta svg{width:18px;height:18px;fill:#fff;flex-shrink:0}
+
+/* ── FOOTER ─────────────────────── */
+footer{background:var(--nv);padding:72px 0 0;border-top:2.5px solid var(--or)}
+.ft-in{max-width:1280px;margin:0 auto;padding:0 56px}
+.ft-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:52px;
+  padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ft-brand{font-family:var(--s);font-size:18px;font-weight:700;
+  color:#fff;letter-spacing:.04em;margin-bottom:10px}
+.ft-brand em{color:var(--or);font-style:normal}
+.ft-tag{font-size:12px;color:var(--sil);line-height:1.95;max-width:260px;margin-bottom:20px}
+.ft-sns{display:flex;gap:10px}
+.ft-sns a{width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;transition:all .3s}
+.ft-sns a:hover{background:rgba(255,140,66,.18);border-color:rgba(255,140,66,.4)}
+.ft-sns svg{width:14px;height:14px;fill:var(--sil);transition:fill .3s}
+.ft-sns a:hover svg{fill:var(--or)}
+.ft-col h4{font-family:var(--m);font-size:9px;letter-spacing:.22em;
+  color:rgba(255,255,255,.22);text-transform:uppercase;margin-bottom:18px}
+.ft-col ul{list-style:none}
+.ft-col li{margin-bottom:10px}
+.ft-col a{font-size:13px;color:var(--sil);transition:color .25s}
+.ft-col a:hover{color:var(--or)}
+.ft-bot{display:flex;align-items:center;justify-content:space-between;
+  padding:22px 0;font-size:11px;color:rgba(255,255,255,.18)}
+.ft-bot a{color:rgba(255,255,255,.18);transition:color .25s}
+.ft-bot a:hover{color:var(--sil)}
+.ft-bot-r{display:flex;gap:18px}
+
+/* ── UTILS ─────────────────────── */
+.sr{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s var(--ease)}
+.sr.d1{transition-delay:.1s}.sr.d2{transition-delay:.2s}.sr.d3{transition-delay:.3s}
+.sr.in{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ─────────────────────── */
+@media(max-width:1080px){
+  nav{padding:18px 28px}.nl{display:none}
+  nav.solid{padding:12px 28px}
+  .hero-in,.miss-in,.news-in,.svc-in,.cta-in,.ft-in{padding-left:28px;padding-right:28px}
+  .miss-in{grid-template-columns:1fr;gap:52px}
+  .cta-in{grid-template-columns:1fr;gap:36px}.cta-btns{flex-direction:row}
+  .ft-top{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:640px){
+  nav{padding:14px 20px}.solid{padding:10px 20px}
+  .hero-in{padding:0 20px 64px}
+  .hero-h1{font-size:clamp(38px,9vw,56px)}
+  .miss-in,.news-in,.svc-in,.cta-in,.ft-in{padding-left:20px;padding-right:20px}
+  .news-grid,.svc-grid{grid-template-columns:1fr}
+  .mstat{padding:24px 20px}
+  .cta-btns{flex-direction:column}
+  .ft-top{grid-template-columns:1fr;gap:28px}
+  .ft-bot{flex-direction:column;gap:10px;text-align:center}.ft-bot-r{justify-content:center}
+  #mission,#news,#services{padding:90px 0}#cta{padding:90px 0}
+  .mlink{font-size:clamp(26px,7.5vw,46px)}
+  #linecta{bottom:16px;right:16px}
+}
+</style>
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur-r"></div>
+<div id="c1"></div><div id="c2"></div>
 
-<div id="cat-runner" aria-hidden="true">
-  <svg width="100" height="68" viewBox="0 0 100 68" fill="none">
-    <g class="cg">
-      <ellipse cx="48" cy="40" rx="26" ry="15" fill="#ff8c42"/>
-      <circle cx="76" cy="26" r="14" fill="#ff8c42"/>
-      <polygon points="66,16 60,3 73,12" fill="#ff8c42"/>
-      <polygon points="82,12 80,1 90,10" fill="#ff8c42"/>
-      <path d="M22 38 C8 28 3 14 9 6 C14 0 19 4 18 11 C17 17 23 30 22 38Z" fill="#ff8c42"/>
-      <circle cx="79" cy="24" r="2.2" fill="#0a0e1a"/>
-      <line x1="76" y1="32" x2="92" y2="29" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <line x1="76" y1="34" x2="93" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <rect x="60" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="70" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="34" y="51" width="7" height="14" rx="3.5" fill="#ff8c42"/>
-      <rect x="45" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-    </g>
-  </svg>
+<!-- CAT -->
+<div id="cat" aria-hidden="true">
+<svg width="104" height="72" viewBox="0 0 104 72"><g class="cg">
+<ellipse cx="50" cy="42" rx="27" ry="16" fill="#ff8c42"/>
+<circle cx="78" cy="27" r="15" fill="#ff8c42"/>
+<polygon points="68,17 62,3 75,13" fill="#ff8c42"/>
+<polygon points="84,13 82,1 93,11" fill="#ff8c42"/>
+<path d="M23 40C9 30 4 15 10 7 15 1 20 5 19 12 18 18 24 31 23 40Z" fill="#ff8c42"/>
+<circle cx="81" cy="25" r="2.4" fill="#0a0e1a"/>
+<line x1="78" y1="33" x2="95" y2="30" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
+<line x1="78" y1="36" x2="96" y2="38" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
+<rect x="62" y="54" width="7" height="14" rx="3.5" fill="#ff8c42"/>
+<rect x="72" y="54" width="7" height="14" rx="3.5" fill="#ff8c42"/>
+<rect x="36" y="53" width="7" height="15" rx="3.5" fill="#ff8c42"/>
+<rect x="47" y="54" width="7" height="14" rx="3.5" fill="#ff8c42"/>
+</g></svg>
 </div>
 
+<!-- NAV -->
 <nav id="nav">
-  <a class="nav-logo" href="index.html">
-    <img class="logo-img" src="images/logo.svg" alt="Connect Pet"
-         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
-    <span class="logo-fb" id="lf" style="display:none">Connect<em>Pet</em></span>
+  <a class="nlogo" href="index.html">
+    <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-490x64_d35c0642-1769-482b-a676-.svg"
+         alt="Connect Pet" style="height:26px"
+         onerror="this.style.display='none';this.nextSibling.style.display='block'">
+    <span class="fb" style="display:none">Connect<em>Pet</em></span>
   </a>
-  <ul class="nav-links">
+  <ul class="nlinks" id="nl">
     <li><a href="about.html">について</a></li>
-    <li><a href="service.html">サービス</a></li>
     <li><a href="carestore.html">にゃんほっと</a></li>
     <li><a href="homecare.html">HomeCare</a></li>
     <li><a href="news.html">ニュース</a></li>
     <li><a href="contact.html">お問い合わせ</a></li>
   </ul>
-  <button id="mbtn" aria-label="メニューを開く" aria-expanded="false">
-    <span class="mbl"></span><span class="mbl"></span><span class="mbl"></span>
-  </button>
+  <button id="nbtn" aria-label="メニュー"><span></span><span></span><span></span></button>
 </nav>
 
-<div id="fullmenu" role="dialog" aria-modal="true">
-  <div id="menu-bg"></div>
-  <div id="menu-in">
-    <nav class="m-nav">
-      <a class="m-item" href="index.html"><span class="mn">00</span>トップ</a>
-      <a class="m-item" href="about.html"><span class="mn">01</span>について</a>
-      <a class="m-item" href="service.html"><span class="mn">02</span>サービス</a>
-      <a class="m-item" href="carestore.html"><span class="mn">03</span>にゃんほっと</a>
-      <a class="m-item" href="homecare.html"><span class="mn">04</span>HomeCare</a>
-      <a class="m-item" href="news.html"><span class="mn">05</span>ニュース</a>
-      <a class="m-item" href="contact.html"><span class="mn">06</span>お問い合わせ</a>
-    </nav>
-    <div class="m-foot">
-      <div class="m-foot-row">
-        <a href="legal.html">特定商取引法</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
-      </div>
-      <p class="m-esc">esc or click to close</p>
+<!-- FULLSCREEN MENU -->
+<div id="menu">
+  <div id="mbg"></div>
+  <div id="mwrap">
+    <a class="mlink" href="index.html"><em>00</em>トップ</a>
+    <a class="mlink" href="about.html"><em>01</em>について</a>
+    <a class="mlink" href="service.html"><em>02</em>サービス</a>
+    <a class="mlink" href="carestore.html"><em>03</em>にゃんほっと</a>
+    <a class="mlink" href="homecare.html"><em>04</em>HomeCare</a>
+    <a class="mlink" href="news.html"><em>05</em>ニュース</a>
+    <a class="mlink" href="contact.html"><em>06</em>お問い合わせ</a>
+    <div class="msub">
+      <a href="legal.html">特定商取引法</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
     </div>
+    <p class="mesc">esc or click outside to close</p>
   </div>
 </div>
 
-<main>
-
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-dots"></div>
-  <div class="hero-glow"></div>
+  <div class="hero-bg" id="heroBg">
+    <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1920x1080_v-frms_webp_2474af04-.webp"
+         alt="ConnectPet"
+         onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'">
+  </div>
+  <div class="hero-ov"></div>
   <div class="hero-in">
-    <div class="hero-txt">
-      <div class="hero-ey" id="hEy">SOCIAL STARTUP · TOKYO</div>
-      <h1 class="hero-h1" id="hH1">ペットの殺処分ゼロをビジネスで実現し続ける</h1>
-      <div class="hero-rule" id="hRule"></div>
-      <p class="hero-body" id="hBody">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</p>
-      <div class="hero-cta" id="hCta">
-        <a class="btn-p magnetic" href="contact.html">無料相談をする <svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
-        <a class="btn-g magnetic" href="about.html">ConnectPetとは</a>
-      </div>
-    </div>
-    <div class="hero-vis">
-      <div class="hero-ring-d"></div>
-      <div class="hero-frame" id="hFrame">
-        <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6" alt="ConnectPet" loading="eager">
-      </div>
+    <p class="hero-sub" id="hSub">SOCIAL STARTUP · TOKYO</p>
+    <h1 class="hero-h1" id="hH1">
+      <span class="line"><span class="word">ペットの<span class="ac">殺処分ゼロ</span>を</span></span>
+      <span class="line"><span class="word">ビジネスで</span></span>
+      <span class="line"><span class="word">実現し続ける。</span></span>
+    </h1>
+    <p class="hero-desc" id="hDesc">ConnectPetは、ペットの殺処分ゼロをビジネスで実現し続ける、<br>ソーシャルスタートアップカンパニーです。</p>
+    <div class="hero-btns" id="hBtns">
+      <a class="btn-or magnetic" href="contact.html">無料相談をする<svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
+      <a class="btn-wh magnetic" href="about.html">ConnectPetとは</a>
     </div>
   </div>
-  <div class="hero-sc" id="hSc"><div class="sc-line"></div><span>scroll</span></div>
+  <div class="hero-scroll" id="hScroll">
+    <div class="hs-line"></div>
+    <span class="hs-txt">scroll</span>
+  </div>
 </section>
 
-<!-- TICKER -->
+<!-- TICKER — 実ニュースヘッドライン -->
 <div id="ticker" aria-hidden="true">
-  <div class="ticker-track" id="tkTrk">
-    
-    <div class="ti"><span class="td"></span><span class="ta">殺処分ゼロ</span>を目指して</div>
-    <div class="ti"><span class="td"></span>保護猫と新しい家族を繋ぐ</div>
-    <div class="ti"><span class="td"></span><span class="ta">にゃんほっと</span>保護猫譲渡施設</div>
-    <div class="ti"><span class="td"></span><span class="ta">HomeCare</span>猫ケア家電サブスク</div>
-    <div class="ti"><span class="td"></span>ソーシャルスタートアップ · 東京 · 銀座</div>
-    <div class="ti"><span class="td"></span>ビジネスで、命を救う</div>
-    <div class="ti"><span class="td"></span><span class="ta">殺処分ゼロ</span>を目指して</div>
-    <div class="ti"><span class="td"></span>保護猫と新しい家族を繋ぐ</div>
-    <div class="ti"><span class="td"></span><span class="ta">にゃんほっと</span>保護猫譲渡施設</div>
-    <div class="ti"><span class="td"></span><span class="ta">HomeCare</span>猫ケア家電サブスク</div>
-    <div class="ti"><span class="td"></span>ソーシャルスタートアップ · 東京 · 銀座</div>
-    <div class="ti"><span class="td"></span>ビジネスで、命を救う</div>
+  <div class="twr" id="tw">
+    <div class="titem"><span class="tdot"></span><span class="tacc">Paw Me</span>と提携　保護猫にスマホでごはんを</div>
+    <div class="titem"><span class="tdot"></span>オープンハウスグループ · おうちリンク社と提携</div>
+    <div class="titem"><span class="tdot"></span>BS-TBS<span class="tacc">「ねこ自慢」</span>に出演しました</div>
+    <div class="titem"><span class="tdot"></span>アメリカン・エキスプレス経営者向けメディアに代表掲載</div>
+    <div class="titem"><span class="tdot"></span><span class="tacc">殺処分ゼロ</span>をビジネスで実現し続ける</div>
+    <div class="titem"><span class="tdot"></span><span class="tacc">にゃんほっと</span>保護猫譲渡特化型施設 · 東京銀座</div>
+    <div class="titem"><span class="tdot"></span><span class="tacc">Paw Me</span>と提携　保護猫にスマホでごはんを</div>
+    <div class="titem"><span class="tdot"></span>オープンハウスグループ · おうちリンク社と提携</div>
+    <div class="titem"><span class="tdot"></span>BS-TBS<span class="tacc">「ねこ自慢」</span>に出演しました</div>
+    <div class="titem"><span class="tdot"></span>アメリカン・エキスプレス経営者向けメディアに代表掲載</div>
+    <div class="titem"><span class="tdot"></span><span class="tacc">殺処分ゼロ</span>をビジネスで実現し続ける</div>
+    <div class="titem"><span class="tdot"></span><span class="tacc">にゃんほっと</span>保護猫譲渡特化型施設 · 東京銀座</div>
   </div>
 </div>
 
 <!-- MISSION -->
 <section id="mission">
-  <div class="mission-in">
-    <div class="mission-left sr">
-      <div class="eyebrow" style="margin-bottom:24px">MISSION</div>
-      <p class="mission-side">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。 2026/3/31 動物保護施設で暮らす保護ペットに、スマートフォンやパソコンからリアルタイムでごはんをあげられる支援サービス「Paw Me」を提供する株式会社シグナルトークと提携し、当社が運営する保護猫譲渡特化型施設「にゃんほっと」での実証実験を開始しました。「Paw Me」は、ライブカメラで保護施設の様子を見守りな...</p><p class="mission-side">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</p><p class="mission-side">2026/3/31</p>
-      <a class="alink" href="about.html">私たちのストーリー <span class="al-arr"></span></a>
-    </div>
-    <div class="mission-right">
-      <p class="mission-stmt" id="mStmt">
-        命を救うことを、<span class="ac">持続可能な<br>ビジネス</span>に変える。
+  <div class="miss-in">
+    <div class="miss-left">
+      <div class="miss-label">MISSION</div>
+      <p class="miss-stmt" id="mStmt">
+        <span class="wd"><span class="ch">～ペットの</span></span><span class="wd"><span class="ch">殺処分ゼロを</span></span><span class="wd"><span class="ch">ビジネスで</span></span><br>
+        <span class="wd"><span class="ch ac">実現し続ける～</span></span>
       </p>
-      <div class="mstats">
-        <div class="ms sr"><div class="ms-val"><span class="cnt" data-to="150">0</span><span class="u">匹+</span></div><div class="ms-lbl">保護猫 譲渡実績</div></div>
-        <div class="ms sr d1"><div class="ms-val"><span class="cnt" data-to="3">0</span><span class="u">年</span></div><div class="ms-lbl">活動年数</div></div>
-        <div class="ms sr d2"><div class="ms-val"><span class="cnt" data-to="2">0</span><span class="u">ブランド</span></div><div class="ms-lbl">展開中のサービス</div></div>
+      <p class="miss-body sr">私たちは「かわいい」だけでなく、「正しい」選択ができる社会をビジネスで実現するために設立されました。<br><br>保護猫の譲渡支援と猫ケア家電の普及。2つのアプローチで、ペットの殺処分ゼロを目指します。</p>
+    </div>
+    <div class="miss-right sr">
+      <div class="miss-stats">
+        <div class="mstat">
+          <span class="mstat-num"><span class="cnt" data-to="150">0</span></span>
+          <span class="mstat-unit">匹+</span>
+          <span class="mstat-label">保護猫<br>譲渡実績</span>
+        </div>
+        <div class="mstat">
+          <span class="mstat-num"><span class="cnt" data-to="3">0</span></span>
+          <span class="mstat-unit">年</span>
+          <span class="mstat-label">活動<br>年数</span>
+        </div>
+        <div class="mstat">
+          <span class="mstat-num"><span class="cnt" data-to="2">0</span></span>
+          <span class="mstat-unit">ブランド</span>
+          <span class="mstat-label">展開中の<br>サービス</span>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS — connectpet.jpの実ニュース -->
+<section id="news">
+  <div class="news-in">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label">NEWS</div>
+        <h2 class="sec-h2">お知らせ</h2>
+      </div>
+      <a class="btn-ink" href="news.html">すべて見る</a>
+    </div>
+    <div class="news-grid">
+      <a class="ncard sr" href="https://connectpet.jp/posts/1XzTaJ-A" target="_blank" rel="noopener">
+        <span class="ncard-date">2026 / 03 / 31</span>
+        <h3 class="ncard-title">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</h3>
+        <p class="ncard-body">動物保護施設で暮らす保護ペットに、スマートフォンやパソコンからリアルタイムでごはんをあげられる支援サービス「Paw Me」を提供する株式会社シグナルトークと提携し、当社が運営する保護猫譲渡特化型施設「にゃんほっと」での実証実験を開始しました。</p>
+        <span class="ncard-more">続きを読む</span>
+      </a>
+      <a class="ncard sr d1" href="https://connectpet.jp/posts/oFGSkjTx" target="_blank" rel="noopener">
+        <span class="ncard-date">2026 / 02 / 21</span>
+        <h3 class="ncard-title">【オープンハウスグループ】株式会社おうちリンク社と提携</h3>
+        <p class="ncard-body">都心でのマイホーム提供を通じて「新しい住まい」を創造するオープンハウスグループと提携し、保護猫の殺処分問題を解決する社会貢献型インフラサービス提供を開始しました。</p>
+        <span class="ncard-more">続きを読む</span>
+      </a>
+      <a class="ncard sr d2" href="https://connectpet.jp/posts/tCs7UJQf" target="_blank" rel="noopener">
+        <span class="ncard-date">2026 / 02 / 18</span>
+        <h3 class="ncard-title">BS-TBS「ねこ自慢」に出演しました</h3>
+        <p class="ncard-body">BS-TBSで毎週水曜日 23:00 - 23:54に放送している、猫専門のバラエティ番組「ねこ自慢」に出演しました（出演：2026年1月28日放映）。番組では、当社の運営する保護猫譲渡施設「にゃんほっと」の紹介、沖縄県・国頭村と連携した保護猫保護による「天然記念生物」の保全活動に関する取り組みについてご紹介いただきました。</p>
+        <span class="ncard-more">続きを読む</span>
+      </a>
+      <a class="ncard sr d3" href="https://connectpet.jp/posts/yi7rw7WK" target="_blank" rel="noopener">
+        <span class="ncard-date">2024 / 12 / 05</span>
+        <h3 class="ncard-title">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました</h3>
+        <p class="ncard-body">弊社代表が「アメリカン・エキスプレスの経営者向けWebマガジン『BUSINESS CLASS』」にメディア掲載されました。株式会社Connect Pet 代表取締役／CEO 三浦朋之氏 — 持続可能な「ソーシャルビジネス」でペットの課題解決を目指す。</p>
+        <span class="ncard-more">続きを読む</span>
+      </a>
     </div>
   </div>
 </section>
@@ -145,67 +527,52 @@
 <!-- SERVICES -->
 <section id="services">
   <div class="svc-in">
-    <div class="sec-hd sr">
-      <div class="sec-ey">SERVICES</div>
-      <h2 class="sec-h2">2つのブランドで、猫との未来を。</h2>
+    <div class="svc-intro">
+      <div class="sec-label">SERVICES</div>
+      <h2 class="sec-h2 sr">2つのブランドで、<br>猫との未来を。</h2>
     </div>
     <div class="svc-grid">
-      <a class="svc-card sr" href="carestore.html">
-        <div class="svc-img-w">
-          <img class="svc-img-i" src="https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4" alt="にゃんほっと 保護猫譲渡施設" onerror="this.parentElement.classList.add('no-img')">
-          <span class="svc-badge">ADOPTION</span>
+      <!-- にゃんほっと -->
+      <a class="scard sr" href="carestore.html">
+        <div class="scard-imgw">
+          <img class="scard-img"
+               src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x2160_v-frms_webp_925aa1e1-.webp"
+               alt="にゃんほっと 保護猫譲渡施設"
+               onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
+          <span class="scard-badge">ADOPTION</span>
         </div>
-        <div class="svc-body">
-          <div class="svc-bar"></div>
-          <div class="svc-no">01 — CARESTORE</div>
-          <div class="svc-name">にゃんほっと<br>保護猫譲渡特化型施設</div>
-          <div class="svc-en">Nyan-Hot Care Store</div>
-          <p class="svc-desc">保護猫譲渡特化型施設「にゃんほっと」は、株式会社Connect Petが運営する、最も殺処分数の多い猫の譲渡に特化した施設です。ペットリリースの原因となる「お世話の負荷」を下げる猫ケア家電の体験ショールームを併設しています。</p>
-          <div class="svc-ft">
-            <span class="svc-ft-info">東京 · 銀座エリア</span>
-            <span class="alink">詳しくはこちら <span class="al-arr"></span></span>
+        <div class="scard-body">
+          <div class="scard-bar"></div>
+          <div class="scard-no">01 — CARESTORE</div>
+          <div class="scard-name">にゃんほっと<br>保護猫譲渡特化型施設</div>
+          <div class="scard-en">Nyan-Hot Care Store</div>
+          <p class="scard-desc">保護猫譲渡特化型施設「にゃんほっと」は、株式会社Connect Petが運営する、最も殺処分数の多い猫の譲渡に特化した施設です。ペットリリースの原因となる「お世話の負荷」を下げる猫ケア家電の体験ショールームを併設しています。</p>
+          <div class="scard-foot">
+            <span class="scard-info">東京 · 銀座エリア</span>
+            <span class="scard-arr">詳しくはこちら</span>
           </div>
         </div>
       </a>
-      <a class="svc-card sr d1" href="homecare.html">
-        <div class="svc-img-w">
-          <img class="svc-img-i" src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6" alt="にゃんほっとHomeCare" onerror="this.parentElement.classList.add('no-img')">
-          <span class="svc-badge">SUBSCRIPTION</span>
+      <!-- HomeCare -->
+      <a class="scard sr d1" href="homecare.html">
+        <div class="scard-imgw">
+          <img class="scard-img"
+               src="images/images/_theme_front_assets_image_homecare_01.webp.webp"
+               alt="にゃんほっとHomeCare 猫ケア家電サブスク"
+               onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp'">
+          <span class="scard-badge">SUBSCRIPTION</span>
         </div>
-        <div class="svc-body">
-          <div class="svc-bar"></div>
-          <div class="svc-no">02 — HOMECARE</div>
-          <div class="svc-name">にゃんほっと<br>HomeCare</div>
-          <div class="svc-en">猫ケア家電サブスクサービス</div>
-          <p class="svc-desc">にゃんほっとHomeCareは、株式会社Connect Petが運営する、旅行中・勤務中でも安心・快適・便利に 猫のケアが全自動でできるアイテムが揃う猫ケア家電のサブスクサービスです。</p>
-          <div class="svc-ft">
-            <span class="svc-ft-info">月額サブスク · 初月実質無料</span>
-            <span class="alink">詳しくはこちら <span class="al-arr"></span></span>
+        <div class="scard-body">
+          <div class="scard-bar"></div>
+          <div class="scard-no">02 — HOMECARE</div>
+          <div class="scard-name">にゃんほっと<br>HomeCare</div>
+          <div class="scard-en">猫ケア家電サブスクサービス</div>
+          <p class="scard-desc">にゃんほっとHomeCareは、株式会社Connect Petが運営する、旅行中・勤務中でも安心・快適・便利に猫のケアが全自動でできるアイテムが揃う猫ケア家電のサブスクサービスです。</p>
+          <div class="scard-foot">
+            <span class="scard-info">月額サブスク · 初月実質無料</span>
+            <span class="scard-arr">詳しくはこちら</span>
           </div>
         </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- SNS -->
-<section id="social">
-  <div class="social-in">
-    <div class="social-top">
-      <div class="sr">
-        <div class="eyebrow" style="margin-bottom:22px">FOLLOW US</div>
-        <h2 class="social-h2">SNSでも発信中</h2>
-        <p class="social-sub">保護猫の日常・譲渡情報・<br>HomeCare最新情報をお届けしています。</p>
-      </div>
-    </div>
-    <div class="sns-grid">
-      <a class="sns-card sr" href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener">
-        <div class="sns-ic"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-        <div><div class="sns-at">@connectpet_nyan</div><div class="sns-name">Connect Pet</div><div class="sns-desc">保護猫の日常・譲渡情報・活動レポートを発信中</div></div>
-      </a>
-      <a class="sns-card sr d1" href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener">
-        <div class="sns-ic"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-        <div><div class="sns-at">@nyanhot</div><div class="sns-name">にゃんほっと</div><div class="sns-desc">にゃんほっとの保護猫たちとHomeCare情報を発信中</div></div>
       </a>
     </div>
   </div>
@@ -215,36 +582,36 @@
 <section id="cta">
   <div class="cta-in">
     <div class="sr">
-      <div class="cta-lbl">CONTACT</div>
+      <div class="cta-label">CONTACT</div>
       <h2 class="cta-h2">あなたの選択が、<br>命を救う。</h2>
       <p class="cta-body">猫を迎えたい。HomeCareを試したい。<br>どんなことでもお気軽にご相談ください。</p>
     </div>
     <div class="cta-btns sr d2">
-      <a class="btn-w magnetic" href="contact.html">無料相談をする</a>
-      <a class="btn-i magnetic" href="service.html">サービス一覧を見る</a>
+      <a class="btn-orw magnetic" href="contact.html">無料相談をする</a>
+      <a class="btn-inv magnetic" href="service.html">サービス一覧を見る</a>
     </div>
   </div>
 </section>
 
-</main>
-
-<a id="line-cta" href="https://lin.ee/connectpet" target="_blank" rel="noopener" aria-label="LINEで相談する">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
-  <span>LINE相談</span>
+<!-- LINE -->
+<a id="linecta" href="https://lin.ee/connectpet" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
+  LINE相談
 </a>
 
+<!-- FOOTER -->
 <footer>
   <div class="ft-in">
     <div class="ft-top">
       <div>
-        <div class="ft-name">Connect <em>Pet</em></div>
+        <p class="ft-brand">Connect <em>Pet</em></p>
         <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
         <div class="ft-sns">
-          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="@connectpet_nyan">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
-          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="@nyanhot">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
         </div>
       </div>
@@ -276,6 +643,110 @@
 <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="common.js"></script>
+<script>
+/* LENIS */
+const lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true,touchMultiplier:2});
+(function r(t){lenis.raf(t);requestAnimationFrame(r)})(0);
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll',ScrollTrigger.update);
+gsap.ticker.lagSmoothing(0);
+
+/* CURSOR */
+const c1=document.getElementById('c1'),c2=document.getElementById('c2');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function cl(){c1.style.cssText=`left:${mx}px;top:${my}px`;
+  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;c2.style.cssText=`left:${rx}px;top:${ry}px`;
+  requestAnimationFrame(cl)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{c1.classList.add('big');c2.classList.add('big')});
+  el.addEventListener('mouseleave',()=>{c1.classList.remove('big');c2.classList.remove('big')});
+});
+
+/* MAGNETIC */
+document.querySelectorAll('.magnetic').forEach(b=>{
+  b.addEventListener('mousemove',function(e){const r=this.getBoundingClientRect();
+    gsap.to(this,{x:(e.clientX-r.left-r.width/2)*.26,y:(e.clientY-r.top-r.height/2)*.26,duration:.3,ease:'power2.out'})});
+  b.addEventListener('mouseleave',function(){gsap.to(this,{x:0,y:0,duration:.6,ease:'elastic.out(1,.5)'})});
+});
+
+/* NAV */
+const nav=document.getElementById('nav');
+lenis.on('scroll',({scroll})=>nav.classList.toggle('solid',scroll>80));
+
+/* MENU + CAT */
+const nbtn=document.getElementById('nbtn'),menu=document.getElementById('menu'),cat=document.getElementById('cat');
+let mo=false;
+function openMenu(){
+  mo=true;
+  cat.classList.remove('go');void cat.offsetWidth;cat.classList.add('go');cat.style.opacity='1';
+  cat.addEventListener('animationend',function cb(){cat.removeEventListener('animationend',cb);cat.style.opacity='0';cat.classList.remove('go')});
+  setTimeout(()=>menu.classList.add('open'),130);
+  nbtn.classList.add('x');lenis.stop();
+}
+function closeMenu(){
+  mo=false;menu.classList.remove('open');nbtn.classList.remove('x');lenis.start();
+}
+nbtn.addEventListener('click',()=>mo?closeMenu():openMenu());
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&mo)closeMenu()});
+document.querySelectorAll('.mlink').forEach(a=>a.addEventListener('click',closeMenu));
+menu.addEventListener('click',e=>{if(e.target===menu||e.target===document.getElementById('mbg'))closeMenu()});
+
+/* HERO PARALLAX */
+gsap.to('#heroBg',{yPercent:30,ease:'none',
+  scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+
+/* HERO ANIM */
+gsap.to('#hSub',{opacity:1,y:0,duration:.6,delay:.3,ease:'power3.out'});
+if(typeof SplitType!=='undefined'){
+  // H1 word by word
+  document.querySelectorAll('#hH1 .word').forEach((w,i)=>{
+    gsap.to(w,{y:'0%',opacity:1,duration:.8,delay:.5+i*.15,ease:'power3.out'});
+  });
+}else{
+  document.querySelectorAll('#hH1 .word').forEach((w,i)=>{
+    w.style.transform='translateY(0)';w.style.opacity='1';
+  });
+}
+gsap.to('#hDesc',{opacity:1,y:0,duration:.7,delay:1.1,ease:'power3.out'});
+gsap.to('#hBtns',{opacity:1,y:0,duration:.6,delay:1.4,ease:'power3.out'});
+setTimeout(()=>document.getElementById('hScroll').classList.add('on'),2600);
+
+/* MISSION STMT — SplitType */
+if(typeof SplitType!=='undefined'){
+  const sp=new SplitType('#mStmt',{types:'chars'});
+  gsap.fromTo(sp.chars,{y:'108%',opacity:0},{y:'0%',opacity:1,
+    duration:.55,stagger:.018,ease:'power3.out',
+    scrollTrigger:{trigger:'#mStmt',start:'top 82%',once:true}});
+}else{
+  document.querySelectorAll('#mStmt .ch').forEach(c=>{c.style.transform='none';c.style.opacity='1'});
+}
+
+/* COUNTERS */
+document.querySelectorAll('.cnt').forEach(el=>{
+  const to=parseInt(el.getAttribute('data-to'));
+  ScrollTrigger.create({trigger:el,start:'top 88%',once:true,
+    onEnter(){gsap.to({v:0},{v:to,duration:2.2,ease:'power2.out',
+      onUpdate(){el.textContent=Math.floor(this.targets()[0].v)}})}
+  });
+});
+
+/* SCROLL REVEAL */
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})
+},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.sr').forEach(el=>io.observe(el));
+
+/* SERVICE IMAGE PARALLAX */
+gsap.utils.toArray('.scard-img').forEach(img=>{
+  gsap.to(img,{yPercent:-10,ease:'none',
+    scrollTrigger:{trigger:img.closest('.scard'),start:'top bottom',end:'bottom top',scrub:true}});
+});
+
+/* TICKER */
+const tw=document.getElementById('tw');
+tw.addEventListener('mouseenter',()=>tw.style.animationPlayState='paused');
+tw.addEventListener('mouseleave',()=>tw.style.animationPlayState='running');
+</script>
 </body>
 </html>
