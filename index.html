@@ -10,7 +10,7 @@
 <meta property="og:image"       content="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6">
 <meta property="og:type"        content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700;900&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    DESIGN TOKENS
@@ -31,7 +31,7 @@
   --sil: #8fa0b5;  /* labels */
   --ln:  rgba(27,33,56,.08);
   /* type */
-  --S:'Shippori Mincho B1',serif;
+  --S:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;  /* display headings */
   --B:'Noto Sans JP',sans-serif;
   --M:'DM Mono',monospace;
   /* easing */
@@ -205,15 +205,16 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 /* LEFT-ALIGNED CONTENT */
 .hleft{
   position:absolute;left:56px;top:50%;
-  transform:translateY(-54%);z-index:2;max-width:740px;
+  transform:translateY(-54%);z-index:2;max-width:800px;
 }
 /* per-line smoke animation */
 .hh1{
-  font-family:var(--S);font-size:clamp(36px,5.2vw,82px);
-  font-weight:800;line-height:1.22;color:#fff;letter-spacing:-.02em;
+  font-family:var(--S);font-size:clamp(28px,4.2vw,68px);
+  font-weight:900;line-height:1.3;color:#fff;letter-spacing:-.01em;
 }
 .hw{
-  display:block;opacity:0;transform:translateY(16px);filter:blur(10px);
+  display:block;white-space:nowrap;
+  opacity:0;transform:translateY(16px);filter:blur(10px);
   animation:smokeIn 1.5s var(--e3) forwards;
 }
 .hw.l2{animation-delay:.72s}
@@ -305,7 +306,7 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 .nhd{max-width:1240px;margin:0 auto 52px;padding:0 56px}
 .nen{
   font-family:var(--S);font-size:clamp(44px,5.2vw,74px);
-  font-weight:800;color:var(--ink);line-height:1;letter-spacing:-.01em;
+  font-weight:900;color:var(--ink);line-height:1;letter-spacing:-.03em;
 }
 .nja{font-family:var(--M);font-size:11px;color:var(--sil);letter-spacing:.22em;margin-top:6px}
 .nbw{overflow:hidden}
@@ -584,7 +585,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
   <a class="nlogo" href="#top">
     <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-182x24_a46f2d0e-8ed1-4088-b5a2-.svg"
          alt="CONNECT PET"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+         onerror="this.onerror=null;this.src='images/_theme_front_assets_image_logo.png.png';this.style.height='24px';this.addEventListener('error',()=>{this.style.display='none';this.nextElementSibling.style.display='block'})">
     <span class="nlogo-fb" style="display:none">CONNECT <em>PET</em></span>
   </a>
   <ul class="nl">
@@ -628,16 +629,19 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <section id="top">
 <div id="hero">
   <div class="hs on">
-    <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1920x1080_v-frms_webp_2474af04-.webp"
-         alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'">
+    <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6"
+         alt=""
+         onerror="this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1920x1080_v-frms_webp_2474af04-.webp'">
   </div>
   <div class="hs">
-    <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp"
-         alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
+    <img src="https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4"
+         alt=""
+         onerror="this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp'">
   </div>
   <div class="hs">
-    <img src="images/images/_studio-cms-assets_projects_nBW2APpeav_s-1366x768_v-fms_webp_3de3b185-a2f0-4166-.webp"
-         alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'">
+    <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6"
+         alt=""
+         onerror="this.src='images/_studio-cms-assets_projects_nBW2APpeav_s-1366x768_v-fms_webp_3de3b185-a2f0-4166-.webp'">
   </div>
   <div class="hov"></div>
   <div class="hleft">
@@ -687,25 +691,25 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
   <div class="nbw">
     <div class="ntr">
       <a class="nc" href="https://connectpet.jp/posts/1XzTaJ-A" target="_blank" rel="noopener">
-        <div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'"></div>
+        <div class="ncimg"><img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'"></div>
         <div class="ncb"><span class="ncd">2026.03.31</span><h3 class="nct">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</h3><span class="ncm">続きを読む</span></div>
       </a>
       <a class="nc" href="https://connectpet.jp/posts/oFGSkjTx" target="_blank" rel="noopener">
-        <div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
+        <div class="ncimg"><img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
         <div class="ncb"><span class="ncd">2026.02.21</span><h3 class="nct">【オープンハウスグループ】株式会社おうちリンク社と提携</h3><span class="ncm">続きを読む</span></div>
       </a>
       <a class="nc" href="https://connectpet.jp/posts/tCs7UJQf" target="_blank" rel="noopener">
-        <div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_4ef84597-8a.webp" alt="" onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp'"></div>
+        <div class="ncimg"><img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_4ef84597-8a.webp" alt="" onerror="this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp'"></div>
         <div class="ncb"><span class="ncd">2026.02.18</span><h3 class="nct">BS-TBS「ねこ自慢」に出演しました</h3><span class="ncm">続きを読む</span></div>
       </a>
       <a class="nc" href="https://connectpet.jp/posts/yi7rw7WK" target="_blank" rel="noopener">
-        <div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
+        <div class="ncimg"><img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
         <div class="ncb"><span class="ncd">2024.12.05</span><h3 class="nct">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました</h3><span class="ncm">続きを読む</span></div>
       </a>
-      <a class="nc" href="https://connectpet.jp/posts/1XzTaJ-A" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'"></div><div class="ncb"><span class="ncd">2026.03.31</span><h3 class="nct">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</h3><span class="ncm">続きを読む</span></div></a>
-      <a class="nc" href="https://connectpet.jp/posts/oFGSkjTx" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div><div class="ncb"><span class="ncd">2026.02.21</span><h3 class="nct">【オープンハウスグループ】株式会社おうちリンク社と提携</h3><span class="ncm">続きを読む</span></div></a>
-      <a class="nc" href="https://connectpet.jp/posts/tCs7UJQf" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_4ef84597-8a.webp" alt="" onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp'"></div><div class="ncb"><span class="ncd">2026.02.18</span><h3 class="nct">BS-TBS「ねこ自慢」に出演しました</h3><span class="ncm">続きを読む</span></div></a>
-      <a class="nc" href="https://connectpet.jp/posts/yi7rw7WK" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div><div class="ncb"><span class="ncd">2024.12.05</span><h3 class="nct">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました</h3><span class="ncm">続きを読む</span></div></a>
+      <a class="nc" href="https://connectpet.jp/posts/1XzTaJ-A" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'"></div><div class="ncb"><span class="ncd">2026.03.31</span><h3 class="nct">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</h3><span class="ncm">続きを読む</span></div></a>
+      <a class="nc" href="https://connectpet.jp/posts/oFGSkjTx" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div><div class="ncb"><span class="ncd">2026.02.21</span><h3 class="nct">【オープンハウスグループ】株式会社おうちリンク社と提携</h3><span class="ncm">続きを読む</span></div></a>
+      <a class="nc" href="https://connectpet.jp/posts/tCs7UJQf" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_4ef84597-8a.webp" alt="" onerror="this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp'"></div><div class="ncb"><span class="ncd">2026.02.18</span><h3 class="nct">BS-TBS「ねこ自慢」に出演しました</h3><span class="ncm">続きを読む</span></div></a>
+      <a class="nc" href="https://connectpet.jp/posts/yi7rw7WK" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div><div class="ncb"><span class="ncd">2024.12.05</span><h3 class="nct">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました</h3><span class="ncm">続きを読む</span></div></a>
     </div>
   </div>
   <div class="nfoot rv"><a class="al" href="news.html">すべて見る <span class="al-arr"></span></a></div>
@@ -714,8 +718,8 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <!-- ABOUT -->
 <section id="about">
   <div class="abg" id="abg">
-    <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp"
-         alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'">
+    <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6"
+         alt="" onerror="this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp'">
   </div>
   <div class="aov"></div>
   <div class="ain">
@@ -727,8 +731,8 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
       <a class="abtn" href="about.html">私たちについて詳しく <span class="abtn-arr"></span></a>
     </div>
     <div class="adeco rv d2">
-      <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp"
-           alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
+      <img src="https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4"
+           alt="" onerror="this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp'">
     </div>
   </div>
 </section>
@@ -755,9 +759,9 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
         <a class="sbtn" href="https://connectpet.jp/homecare">詳しく見る<svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
       </div>
       <div class="sci">
-        <img src="images/images/_theme_front_assets_image_homecare_01.webp.webp"
+        <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6"
              alt="にゃんほっとHomeCare"
-             onerror="this.onerror=null;this.src='images/images/_theme_front_assets_image_homecare_02.webp.webp';this.addEventListener('error',()=>this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6')">
+             onerror="this.src='images/_theme_front_assets_image_homecare_01.webp.webp'">
       </div>
     </div>
   </div>
@@ -800,9 +804,9 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     <div class="tcards">
       <div class="tcard rv d1">
         <div class="tph">
-          <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-946x1034_v-fs_webp_b80dcd69-b74.webp"
+          <img src="images/_theme_front_assets_image_m01.jpg.jpg"
                alt="三浦朋之 代表取締役/CEO"
-               onerror="this.onerror=null;this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1280x1280_v-fms_webp_0db1ee58-e.webp';this.addEventListener('error',()=>this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4')">
+               onerror="this.onerror=null;this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
         </div>
         <div class="tinfo">
           <p class="tname">三浦 朋之</p>
@@ -886,7 +890,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
       <div>
         <div class="ftlogo">
           <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-182x24_a46f2d0e-8ed1-4088-b5a2-.svg"
-               alt="CONNECT PET" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+               alt="CONNECT PET" onerror="this.onerror=null;this.src='images/_theme_front_assets_image_logo.png.png';this.addEventListener('error',()=>{this.style.display='none';this.nextElementSibling.style.display='block'})">
           <span class="ftlogo-fb" style="display:none">CONNECT <em>PET</em></span>
         </div>
         <p class="fttag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
