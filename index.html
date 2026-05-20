@@ -389,9 +389,47 @@ p,li{word-break:break-all;overflow-wrap:break-word}
   border-radius:16px;box-shadow:0 8px 32px rgba(27,33,56,.1);
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SERVICES (original site card style)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━━ SERVICE ICON — 写真円形クロップ + アニメ ━━━ */
+.sicon-img{
+  width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;
+  box-shadow:0 3px 16px rgba(255,140,66,.22);
+  animation:iconFloat 3.5s ease-in-out infinite;
+}
+.sicon-img img{width:100%;height:100%;object-fit:cover}
+@keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+/* ━━━ POLICY — 読みやすく縦積み ━━━ */
+.pgrid{display:flex;flex-direction:column;gap:2px}
+.pcard{
+  background:var(--w);padding:36px 48px;
+  position:relative;display:grid;grid-template-columns:280px 1fr;gap:40px;
+  align-items:start;
+  box-shadow:none;border-bottom:1px solid var(--ln);border-radius:0;
+  opacity:0;transform:translateX(-20px);
+  transition:opacity .6s var(--e3),transform .6s var(--e3),background .3s;
+}
+.pcard:first-child{border-radius:14px 14px 0 0}
+.pcard:last-child{border-radius:0 0 14px 14px;border-bottom:none}
+.pcard:hover{background:var(--olt)!important}
+.pcard.vis{opacity:1;transform:translateX(0)}
+.pcard:nth-child(2){transition-delay:.08s}
+.pcard:nth-child(3){transition-delay:.16s}
+.pcard:nth-child(4){transition-delay:.24s}
+.pcard::before{display:none}/* remove old top bar */
+.pcard-left{display:flex;flex-direction:column;gap:6px;padding-top:4px}
+.pno-tag{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.pno-badge{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--or);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--M);font-size:10px;font-weight:400;letter-spacing:.06em;
+  flex-shrink:0;
+}
+.pno{display:none}/* hide old no style */
+
+/* ━━━ COMPANY TABLE CENTER ━━━ */
+.coin{max-width:1240px;margin:0 auto;padding:0 56px;display:flex;flex-direction:column;align-items:center}
+.cotbl{width:100%;max-width:680px;border-collapse:collapse;margin:0 auto}
 #services{background:var(--f2)}
 .swrap{padding:72px 56px;max-width:1240px;margin:0 auto}
 .swrap+.swrap{border-top:1px solid rgba(27,33,56,.07)}
@@ -741,12 +779,11 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <section id="services">
   <div class="swrap rv">
     <div class="scr">
-      <div class="sicon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 10.5L12 3l9 7.5V20.5a.5.5 0 01-.5.5H15v-6H9v6H3.5a.5.5 0 01-.5-.5z"/>
-          <path d="M10.5 13.5Q12 12.2 13.5 13.5"/>
-          <circle cx="12" cy="10.5" r="1.2" fill="var(--or)" stroke="none"/>
-        </svg>
+      <!-- HomeCare: 機械の写真を円形クロップ + フロートアニメーション -->
+      <div class="sicon-img">
+        <img src="images/_theme_front_assets_image_homecare_01.webp.webp"
+             alt="HomeCare機器"
+             onerror="this.src='images/_theme_front_assets_image_homecare_02.webp.webp'">
       </div>
       <span class="sct">ペットと家族が安心して過ごせる</span>
       <span class="scdeco"></span>
@@ -759,21 +796,35 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
         <a class="sbtn" href="https://connectpet.jp/homecare">詳しく見る<svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
       </div>
       <div class="sci">
-        <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6"
+        <img src="images/_theme_front_assets_image_homecare_01.webp.webp"
              alt="にゃんほっとHomeCare"
-             onerror="this.src='images/_theme_front_assets_image_homecare_01.webp.webp'">
+             onerror="this.onerror=null;this.src='images/_theme_front_assets_image_homecare_02.webp.webp';this.addEventListener('error',()=>this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6')">
       </div>
     </div>
   </div>
   <div class="swrap rv">
     <div class="scr">
-      <div class="sicon">
-        <svg viewBox="0 0 28 28" fill="var(--or)">
-          <ellipse cx="14" cy="20.5" rx="7" ry="5.5"/>
-          <circle cx="7"  cy="12.5" r="2.8"/>
-          <circle cx="11" cy="8"    r="2.3"/>
-          <circle cx="17" cy="8"    r="2.3"/>
-          <circle cx="21" cy="12.5" r="2.8"/>
+      <!-- にゃんほっとロゴ: Image1の猫ハウス型オレンジアイコンを再現 -->
+      <div class="sicon" style="background:rgba(255,140,66,.1)">
+        <svg viewBox="0 0 44 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 猫耳 left -->
+          <path d="M8 20 L5 6 L16 14 Z" fill="var(--or)"/>
+          <!-- 猫耳 right -->
+          <path d="M36 20 L39 6 L28 14 Z" fill="var(--or)"/>
+          <!-- 顔 -->
+          <circle cx="22" cy="28" r="14" fill="none" stroke="var(--or)" stroke-width="2.5"/>
+          <!-- 目 left -->
+          <ellipse cx="16.5" cy="26" rx="2" ry="2.2" fill="var(--or)"/>
+          <!-- 目 right -->
+          <ellipse cx="27.5" cy="26" rx="2" ry="2.2" fill="var(--or)"/>
+          <!-- 鼻 -->
+          <path d="M20.5 30 L22 28.5 L23.5 30 L22 31.5 Z" fill="var(--or)"/>
+          <!-- ひげ left -->
+          <line x1="6" y1="30" x2="17" y2="31" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="7" y1="33" x2="17" y2="33" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- ひげ right -->
+          <line x1="27" y1="31" x2="38" y2="30" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="27" y1="33" x2="37" y2="33" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
       </div>
       <span class="sct">保護ペットと繋がれる</span>
@@ -828,27 +879,51 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     </div>
     <div class="pgrid">
       <div class="pcard">
-        <p class="pno">01</p><p class="ptag">POLICY FOR PET</p><p class="ptag-ja">ペットに対するポリシー</p>
-        <h3 class="ptitle">フレンドリーカスタマイズ</h3>
-        <p class="pbody">人間と同じようにペットも、十匹十色。性格も状況も異なります。一つの価値感によらず、それぞれにあったフレンドリー（親しみ）をカスタマイズし、安心を追求します。</p>
+        <div class="pcard-left">
+          <div class="pno-tag"><div class="pno-badge">01</div></div>
+          <p class="ptag">POLICY FOR PET</p>
+          <p class="ptag-ja">ペットに対するポリシー</p>
+        </div>
+        <div>
+          <h3 class="ptitle">フレンドリーカスタマイズ</h3>
+          <p class="pbody">人間と同じようにペットも、十匹十色。性格も状況も異なります。一つの価値感によらず、それぞれにあったフレンドリー（親しみ）をカスタマイズし、安心を追求します。</p>
+        </div>
       </div>
       <div class="pcard">
-        <p class="pno">02</p><p class="ptag">POLICY FOR OWNER</p><p class="ptag-ja">飼い主（オーナー）に対するポリシー</p>
-        <h3 class="ptitle">ペットと飼い主にとって、最適な選択肢を数多く提示する</h3>
-        <p class="pbody">多様な家族・ペットの状況にあった安心の移動の選択肢を常に探求すると共に、一つの選択肢に偏らない、最適な提案を開発し続けます。</p>
+        <div class="pcard-left">
+          <div class="pno-tag"><div class="pno-badge">02</div></div>
+          <p class="ptag">POLICY FOR OWNER</p>
+          <p class="ptag-ja">飼い主（オーナー）に対するポリシー</p>
+        </div>
+        <div>
+          <h3 class="ptitle">ペットと飼い主にとって、最適な選択肢を数多く提示する</h3>
+          <p class="pbody">多様な家族・ペットの状況にあった安心の移動の選択肢を常に探求すると共に、一つの選択肢に偏らない、最適な提案を開発し続けます。</p>
+        </div>
       </div>
       <div class="pcard">
-        <p class="pno">03</p><p class="ptag">POLICY FOR WORKER</p><p class="ptag-ja">アニマルワーカーに対するポリシー</p>
-        <h3 class="ptitle">アニマルファーストを貫ける環境を</h3>
-        <p class="pbody">弊社では、動物に向き合うアニマルワーカーの方にとって「アニマルファースト」の仕事環境の整備を追求し、その環境に集中できる仕組みづくりを経営陣・ビジネススタッフのミッションと定義し、取り組んでまいります。</p>
+        <div class="pcard-left">
+          <div class="pno-tag"><div class="pno-badge">03</div></div>
+          <p class="ptag">POLICY FOR WORKER</p>
+          <p class="ptag-ja">アニマルワーカーに対するポリシー</p>
+        </div>
+        <div>
+          <h3 class="ptitle">アニマルファーストを貫ける環境を</h3>
+          <p class="pbody">弊社では、動物に向き合うアニマルワーカーの方にとって「アニマルファースト」の仕事環境の整備を追求し、その環境に集中できる仕組みづくりを経営陣・ビジネススタッフのミッションと定義し、取り組んでまいります。</p>
+        </div>
       </div>
       <div class="pcard">
-        <p class="pno">04</p><p class="ptag">POLICY FOR SOCIETY</p><p class="ptag-ja">社会に対するポリシー</p>
-        <h3 class="ptitle">ソーシャルバリューを追求する</h3>
-        <p class="pbody">事業活動で構築する様々なサービス・インフラを通じて、私たちは以下の２つのソーシャルバリューを追求します。</p>
-        <div class="psub">
-          <div class="psub-item">持続可能な殺処分減少</div>
-          <div class="psub-item">多様なペットに対する価値観をフラットに扱える文化創造</div>
+        <div class="pcard-left">
+          <div class="pno-tag"><div class="pno-badge">04</div></div>
+          <p class="ptag">POLICY FOR SOCIETY</p>
+          <p class="ptag-ja">社会に対するポリシー</p>
+        </div>
+        <div>
+          <h3 class="ptitle">ソーシャルバリューを追求する</h3>
+          <p class="pbody">事業活動で構築する様々なサービス・インフラを通じて、私たちは以下の２つのソーシャルバリューを追求します。</p>
+          <div class="psub">
+            <div class="psub-item">持続可能な殺処分減少</div>
+            <div class="psub-item">多様なペットに対する価値観をフラットに扱える文化創造</div>
+          </div>
         </div>
       </div>
     </div>
