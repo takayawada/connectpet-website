@@ -5,264 +5,224 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける</title>
 <meta name="description" content="ConnectPetは、ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニーです">
+<meta property="og:title"       content="株式会社 Connect Pet">
+<meta property="og:description" content="ペットの殺処分ゼロをビジネスで実現し続ける">
+<meta property="og:image"       content="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6">
+<meta property="og:type"        content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   RESET & TOKENS
-━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   DESIGN TOKENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --w:#fff;--cr:#fdf8f5;--peach:#fdf1ea;--pcard:#f8e8df;
-  --or:#ff8c42;--or2:#f07030;--olt:#fff4ee;--rose:#d97d65;
-  --nv:#0a0e1a;--ink:#1a2240;--ink2:#4b5568;--sil:#94a3b5;
-  --ln:rgba(26,34,64,.08);
-  --s:'Shippori Mincho B1',serif;
-  --b:'Noto Sans JP',sans-serif;
-  --m:'DM Mono',monospace;
-  --e1:cubic-bezier(.16,1,.3,1);      /* spring */
-  --e2:cubic-bezier(.77,0,.18,1);     /* expo */
-  --e3:cubic-bezier(.25,.46,.45,.94); /* ease-out */
+  /* palette */
+  --w:   #ffffff;
+  --f1:  #fdf8f3;  /* warm off-white */
+  --f2:  #faeee5;  /* peach bg */
+  --f3:  #f2e1d3;  /* deeper peach card */
+  --or:  #ff8c42;  /* brand orange */
+  --or2: #e87530;
+  --rose:#cc7055;  /* deco numbers */
+  --nv:  #0a0d18;  /* dark/footer */
+  --ink: #1b2138;  /* headings */
+  --ink2:#4a526a;  /* body text */
+  --sil: #8fa0b5;  /* labels */
+  --ln:  rgba(27,33,56,.08);
+  /* type */
+  --S:'Shippori Mincho B1',serif;
+  --B:'Noto Sans JP',sans-serif;
+  --M:'DM Mono',monospace;
+  /* easing */
+  --e1:cubic-bezier(.16,1,.3,1);
+  --e2:cubic-bezier(.77,0,.175,1);
+  --e3:cubic-bezier(.25,.46,.45,.94);
 }
 html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
 body{
-  background:var(--w);color:var(--ink);font-family:var(--b);
-  cursor:none;overflow-x:hidden;
+  background:var(--w);color:var(--ink);
+  font-family:var(--B);cursor:none;
+  overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
-  font-feature-settings:"palt" 1; /* 日本語光学カーニング */
+  font-feature-settings:"palt" 1;
 }
 a{text-decoration:none;color:inherit;cursor:none}
-img{display:block;max-width:100%}
-p{word-break:break-all;overflow-wrap:break-word}
+img{display:block;max-width:100%;height:auto}
+p,li{word-break:break-all;overflow-wrap:break-word}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   CURSOR
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#cur{
-  position:fixed;width:8px;height:8px;
-  background:var(--or);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  will-change:left,top;
-}
-#cur2{
-  position:fixed;width:32px;height:32px;
-  border:1.5px solid rgba(255,140,66,.4);border-radius:50%;
-  pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:width .25s var(--e1),height .25s var(--e1),border-color .25s;
-  will-change:left,top;
-}
-body:has(a:hover) #cur2,body:has(button:hover) #cur2{
-  width:52px;height:52px;border-color:rgba(255,140,66,.7)
-}
-@media(hover:none){#cur,#cur2{display:none}*{cursor:auto!important}}
+/* ━━━ CURSOR ━━━ */
+#c1,#c2{position:fixed;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
+#c1{width:8px;height:8px;background:var(--or);z-index:10000}
+#c2{width:32px;height:32px;border:1.5px solid rgba(255,140,66,.38);z-index:9999;
+  transition:width .22s var(--e1),height .22s var(--e1),border-color .22s}
+#c2.on{width:52px;height:52px;border-color:rgba(255,140,66,.7)}
+@media(hover:none){#c1,#c2{display:none}*{cursor:auto!important}}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   CAT RUNNER (右→左)
-━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━━ CAT RUNNER (右→左) ━━━ */
 #catr{
-  position:fixed;top:0;left:0;z-index:700;
+  position:fixed;top:0;left:0;z-index:900;
   pointer-events:none;opacity:0;
-  width:160px;height:96px;overflow:hidden;
-  border-radius:0 0 8px 8px;
+  width:160px;height:96px;overflow:hidden;border-radius:0 0 8px 8px;
   transform:translateX(calc(100vw + 200px));
 }
 #catr img{width:100%;height:100%;object-fit:cover;
-  animation:catbob .28s ease-in-out infinite alternate}
-#catr.go{opacity:1;animation:catslide .9s var(--e1) forwards}
-@keyframes catslide{
-  0%  {opacity:1;transform:translateX(calc(100vw + 200px))}
-  100%{opacity:1;transform:translateX(-200px)}
-}
-@keyframes catbob{
-  from{transform:translateY(0)}
-  to  {transform:translateY(-8px)}
-}
+  animation:catbob .26s ease-in-out infinite alternate}
+#catr.go{opacity:1;animation:catslide .88s var(--e1) forwards}
+@keyframes catslide{to{transform:translateX(-200px)}}
+@keyframes catbob{to{transform:translateY(-8px)}}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    NAV
-━━━━━━━━━━━━━━━━━━━━━━━━ */
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #nav{
-  position:fixed;inset:0 0 auto;z-index:500;
+  position:fixed;inset:0 0 auto;z-index:600;
   display:flex;align-items:center;justify-content:space-between;
   padding:22px 56px;
-  transition:padding .45s var(--e3),background .45s,border-color .45s;
+  transition:padding .42s var(--e3),background .42s,border-color .42s;
 }
 #nav.sc{
-  padding:14px 56px;
-  background:rgba(255,255,255,.95);
+  padding:13px 56px;
+  background:rgba(255,255,255,.96);
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
   border-bottom:1px solid var(--ln);
 }
-/* logo */
+/* LOGO — white on hero, dark when scrolled */
 .nlogo{display:flex;align-items:center}
-.nlogo img{
-  height:26px;width:auto;
-  filter:brightness(0) invert(1);/* white on dark hero */
-  transition:filter .45s;
-}
+.nlogo img{height:26px;width:auto;
+  filter:brightness(0) invert(1);transition:filter .42s}
 #nav.sc .nlogo img{filter:brightness(0)}
-.nlogo-fb{
-  font-family:var(--s);font-size:15px;font-weight:700;
-  color:#fff;letter-spacing:.05em;transition:color .45s;
-}
+.nlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;
+  color:#fff;letter-spacing:.06em;transition:color .42s}
 .nlogo-fb em{color:var(--or);font-style:normal}
 #nav.sc .nlogo-fb{color:var(--ink)}
 /* desktop links */
-.nl{
-  display:flex;gap:32px;list-style:none;
-  position:absolute;left:50%;transform:translateX(-50%);
-}
-.nl a{
-  font-size:11.5px;font-weight:500;
-  color:rgba(255,255,255,.68);letter-spacing:.07em;
-  transition:color .25s;
-}
-#nav.sc .nl a{color:rgba(26,34,64,.55)}
+.nl{display:flex;gap:32px;list-style:none;
+  position:absolute;left:50%;transform:translateX(-50%)}
+.nl a{font-size:11.5px;font-weight:500;
+  color:rgba(255,255,255,.68);letter-spacing:.06em;transition:color .22s}
+#nav.sc .nl a{color:rgba(27,33,56,.52)}
 .nl a:hover{color:var(--or)}
-/* hamburger */
+/* HAMBURGER — precise ✕ */
 #mb{
-  background:none;border:1.5px solid rgba(255,255,255,.32);
+  background:none;border:1.5px solid rgba(255,255,255,.3);
   border-radius:50%;width:44px;height:44px;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:6px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
   flex-shrink:0;transition:border-color .3s,background .3s;
 }
-#nav.sc #mb{border-color:rgba(26,34,64,.16)}
+#nav.sc #mb{border-color:rgba(27,33,56,.15)}
 #mb:hover{border-color:var(--or);background:rgba(255,140,66,.07)}
 #mb span{
   display:block;width:15px;height:1.5px;border-radius:2px;
-  background:#fff;transition:transform .35s var(--e2),opacity .22s,background .45s;
+  background:#fff;transition:transform .33s var(--e2),opacity .22s,background .42s;
   transform-origin:center;
 }
 #nav.sc #mb span{background:var(--ink)}
-/* X — gap 6px, span 1.5px → center-to-center = 7.5px */
-#mb.x{border-color:var(--or)!important;background:rgba(255,140,66,.08)!important}
+#mb.x{border-color:var(--or)!important}
 #mb.x span{background:var(--or)!important}
 #mb.x span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
 #mb.x span:nth-child(2){opacity:0;transform:scaleX(0)}
 #mb.x span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    FULLSCREEN MENU
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#menu{position:fixed;inset:0;z-index:450;pointer-events:none}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#menu{position:fixed;inset:0;z-index:550;pointer-events:none}
 #mbg{
-  position:absolute;inset:0;background:#06080d;
+  position:absolute;inset:0;background:#050810;
   clip-path:circle(0% at var(--mox,calc(100% - 74px)) var(--moy,40px));
   transition:clip-path .72s var(--e2);
 }
 #menu.open{pointer-events:all}
-#menu.open #mbg{clip-path:circle(160% at var(--mox,calc(100% - 74px)) var(--moy,40px))}
-/* cat bg photo in menu */
+#menu.open #mbg{clip-path:circle(160% at var(--mox) var(--moy))}
+/* cat bg photo */
 #mcbg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 #mcbg img{
-  position:absolute;right:-5%;bottom:0;height:82%;
+  position:absolute;right:-4%;bottom:0;height:80%;
   object-fit:contain;opacity:0;
-  transition:opacity .7s .46s;
-  filter:brightness(.4) saturate(.5);
+  filter:brightness(.4) saturate(.4);
+  transition:opacity .7s .44s;
 }
-#menu.open #mcbg img{opacity:.12}
-/* centered items */
+#menu.open #mcbg img{opacity:.1}
+/* CENTERED menu */
 #mwrap{
   position:relative;z-index:2;height:100dvh;
   display:flex;flex-direction:column;
-  align-items:center;justify-content:center;padding:80px 40px;
+  align-items:center;justify-content:center;padding:72px 40px;
 }
-.mnav{display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:40px}
+.mnav{display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:36px}
 .mlink{
   display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:9px 0;opacity:0;transform:translateY(16px);
-  transition:color .3s;
+  padding:9px 0;opacity:0;transform:translateY(16px);transition:color .3s;
 }
 .mlink-en{
-  font-family:var(--s);font-size:clamp(24px,4vw,52px);
-  font-weight:700;color:rgba(255,255,255,.82);
-  letter-spacing:.03em;line-height:1;
-  transition:color .3s;
+  font-family:var(--S);font-size:clamp(22px,3.8vw,50px);
+  font-weight:700;color:rgba(255,255,255,.82);letter-spacing:.03em;line-height:1;transition:color .3s;
 }
-.mlink-ja{
-  font-size:11px;color:rgba(255,255,255,.26);
-  letter-spacing:.14em;line-height:1.4;
-  transition:color .3s;
-}
+.mlink-ja{font-size:11px;color:rgba(255,255,255,.26);letter-spacing:.14em;transition:color .3s}
 .mlink:hover .mlink-en{color:var(--or)}
 .mlink:hover .mlink-ja{color:rgba(255,140,66,.5)}
-#menu.open .mlink{animation:mfade .4s var(--e1) forwards}
+#menu.open .mlink{animation:mslide .4s var(--e1) forwards}
 #menu.open .mlink:nth-child(1){animation-delay:.05s}
-#menu.open .mlink:nth-child(2){animation-delay:.10s}
+#menu.open .mlink:nth-child(2){animation-delay:.1s}
 #menu.open .mlink:nth-child(3){animation-delay:.15s}
-#menu.open .mlink:nth-child(4){animation-delay:.20s}
+#menu.open .mlink:nth-child(4){animation-delay:.2s}
 #menu.open .mlink:nth-child(5){animation-delay:.25s}
-#menu.open .mlink:nth-child(6){animation-delay:.30s}
+#menu.open .mlink:nth-child(6){animation-delay:.3s}
 #menu.open .mlink:nth-child(7){animation-delay:.35s}
-@keyframes mfade{to{opacity:1;transform:translateY(0)}}
+@keyframes mslide{to{opacity:1;transform:translateY(0)}}
 .mfooter{
-  opacity:0;transform:translateY(8px);
-  transition:opacity .4s .5s,transform .4s .5s;
   display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .4s .52s,transform .4s .52s;
 }
 #menu.open .mfooter{opacity:1;transform:translateY(0)}
-.mfooter-row{display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
-.mfooter-row a{
-  font-size:11px;color:rgba(255,255,255,.2);
-  letter-spacing:.06em;transition:color .3s;
-}
-.mfooter-row a:hover{color:rgba(255,140,66,.65)}
-.mesc{font-size:9px;color:rgba(255,255,255,.1);letter-spacing:.16em;font-family:var(--m)}
+.mfoot-row{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+.mfoot-row a{font-size:11px;color:rgba(255,255,255,.2);letter-spacing:.06em;transition:color .3s}
+.mfoot-row a:hover{color:rgba(255,140,66,.65)}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    HERO
-━━━━━━━━━━━━━━━━━━━━━━━━ */
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #hero{position:relative;height:100dvh;min-height:620px;overflow:hidden}
 /* slides */
-.hslide{position:absolute;inset:0;opacity:0;transition:opacity 2s ease}
-.hslide.on{opacity:1}
-.hslide img{
+.hs{position:absolute;inset:0;opacity:0;transition:opacity 2.2s ease}
+.hs.on{opacity:1}
+.hs img{
   width:100%;height:115%;object-fit:cover;object-position:center 30%;
-  animation:hpan 10s ease-in-out infinite alternate;
-  will-change:transform;
+  animation:hpan 10s ease-in-out infinite alternate;will-change:transform;
 }
-.hslide:nth-child(2) img{animation-delay:-4s}
-.hslide:nth-child(3) img{animation-delay:-8s}
-@keyframes hpan{0%{transform:scale(1) translateY(0)}100%{transform:scale(1.06) translateY(-3%)}}
-/* overlay */
+.hs:nth-child(2) img{animation-delay:-4s}
+.hs:nth-child(3) img{animation-delay:-8s}
+@keyframes hpan{from{transform:scale(1)}to{transform:scale(1.06) translateY(-3%)}}
+/* overlay: gradient bottom-heavy */
 .hov{
   position:absolute;inset:0;z-index:1;
-  background:linear-gradient(165deg,
-    rgba(5,7,14,.08) 0%,
-    rgba(5,7,14,.42) 55%,
-    rgba(5,7,14,.7) 100%);
+  background:
+    linear-gradient(to right, rgba(8,10,20,.5) 0%, rgba(8,10,20,.12) 55%, transparent 100%),
+    linear-gradient(to top,   rgba(8,10,20,.8) 0%, rgba(8,10,20,.3) 40%, transparent 75%);
 }
-/* LEFT text — SMOKE animation */
+/* LEFT-ALIGNED CONTENT */
 .hleft{
   position:absolute;left:56px;top:50%;
-  transform:translateY(-54%);z-index:2;
-  max-width:720px;
+  transform:translateY(-54%);z-index:2;max-width:740px;
 }
+/* per-line smoke animation */
 .hh1{
-  font-family:var(--s);
-  font-size:clamp(36px,5.4vw,80px);
-  font-weight:800;line-height:1.24;
-  color:#fff;letter-spacing:-.02em;
-  font-kerning:none;/* 日本語向け */
+  font-family:var(--S);font-size:clamp(36px,5.2vw,82px);
+  font-weight:800;line-height:1.22;color:#fff;letter-spacing:-.02em;
 }
-/* Smoke effect: pure CSS, GPU-accelerated */
 .hw{
-  display:block;
-  opacity:0;
-  transform:translateY(14px);
-  filter:blur(10px);
-  animation:smokeIn 1.4s var(--e3) forwards;
+  display:block;opacity:0;transform:translateY(16px);filter:blur(10px);
+  animation:smokeIn 1.5s var(--e3) forwards;
 }
-.hw.l2{animation-delay:.75s}
+.hw.l2{animation-delay:.72s}
 @keyframes smokeIn{
-  0%  {opacity:0;transform:translateY(14px);filter:blur(10px)}
-  35% {opacity:.75}
-  100%{opacity:1;transform:translateY(0);filter:blur(0px)}
+  0%  {opacity:0;transform:translateY(16px);filter:blur(10px)}
+  30% {opacity:.65}
+  100%{opacity:1;transform:translateY(0);filter:blur(0)}
 }
-/* bottom center: dots + scroll */
+/* BOTTOM CENTER — dots + scroll */
 .hbtm{
   position:absolute;bottom:32px;left:0;right:0;z-index:2;
   display:flex;flex-direction:column;align-items:center;gap:14px;
@@ -270,557 +230,353 @@ body:has(a:hover) #cur2,body:has(button:hover) #cur2{
 .hdots{display:flex;gap:10px}
 .hdot{
   width:5px;height:5px;border-radius:50%;
-  background:rgba(255,255,255,.25);cursor:none;
-  transition:all .45s var(--e3);
+  background:rgba(255,255,255,.25);cursor:none;transition:all .45s var(--e3);
 }
 .hdot.on{background:var(--or);width:22px;border-radius:3px}
 .hscroll{
   display:flex;flex-direction:column;align-items:center;gap:8px;
-  font-family:var(--m);font-size:8px;
-  letter-spacing:.24em;color:rgba(255,255,255,.3);
-  opacity:0;animation:fadeIn .6s .6s forwards;
+  font-family:var(--M);font-size:8px;letter-spacing:.24em;
+  color:rgba(255,255,255,.3);opacity:0;animation:fi .6s .6s forwards;
 }
 .hscll{width:1px;height:36px;overflow:hidden;background:rgba(255,255,255,.1)}
 .hbar{
   width:100%;height:36px;background:var(--or);
   animation:bardrop 2.4s ease-in-out infinite;
 }
-@keyframes bardrop{
-  0%  {transform:translateY(-100%)}
-  50% {transform:translateY(0)}
-  100%{transform:translateY(100%)}
-}
-@keyframes fadeIn{to{opacity:1}}
+@keyframes bardrop{0%{transform:translateY(-100%)}50%{transform:translateY(0)}100%{transform:translateY(100%)}}
+@keyframes fi{to{opacity:1}}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    TICKER
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#ticker{
-  background:var(--nv);
-  border-top:2.5px solid var(--or);
-  overflow:hidden;
-}
-.tw{
-  display:flex;white-space:nowrap;
-  animation:tscroll 32s linear infinite;
-}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#ticker{background:var(--nv);border-top:2.5px solid var(--or);overflow:hidden}
+.tw{display:flex;white-space:nowrap;animation:tscroll 32s linear infinite}
 .tw:hover{animation-play-state:paused}
 .ti{
   display:flex;align-items:center;gap:28px;padding:16px 0;
-  font-family:var(--s);font-size:13px;font-weight:600;
+  font-family:var(--S);font-size:13px;font-weight:600;
   color:rgba(255,255,255,.55);letter-spacing:.08em;flex-shrink:0;
 }
 .tdot{width:4px;height:4px;border-radius:50%;background:var(--or);flex-shrink:0}
 .ta{color:var(--or)}
 @keyframes tscroll{to{transform:translateX(-50%)}}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   SHARED UTILS
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-.sw{max-width:1200px;margin:0 auto;padding:0 56px}
-.sec-lbl{
-  font-family:var(--m);font-size:10px;letter-spacing:.28em;color:var(--or);
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SHARED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.sw{max-width:1240px;margin:0 auto;padding:0 56px}
+/* scroll reveal (CSS-only, light) */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .72s var(--e3),transform .72s var(--e3)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+.rv.vis{opacity:1;transform:translateY(0)}
+/* section label */
+.lbl{
+  font-family:var(--M);font-size:10px;letter-spacing:.28em;color:var(--or);
   display:flex;align-items:center;gap:12px;margin-bottom:14px;
 }
-.sec-lbl::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
-/* Scroll reveal — CSS-only, no GSAP needed */
-.reveal{
-  opacity:0;transform:translateY(24px);
-  transition:opacity .75s var(--e3),transform .75s var(--e3);
-}
-.reveal.d1{transition-delay:.1s}
-.reveal.d2{transition-delay:.2s}
-.reveal.d3{transition-delay:.3s}
-.reveal.d4{transition-delay:.4s}
-.reveal.vis{opacity:1;transform:translateY(0)}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   NEWS
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#news{background:var(--cr);padding:104px 0}
-.news-hd{max-width:1200px;margin:0 auto 52px;padding:0 56px}
-.news-en{
-  font-family:var(--s);font-size:clamp(40px,5vw,70px);
-  font-weight:800;color:var(--ink);line-height:1;
-  letter-spacing:-.01em;font-feature-settings:"palt" 1;
-}
-.news-ja{
-  font-family:var(--m);font-size:11px;color:var(--sil);
-  letter-spacing:.22em;margin-top:6px;
-}
-.news-band{overflow:hidden}
-.news-tr{
-  display:flex;gap:16px;
-  animation:nscroll 24s linear infinite;
-  width:max-content;
-}
-.news-tr:hover{animation-play-state:paused}
-@keyframes nscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.nc{
-  flex:0 0 276px;background:var(--w);border-radius:14px;
-  overflow:hidden;display:flex;flex-direction:column;
-  box-shadow:0 2px 16px rgba(26,34,64,.06);
-  transition:transform .4s var(--e1),box-shadow .4s;
-}
-.nc:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(26,34,64,.1)}
-.nc-img{height:168px;overflow:hidden;background:var(--peach);flex-shrink:0}
-.nc-img img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .65s var(--e1);
-}
-.nc:hover .nc-img img{transform:scale(1.06)}
-.nc-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;gap:7px}
-.nc-date{font-family:var(--m);font-size:9.5px;color:var(--or);letter-spacing:.14em}
-.nc-title{
-  font-family:var(--s);font-size:13px;font-weight:700;
-  color:var(--ink);line-height:1.7;flex:1;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-  transition:color .25s;
-  font-feature-settings:"palt" 1;
-}
-.nc:hover .nc-title{color:var(--or)}
-.nc-more{
-  font-family:var(--m);font-size:9px;color:var(--or);
-  letter-spacing:.1em;padding-top:11px;border-top:1px solid var(--ln);
-}
-.news-foot{display:flex;justify-content:center;margin-top:48px}
-.news-all{
-  display:inline-flex;align-items:center;gap:14px;
-  font-family:var(--m);font-size:10px;letter-spacing:.22em;color:var(--ink);
-  padding-bottom:10px;border-bottom:1px solid rgba(26,34,64,.18);
-  transition:color .3s,border-color .3s;
-}
-.news-all:hover{color:var(--or);border-color:var(--or)}
-.narr{
-  width:26px;height:1px;background:currentColor;
-  position:relative;flex-shrink:0;transition:width .3s;
-}
-.narr::after{
-  content:'';position:absolute;right:-1px;top:-3px;
-  width:6px;height:6px;
-  border-right:1.5px solid currentColor;border-top:1.5px solid currentColor;
-  transform:rotate(45deg);
-}
-.news-all:hover .narr{width:34px}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   ABOUT (parallax bg)
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#about{position:relative;overflow:hidden;padding:88px 0}
-.about-bg{position:absolute;inset:-20%;z-index:0}
-.about-bg img{width:100%;height:140%;object-fit:cover;object-position:center 45%}
-.about-ov{
-  position:absolute;inset:0;z-index:1;
-  background:linear-gradient(95deg,
-    rgba(253,248,245,.97) 0%,
-    rgba(253,248,245,.93) 40%,
-    rgba(253,248,245,.55) 65%,
-    rgba(253,248,245,.05) 100%);
-}
-.about-in{
-  position:relative;z-index:2;
-  max-width:1200px;margin:0 auto;padding:0 56px;
-  display:grid;grid-template-columns:500px 1fr;gap:64px;align-items:center;
-}
-.about-lbl{
-  font-family:var(--m);font-size:10px;letter-spacing:.28em;color:var(--or);
-  display:flex;align-items:center;gap:12px;margin-bottom:16px;
-}
-.about-lbl::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
-.about-h2{
-  font-family:var(--s);font-size:clamp(26px,3.2vw,44px);
-  font-weight:800;color:var(--ink);line-height:1.28;margin-bottom:8px;
-  font-feature-settings:"palt" 1;
-}
-.about-catch{font-size:12.5px;color:var(--or);letter-spacing:.05em;margin-bottom:18px}
-.about-body{
-  font-size:14.5px;line-height:2.2;color:var(--ink2);margin-bottom:28px;
-  font-feature-settings:"palt" 1;
-}
-.about-btn{
+.lbl::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+/* centered label (team, company) */
+.lbl-c{justify-content:center}
+.lbl-c::before,.lbl-c::after{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+/* arrow link */
+.al{
   display:inline-flex;align-items:center;gap:12px;
-  font-family:var(--b);font-size:12.5px;font-weight:700;
-  color:#fff;background:var(--ink);
-  padding:13px 30px;border-radius:5px;letter-spacing:.06em;
-  transition:background .3s,transform .3s;
-}
-.about-btn:hover{background:var(--or);transform:translateY(-2px)}
-.about-btn-arr{
-  width:16px;height:1.5px;background:#fff;
-  position:relative;flex-shrink:0;transition:width .3s;
-}
-.about-btn-arr::after{
-  content:'';position:absolute;right:-1px;top:-3.5px;
-  width:7px;height:7px;
-  border-right:1.5px solid #fff;border-top:1.5px solid #fff;
-  transform:rotate(45deg);
-}
-.about-btn:hover .about-btn-arr{width:22px}
-.about-deco{display:flex;align-items:center;justify-content:center}
-.about-deco img{
-  width:100%;max-width:340px;height:290px;
-  object-fit:cover;border-radius:16px;
-  box-shadow:0 8px 32px rgba(26,34,64,.1);
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   SERVICES
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#services{background:var(--peach)}
-.svc-wrap{padding:72px 56px;max-width:1200px;margin:0 auto}
-.svc-wrap + .svc-wrap{border-top:1px solid rgba(26,34,64,.06)}
-/* catch row */
-.svc-cr{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.svc-icon{
-  width:52px;height:52px;border-radius:50%;
-  background:rgba(255,140,66,.12);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  box-shadow:0 2px 14px rgba(255,140,66,.15);
-}
-.svc-icon svg{width:26px;height:26px}
-.svc-ct{
-  font-family:var(--s);font-size:14px;font-weight:600;
-  color:var(--ink);letter-spacing:.04em;
-  font-feature-settings:"palt" 1;
-}
-.svc-cdeco{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,140,66,.4),transparent)}
-/* big number */
-.svc-nw{display:flex;justify-content:flex-end;margin-bottom:-20px;position:relative;z-index:1}
-.svc-nw.l{justify-content:flex-start}
-.svc-n{
-  font-family:var(--s);font-size:clamp(72px,10vw,130px);
-  font-weight:800;color:var(--rose);opacity:.16;
-  line-height:1;user-select:none;letter-spacing:-.04em;
-}
-/* card */
-.svc-card{
-  background:var(--pcard);border-radius:18px;overflow:hidden;
-  display:grid;grid-template-columns:1fr 1fr;
-  box-shadow:0 4px 24px rgba(26,34,64,.07);
-  transition:box-shadow .45s var(--e3),transform .45s var(--e3);
-}
-.svc-card:hover{box-shadow:0 12px 42px rgba(26,34,64,.12);transform:translateY(-2px)}
-.svc-card.il .svc-ci{order:-1}
-.svc-ci{overflow:hidden;min-height:300px}
-.svc-ci img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .8s var(--e3);
-}
-.svc-card:hover .svc-ci img{transform:scale(1.04)}
-.svc-cb{
-  padding:44px 44px;
-  display:flex;flex-direction:column;
-  justify-content:center;gap:16px;
-}
-.svc-name{
-  font-family:var(--s);font-size:clamp(17px,2vw,24px);
-  font-weight:700;color:var(--ink);line-height:1.5;
-  font-feature-settings:"palt" 1;
-}
-.svc-desc{
-  font-size:13.5px;line-height:2.1;color:var(--ink2);
-  font-feature-settings:"palt" 1;
-}
-.svc-btn{
-  display:inline-flex;align-items:center;gap:10px;align-self:flex-start;
-  font-family:var(--b);font-size:12.5px;font-weight:700;
-  color:#fff;background:var(--nv);
-  padding:12px 28px;border-radius:6px;letter-spacing:.06em;
-  transition:background .3s,transform .3s,box-shadow .3s;
-}
-.svc-btn:hover{
-  background:var(--or);transform:translateY(-2px);
-  box-shadow:0 8px 24px rgba(255,140,66,.28);
-}
-.svc-btn svg{
-  width:12px;height:12px;stroke:#fff;fill:none;
-  stroke-width:2;stroke-linecap:round;flex-shrink:0;
-  transition:transform .3s;
-}
-.svc-btn:hover svg{transform:translateX(3px)}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   TEAM
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#team{background:var(--w);padding:104px 0}
-.team-in{
-  max-width:1200px;margin:0 auto;padding:0 56px;
-  display:flex;flex-direction:column;align-items:center;text-align:center;
-}
-.team-hdlbl{
-  font-family:var(--m);font-size:10px;letter-spacing:.28em;color:var(--or);
-  display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px;
-}
-.team-hdlbl::before,.team-hdlbl::after{
-  content:'';width:22px;height:1px;background:var(--or);flex-shrink:0;
-}
-.team-h2{
-  font-family:var(--s);font-size:clamp(26px,3.2vw,42px);
-  font-weight:800;color:var(--ink);margin-bottom:48px;
-  font-feature-settings:"palt" 1;
-}
-.team-cards{
-  display:flex;gap:20px;flex-wrap:wrap;
-  justify-content:center;margin-bottom:36px;
-}
-.tcard{
-  width:240px;background:var(--cr);border-radius:14px;
-  overflow:hidden;box-shadow:0 2px 16px rgba(26,34,64,.06);text-align:left;
-  transition:transform .4s var(--e1),box-shadow .4s;
-}
-.tcard:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(26,34,64,.1)}
-.tcard-ph{height:300px;overflow:hidden;background:var(--peach)}
-.tcard-ph img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .65s var(--e1);
-}
-.tcard:hover .tcard-ph img{transform:scale(1.04)}
-.tcard-info{padding:20px 20px 22px}
-.tcard-name{
-  font-family:var(--s);font-size:17px;font-weight:700;
-  color:var(--ink);margin-bottom:4px;
-  font-feature-settings:"palt" 1;
-}
-.tcard-role{font-family:var(--m);font-size:9.5px;color:var(--or);letter-spacing:.14em}
-.team-link{
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--m);font-size:10px;letter-spacing:.18em;color:var(--or);
-  padding-bottom:8px;border-bottom:1px solid rgba(255,140,66,.3);
+  font-family:var(--M);font-size:10px;letter-spacing:.2em;color:var(--or);
+  padding-bottom:9px;border-bottom:1px solid rgba(255,140,66,.3);
   transition:gap .3s,border-color .3s;
 }
-.team-link:hover{gap:16px;border-color:var(--or)}
-.tlarr{
-  width:20px;height:1.5px;background:currentColor;
+.al:hover{gap:18px;border-color:var(--or)}
+.al-arr{
+  width:22px;height:1.5px;background:currentColor;
   position:relative;flex-shrink:0;transition:width .3s;
 }
-.tlarr::after{
+.al-arr::after{
   content:'';position:absolute;right:-1px;top:-3px;
   width:7px;height:7px;
   border-right:1.5px solid currentColor;border-top:1.5px solid currentColor;
   transform:rotate(45deg);
 }
-.team-link:hover .tlarr{width:28px}
+.al:hover .al-arr{width:30px}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   POLICY
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#policy{background:var(--peach);padding:104px 0}
-.pol-head{margin-bottom:56px}
-.pol-lbl{
-  font-family:var(--m);font-size:10px;letter-spacing:.28em;color:var(--or);
-  display:flex;align-items:center;gap:12px;margin-bottom:14px;
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   NEWS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#news{background:var(--f1);padding:104px 0}
+.nhd{max-width:1240px;margin:0 auto 52px;padding:0 56px}
+.nen{
+  font-family:var(--S);font-size:clamp(44px,5.2vw,74px);
+  font-weight:800;color:var(--ink);line-height:1;letter-spacing:-.01em;
 }
-.pol-lbl::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
-.pol-h2{
-  font-family:var(--s);font-size:clamp(24px,3vw,40px);
-  font-weight:700;color:var(--ink);margin-bottom:12px;
-  font-feature-settings:"palt" 1;
+.nja{font-family:var(--M);font-size:11px;color:var(--sil);letter-spacing:.22em;margin-top:6px}
+.nbw{overflow:hidden}
+.ntr{
+  display:flex;gap:16px;
+  animation:nscroll 24s linear infinite;width:max-content;
 }
-.pol-intro{font-size:14px;color:var(--ink2);line-height:2.1;max-width:540px}
-.pol-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.pol-card{
-  background:var(--w);border-radius:14px;padding:40px 36px;
-  position:relative;overflow:hidden;
-  box-shadow:0 2px 16px rgba(26,34,64,.05);
-  opacity:0;transform:translateY(18px);
-  transition:opacity .65s var(--e3),transform .65s var(--e3),box-shadow .35s;
+.ntr:hover{animation-play-state:paused}
+@keyframes nscroll{to{transform:translateX(-50%)}}
+.nc{
+  flex:0 0 278px;background:var(--w);border-radius:14px;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 2px 18px rgba(27,33,56,.06);
+  transition:transform .4s var(--e1),box-shadow .4s;
 }
-.pol-card:hover{box-shadow:0 8px 32px rgba(26,34,64,.09)}
-.pol-card.vis{opacity:1;transform:translateY(0)}
-.pol-card:nth-child(2){transition-delay:.08s}
-.pol-card:nth-child(3){transition-delay:.16s}
-.pol-card:nth-child(4){transition-delay:.24s}
-.pol-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;
-  height:3px;background:linear-gradient(90deg,var(--or),rgba(255,140,66,.15));
+.nc:hover{transform:translateY(-5px);box-shadow:0 14px 44px rgba(27,33,56,.1)}
+.ncimg{height:168px;overflow:hidden;background:var(--f2);flex-shrink:0}
+.ncimg img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--e1)}
+.nc:hover .ncimg img{transform:scale(1.06)}
+.ncb{padding:18px 20px;flex:1;display:flex;flex-direction:column;gap:6px}
+.ncd{font-family:var(--M);font-size:9.5px;color:var(--or);letter-spacing:.14em}
+.nct{
+  font-family:var(--S);font-size:13px;font-weight:700;color:var(--ink);
+  line-height:1.7;flex:1;transition:color .25s;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
 }
-.pol-no{
-  font-family:var(--m);font-size:10px;letter-spacing:.2em;
-  color:rgba(255,140,66,.38);margin-bottom:12px;
+.nc:hover .nct{color:var(--or)}
+.ncm{
+  font-family:var(--M);font-size:9px;color:var(--or);letter-spacing:.1em;
+  padding-top:11px;border-top:1px solid var(--ln);
 }
-.pol-tag{
-  font-family:var(--m);font-size:8.5px;letter-spacing:.2em;
-  color:var(--or);text-transform:uppercase;margin-bottom:3px;
-}
-.pol-tag-ja{font-size:11px;color:var(--sil);letter-spacing:.08em;margin-bottom:14px}
-.pol-title{
-  font-family:var(--s);font-size:18px;font-weight:700;
-  color:var(--ink);line-height:1.55;margin-bottom:10px;
-  font-feature-settings:"palt" 1;
-}
-.pol-body{font-size:13px;line-height:2.05;color:var(--ink2)}
-.pol-sub{margin-top:14px;display:flex;flex-direction:column;gap:8px}
-.pol-sub-item{
-  display:flex;align-items:flex-start;gap:10px;
-  font-size:13px;color:var(--ink2);line-height:1.7;
-  font-feature-settings:"palt" 1;
-}
-.pol-sub-item::before{
-  content:'';width:5px;height:5px;border-radius:50%;
-  background:var(--or);flex-shrink:0;margin-top:7px;
-}
+.nfoot{display:flex;justify-content:center;margin-top:48px}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   COMPANY
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#company{background:var(--w);padding:104px 0}
-.co-in{
-  max-width:1200px;margin:0 auto;padding:0 56px;
-  display:flex;flex-direction:column;align-items:center;
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ABOUT (parallax bg)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#about{position:relative;overflow:hidden;padding:88px 0}
+.abg{position:absolute;inset:-20%;z-index:0}
+.abg img{width:100%;height:140%;object-fit:cover;object-position:center 45%}
+.aov{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(95deg,
+    rgba(253,248,243,.97) 0%,
+    rgba(253,248,243,.93) 38%,
+    rgba(253,248,243,.54) 62%,
+    rgba(253,248,243,.04) 100%);
 }
-.co-hdlbl{
-  font-family:var(--m);font-size:10px;letter-spacing:.28em;color:var(--or);
-  display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px;
+.ain{
+  position:relative;z-index:2;
+  max-width:1240px;margin:0 auto;padding:0 56px;
+  display:grid;grid-template-columns:500px 1fr;gap:64px;align-items:center;
 }
-.co-hdlbl::before,.co-hdlbl::after{
-  content:'';width:22px;height:1px;background:var(--or);flex-shrink:0;
+.albl{
+  font-family:var(--M);font-size:10px;letter-spacing:.28em;color:var(--or);
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
 }
-.co-h2{
-  font-family:var(--s);font-size:clamp(24px,2.8vw,38px);
-  font-weight:700;color:var(--ink);margin-bottom:48px;
-  font-feature-settings:"palt" 1;
+.albl::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.ah2{
+  font-family:var(--S);font-size:clamp(26px,3.2vw,44px);
+  font-weight:800;color:var(--ink);line-height:1.28;margin-bottom:8px;
 }
-.co-table{width:100%;max-width:700px;border-collapse:collapse}
-.co-table tr{border-bottom:1px solid var(--ln)}
-.co-table th{
-  width:130px;padding:17px 0;
-  font-family:var(--m);font-size:9px;letter-spacing:.14em;
-  color:var(--sil);text-align:left;vertical-align:top;
-  font-weight:400;white-space:nowrap;
-}
-.co-table td{
-  padding:17px 0 17px 16px;
-  font-size:13px;color:var(--ink);line-height:1.9;
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   CONTACT
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-#contact{
-  background:var(--or);padding:120px 0;
-  position:relative;overflow:hidden;
-}
-#contact::before,#contact::after{
-  content:'';position:absolute;border-radius:50%;
-  pointer-events:none;border:1px solid rgba(255,255,255,.1);
-}
-#contact::before{width:460px;height:460px;right:-90px;top:-90px}
-#contact::after{width:240px;height:240px;left:-50px;bottom:-50px}
-.ct-in{
-  position:relative;z-index:1;
-  max-width:1200px;margin:0 auto;padding:0 56px;
-  display:flex;flex-direction:column;align-items:center;
-  text-align:center;gap:20px;
-}
-.ct-lbl{
-  font-family:var(--m);font-size:10px;letter-spacing:.28em;
-  color:rgba(255,255,255,.5);
-}
-.ct-h2{
-  font-family:var(--s);font-size:clamp(28px,4.2vw,58px);
-  font-weight:800;line-height:1.38;color:#fff;
-  font-feature-settings:"palt" 1;
-}
-.ct-body{font-size:15px;color:rgba(255,255,255,.75);line-height:2}
-.ct-btn{
+.acatch{font-size:12.5px;color:var(--or);letter-spacing:.05em;margin-bottom:18px}
+.abody{font-size:14.5px;line-height:2.25;color:var(--ink2);margin-bottom:28px}
+.abtn{
   display:inline-flex;align-items:center;gap:12px;
-  font-family:var(--b);font-size:14px;font-weight:700;
-  color:var(--or);background:#fff;
-  padding:17px 42px;border-radius:7px;letter-spacing:.06em;white-space:nowrap;
-  margin-top:8px;
+  font-family:var(--B);font-size:12.5px;font-weight:700;color:#fff;
+  background:var(--ink);padding:13px 30px;border-radius:5px;letter-spacing:.06em;
+  transition:background .3s,transform .3s;
+}
+.abtn:hover{background:var(--or);transform:translateY(-2px)}
+.abtn-arr{width:16px;height:1.5px;background:#fff;position:relative;flex-shrink:0}
+.abtn-arr::after{
+  content:'';position:absolute;right:-1px;top:-3.5px;
+  width:7px;height:7px;
+  border-right:1.5px solid #fff;border-top:1.5px solid #fff;transform:rotate(45deg);
+}
+.adeco{display:flex;align-items:center;justify-content:center}
+.adeco img{
+  width:100%;max-width:340px;height:300px;object-fit:cover;
+  border-radius:16px;box-shadow:0 8px 32px rgba(27,33,56,.1);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SERVICES (original site card style)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#services{background:var(--f2)}
+.swrap{padding:72px 56px;max-width:1240px;margin:0 auto}
+.swrap+.swrap{border-top:1px solid rgba(27,33,56,.07)}
+/* catch row */
+.scr{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.sicon{
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(255,140,66,.12);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;box-shadow:0 2px 14px rgba(255,140,66,.15);
+}
+.sicon svg{width:26px;height:26px}
+.sct{font-family:var(--S);font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.04em}
+.scdeco{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,140,66,.4),transparent)}
+/* big number */
+.snw{display:flex;justify-content:flex-end;margin-bottom:-20px;position:relative;z-index:1}
+.snw.l{justify-content:flex-start}
+.sn{
+  font-family:var(--S);font-size:clamp(72px,10vw,130px);font-weight:800;
+  color:var(--rose);opacity:.16;line-height:1;user-select:none;letter-spacing:-.04em;
+}
+/* card */
+.scard{
+  background:var(--f3);border-radius:18px;overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;
+  box-shadow:0 4px 28px rgba(27,33,56,.07);
+  transition:box-shadow .45s var(--e3),transform .45s var(--e3);
+}
+.scard:hover{box-shadow:0 12px 46px rgba(27,33,56,.12);transform:translateY(-2px)}
+.scard.il .sci{order:-1}
+.sci{overflow:hidden;min-height:300px}
+.sci img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--e3)}
+.scard:hover .sci img{transform:scale(1.04)}
+.scb{padding:44px 44px;display:flex;flex-direction:column;justify-content:center;gap:16px}
+.sname{font-family:var(--S);font-size:clamp(17px,2vw,24px);font-weight:700;color:var(--ink);line-height:1.5}
+.sdesc{font-size:13.5px;line-height:2.1;color:var(--ink2)}
+.sbtn{
+  display:inline-flex;align-items:center;gap:10px;align-self:flex-start;
+  font-family:var(--B);font-size:12.5px;font-weight:700;color:#fff;
+  background:var(--nv);padding:12px 28px;border-radius:6px;letter-spacing:.06em;
   transition:background .3s,transform .3s,box-shadow .3s;
 }
-.ct-btn:hover{
-  background:var(--cr);transform:translateY(-2px);
-  box-shadow:0 12px 34px rgba(0,0,0,.15);
-}
+.sbtn:hover{background:var(--or);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,140,66,.28)}
+.sbtn svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;transition:transform .3s}
+.sbtn:hover svg{transform:translateX(3px)}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TEAM (centered)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#team{background:var(--w);padding:104px 0}
+.tin{max-width:1240px;margin:0 auto;padding:0 56px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.th2{font-family:var(--S);font-size:clamp(26px,3.2vw,42px);font-weight:800;color:var(--ink);margin-bottom:48px}
+.tcards{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-bottom:36px}
+.tcard{
+  width:240px;background:var(--f1);border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 16px rgba(27,33,56,.06);text-align:left;
+  transition:transform .4s var(--e1),box-shadow .4s;
+}
+.tcard:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(27,33,56,.1)}
+.tph{height:300px;overflow:hidden;background:var(--f2)}
+.tph img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--e1)}
+.tcard:hover .tph img{transform:scale(1.04)}
+.tinfo{padding:20px 20px 22px}
+.tname{font-family:var(--S);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.trole{font-family:var(--M);font-size:9.5px;color:var(--or);letter-spacing:.14em}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   POLICY (card grid)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#policy{background:var(--f2);padding:104px 0}
+.phead{margin-bottom:58px}
+.ph2{font-family:var(--S);font-size:clamp(24px,3vw,40px);font-weight:700;color:var(--ink);margin-bottom:12px}
+.pintro{font-size:14px;color:var(--ink2);line-height:2.1;max-width:540px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pcard{
+  background:var(--w);border-radius:14px;padding:40px 36px;
+  position:relative;overflow:hidden;
+  box-shadow:0 2px 16px rgba(27,33,56,.05);
+  opacity:0;transform:translateY(16px);
+  transition:opacity .65s var(--e3),transform .65s var(--e3),box-shadow .35s;
+}
+.pcard:hover{box-shadow:0 8px 32px rgba(27,33,56,.09)}
+.pcard.vis{opacity:1;transform:translateY(0)}
+.pcard:nth-child(2){transition-delay:.08s}
+.pcard:nth-child(3){transition-delay:.16s}
+.pcard:nth-child(4){transition-delay:.24s}
+.pcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--or),rgba(255,140,66,.12));
+}
+.pno{font-family:var(--M);font-size:10px;letter-spacing:.2em;color:rgba(255,140,66,.38);margin-bottom:12px}
+.ptag{font-family:var(--M);font-size:8.5px;letter-spacing:.2em;color:var(--or);text-transform:uppercase;margin-bottom:3px}
+.ptag-ja{font-size:11px;color:var(--sil);letter-spacing:.08em;margin-bottom:14px}
+.ptitle{font-family:var(--S);font-size:18px;font-weight:700;color:var(--ink);line-height:1.55;margin-bottom:10px}
+.pbody{font-size:13px;line-height:2.05;color:var(--ink2)}
+.psub{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.psub-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);line-height:1.7}
+.psub-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--or);flex-shrink:0;margin-top:7px}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   COMPANY (centered)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#company{background:var(--w);padding:104px 0}
+.coin{max-width:1240px;margin:0 auto;padding:0 56px;display:flex;flex-direction:column;align-items:center}
+.coh2{font-family:var(--S);font-size:clamp(24px,2.8vw,38px);font-weight:700;color:var(--ink);text-align:center;margin-bottom:52px}
+.cotbl{width:100%;max-width:700px;border-collapse:collapse}
+.cotbl tr{border-bottom:1px solid var(--ln)}
+.cotbl th{width:120px;padding:17px 0;font-family:var(--M);font-size:9px;letter-spacing:.14em;color:var(--sil);text-align:left;vertical-align:top;font-weight:400;white-space:nowrap}
+.cotbl td{padding:17px 0 17px 16px;font-size:13px;color:var(--ink);line-height:1.9}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONTACT (centered orange)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#contact{background:var(--or);padding:120px 0;position:relative;overflow:hidden}
+#contact::before,#contact::after{content:'';position:absolute;border-radius:50%;pointer-events:none;border:1px solid rgba(255,255,255,.1)}
+#contact::before{width:460px;height:460px;right:-90px;top:-90px}
+#contact::after{width:240px;height:240px;left:-50px;bottom:-50px}
+.ctin{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 56px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px}
+.ctlbl{font-family:var(--M);font-size:10px;letter-spacing:.28em;color:rgba(255,255,255,.5)}
+.cth2{font-family:var(--S);font-size:clamp(28px,4.2vw,58px);font-weight:800;line-height:1.38;color:#fff}
+.ctbody{font-size:15px;color:rgba(255,255,255,.75);line-height:2}
+.ctbtn{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--B);font-size:14px;font-weight:700;color:var(--or);background:#fff;
+  padding:17px 42px;border-radius:7px;letter-spacing:.06em;white-space:nowrap;margin-top:8px;
+  transition:background .3s,transform .3s,box-shadow .3s;
+}
+.ctbtn:hover{background:var(--f1);transform:translateY(-2px);box-shadow:0 12px 34px rgba(0,0,0,.15)}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    FOOTER
-━━━━━━━━━━━━━━━━━━━━━━━━ */
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
-.ft-in{max-width:1200px;margin:0 auto;padding:0 56px}
-.ft-top{
-  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;
-  padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06);
-}
-.ft-logo{height:22px;margin-bottom:12px;display:flex;align-items:center}
-.ft-logo img{height:22px;opacity:.8;filter:brightness(0) invert(1)}
-.ft-logo-fb{font-family:var(--s);font-size:15px;font-weight:700;color:#fff;letter-spacing:.04em}
-.ft-logo-fb em{color:var(--or);font-style:normal}
-.ft-tag{font-size:12px;color:var(--sil);line-height:1.95;max-width:260px;margin-bottom:16px}
-.ft-sns{display:flex;gap:10px}
-.ft-sns a{
-  width:32px;height:32px;border-radius:50%;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-  display:flex;align-items:center;justify-content:center;transition:all .3s;
-}
-.ft-sns a:hover{background:rgba(255,140,66,.18);border-color:rgba(255,140,66,.4)}
-.ft-sns svg{width:13px;height:13px;fill:var(--sil);transition:fill .3s}
-.ft-sns a:hover svg{fill:var(--or)}
-.ft-col h4{
-  font-family:var(--m);font-size:9px;letter-spacing:.22em;
-  color:rgba(255,255,255,.2);text-transform:uppercase;margin-bottom:14px;
-}
-.ft-col ul{list-style:none}
-.ft-col li{margin-bottom:8px}
-.ft-col a{font-size:12px;color:var(--sil);transition:color .25s}
-.ft-col a:hover{color:var(--or)}
-.ft-bot{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 0;font-size:11px;color:rgba(255,255,255,.14);
-}
-.ft-bot a{color:rgba(255,255,255,.14);transition:color .25s}
-.ft-bot a:hover{color:var(--sil)}
-.ft-bot-r{display:flex;gap:16px}
+.ftin{max-width:1240px;margin:0 auto;padding:0 56px}
+.fttop{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ftlogo{height:22px;margin-bottom:12px;display:flex;align-items:center}
+.ftlogo img{height:22px;opacity:.8;filter:brightness(0) invert(1)}
+.ftlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;color:#fff;letter-spacing:.04em}
+.ftlogo-fb em{color:var(--or);font-style:normal}
+.fttag{font-size:12px;color:var(--sil);line-height:1.95;max-width:260px;margin-bottom:16px}
+.ftsns{display:flex;gap:10px}
+.ftsns a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.ftsns a:hover{background:rgba(255,140,66,.18);border-color:rgba(255,140,66,.4)}
+.ftsns svg{width:13px;height:13px;fill:var(--sil);transition:fill .3s}
+.ftsns a:hover svg{fill:var(--or)}
+.ftcol h4{font-family:var(--M);font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.2);text-transform:uppercase;margin-bottom:14px}
+.ftcol ul{list-style:none}.ftcol li{margin-bottom:8px}
+.ftcol a{font-size:12px;color:var(--sil);transition:color .25s}.ftcol a:hover{color:var(--or)}
+.ftbot{display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:11px;color:rgba(255,255,255,.15)}
+.ftbot a{color:rgba(255,255,255,.15);transition:color .25s}.ftbot a:hover{color:var(--sil)}
+.ftbot-r{display:flex;gap:16px}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    RESPONSIVE
-━━━━━━━━━━━━━━━━━━━━━━━━ */
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media(max-width:1080px){
   #nav,#nav.sc{padding-left:28px;padding-right:28px}
   .nl{display:none}
   .hleft{left:28px}
-  .sw,.news-hd,.ft-in{padding-left:28px;padding-right:28px}
-  .about-in{grid-template-columns:1fr;padding:0 28px;gap:36px}
-  .about-deco{display:none}
-  .svc-wrap{padding:56px 28px}
-  .svc-card,.svc-card.il{grid-template-columns:1fr}
-  .svc-card.il .svc-ci{order:0}
-  .svc-ci{min-height:260px}
-  .svc-cb{padding:32px 28px}
-  .team-in,.co-in,.ct-in{padding-left:28px;padding-right:28px}
-  .pol-grid{grid-template-columns:1fr}
-  .ft-top{grid-template-columns:1fr 1fr;gap:28px}
+  .sw,.nhd,.ain,.swrap,.tin,.coin,.ctin,.ftin{padding-left:28px;padding-right:28px}
+  .ain{grid-template-columns:1fr;gap:36px}.adeco{display:none}
+  .scard,.scard.il{grid-template-columns:1fr}
+  .scard.il .sci{order:0}.sci{min-height:260px}.scb{padding:32px 28px}
+  .pgrid{grid-template-columns:1fr}
+  .fttop{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(max-width:640px){
   #nav,#nav.sc{padding:14px 20px}
   .hleft{left:20px}
   .hh1{font-size:clamp(30px,7.5vw,46px)}
-  .sw,.news-hd,.about-in,.svc-wrap,.team-in,.co-in,.ct-in,.ft-in{
-    padding-left:20px;padding-right:20px;
-  }
-  .ft-top{grid-template-columns:1fr;gap:24px}
-  .ft-bot{flex-direction:column;gap:10px;text-align:center}
-  .ft-bot-r{justify-content:center}
-  #news,#about,#team,#policy,#company{padding:80px 0}
-  #contact{padding:80px 0}
-  .pol-card{padding:28px 22px}
-  .svc-n{font-size:clamp(64px,18vw,100px)}
-  .mlink-en{font-size:clamp(22px,6.5vw,34px)}
+  .sw,.nhd,.ain,.swrap,.tin,.coin,.ctin,.ftin{padding-left:20px;padding-right:20px}
+  .fttop{grid-template-columns:1fr;gap:24px}
+  .ftbot{flex-direction:column;gap:10px;text-align:center}.ftbot-r{justify-content:center}
+  #news,#about,#team,#policy,#company,#contact{padding:80px 0}
+  .pcard{padding:28px 22px}
+  .sn{font-size:clamp(64px,18vw,100px)}
+  .swrap{padding:56px 20px}
 }
 </style>
 </head>
 <body>
-
-<div id="cur"></div>
-<div id="cur2"></div>
+<div id="c1"></div>
+<div id="c2"></div>
 
 <!-- CAT RUNNER -->
 <div id="catr" aria-hidden="true">
-  <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp"
-       alt=""
-       onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
+  <img src="https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4" alt="">
 </div>
 
 <!-- NAV -->
@@ -842,12 +598,11 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
   <button id="mb" aria-label="メニュー"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- MENU -->
+<!-- FULLSCREEN MENU -->
 <div id="menu">
   <div id="mbg"></div>
   <div id="mcbg">
-    <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x2160_v-frms_webp_925aa1e1-.webp"
-         alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
+    <img src="https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4" alt="">
   </div>
   <div id="mwrap">
     <nav class="mnav">
@@ -860,12 +615,11 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
       <a class="mlink" href="contact.html"><span class="mlink-en">Contact</span> <span class="mlink-ja">お問い合わせ</span></a>
     </nav>
     <div class="mfooter">
-      <div class="mfooter-row">
+      <div class="mfoot-row">
         <a href="legal.html">特定商取引法</a>
         <a href="privacy.html">プライバシーポリシー</a>
         <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
       </div>
-      <p class="mesc">esc to close</p>
     </div>
   </div>
 </div>
@@ -873,38 +627,30 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <!-- ══ HERO ══ -->
 <section id="top">
 <div id="hero">
-  <!-- ロゴなしの写真を順番に使用 -->
-  <div class="hslide on">
+  <div class="hs on">
     <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1920x1080_v-frms_webp_2474af04-.webp"
-         alt=""
-         onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp'">
+         alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'">
   </div>
-  <div class="hslide">
+  <div class="hs">
     <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp"
-         alt=""
-         onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1920x1080_v-frms_webp_2474af04-.webp'">
+         alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
   </div>
-  <div class="hslide">
+  <div class="hs">
     <img src="images/images/_studio-cms-assets_projects_nBW2APpeav_s-1366x768_v-fms_webp_3de3b185-a2f0-4166-.webp"
-         alt=""
-         onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1920x1080_v-frms_webp_2474af04-.webp'">
+         alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'">
   </div>
-
   <div class="hov"></div>
-
-  <!-- 左寄せ・煙のようにふわっと出現・常に2行 -->
   <div class="hleft">
     <h1 class="hh1">
-      <span class="hw" style="display:block">ペットの殺処分ゼロを</span>
+      <span class="hw"  style="display:block">ペットの殺処分ゼロを</span>
       <span class="hw l2" style="display:block">ビジネスで実現し続ける。</span>
     </h1>
   </div>
-
   <div class="hbtm">
     <div class="hdots">
-      <div class="hdot on" data-i="0"></div>
-      <div class="hdot" data-i="1"></div>
-      <div class="hdot" data-i="2"></div>
+      <div class="hdot on"></div>
+      <div class="hdot"></div>
+      <div class="hdot"></div>
     </div>
     <div class="hscroll">
       <div class="hscll"><div class="hbar"></div></div>
@@ -917,85 +663,70 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <!-- TICKER -->
 <div id="ticker" aria-hidden="true">
   <div class="tw" id="tw">
-    <div class="ti"><span class="tdot"></span><span class="ta">Paw Me</span>と提携　保護猫にスマホでごはんを</div>
+    <div class="ti"><span class="tdot"></span><span class="ta">Paw Me</span>と提携 — 保護猫にスマホでごはんを</div>
     <div class="ti"><span class="tdot"></span>オープンハウスグループ · おうちリンク社と提携</div>
-    <div class="ti"><span class="tdot"></span>BS-TBS<span class="ta">「ねこ自慢」</span>に出演しました</div>
+    <div class="ti"><span class="tdot"></span>BS-TBS <span class="ta">「ねこ自慢」</span>に出演しました</div>
     <div class="ti"><span class="tdot"></span>アメリカン・エキスプレス経営者向けメディアに代表掲載</div>
     <div class="ti"><span class="tdot"></span><span class="ta">殺処分ゼロ</span>をビジネスで実現し続ける</div>
-    <div class="ti"><span class="tdot"></span><span class="ta">にゃんほっと</span>保護猫譲渡特化型施設 · 東京銀座</div>
-    <div class="ti"><span class="tdot"></span><span class="ta">Paw Me</span>と提携　保護猫にスマホでごはんを</div>
+    <div class="ti"><span class="tdot"></span>保護猫譲渡特化型施設 <span class="ta">にゃんほっと</span> · 東京銀座</div>
+    <div class="ti"><span class="tdot"></span><span class="ta">Paw Me</span>と提携 — 保護猫にスマホでごはんを</div>
     <div class="ti"><span class="tdot"></span>オープンハウスグループ · おうちリンク社と提携</div>
-    <div class="ti"><span class="tdot"></span>BS-TBS<span class="ta">「ねこ自慢」</span>に出演しました</div>
+    <div class="ti"><span class="tdot"></span>BS-TBS <span class="ta">「ねこ自慢」</span>に出演しました</div>
     <div class="ti"><span class="tdot"></span>アメリカン・エキスプレス経営者向けメディアに代表掲載</div>
     <div class="ti"><span class="tdot"></span><span class="ta">殺処分ゼロ</span>をビジネスで実現し続ける</div>
-    <div class="ti"><span class="tdot"></span><span class="ta">にゃんほっと</span>保護猫譲渡特化型施設 · 東京銀座</div>
+    <div class="ti"><span class="tdot"></span>保護猫譲渡特化型施設 <span class="ta">にゃんほっと</span> · 東京銀座</div>
   </div>
 </div>
 
 <!-- NEWS -->
 <section id="news">
-  <div class="news-hd">
-    <h2 class="news-en reveal">NEWS</h2>
-    <p class="news-ja reveal d1">お知らせ</p>
+  <div class="nhd">
+    <h2 class="nen rv">NEWS</h2>
+    <p class="nja rv d1">お知らせ</p>
   </div>
-  <div class="news-band">
-    <div class="news-tr">
+  <div class="nbw">
+    <div class="ntr">
       <a class="nc" href="https://connectpet.jp/posts/1XzTaJ-A" target="_blank" rel="noopener">
-        <div class="nc-img"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'"></div>
-        <div class="nc-body"><span class="nc-date">2026.03.31</span><h3 class="nc-title">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</h3><span class="nc-more">続きを読む</span></div>
+        <div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'"></div>
+        <div class="ncb"><span class="ncd">2026.03.31</span><h3 class="nct">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</h3><span class="ncm">続きを読む</span></div>
       </a>
       <a class="nc" href="https://connectpet.jp/posts/oFGSkjTx" target="_blank" rel="noopener">
-        <div class="nc-img"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
-        <div class="nc-body"><span class="nc-date">2026.02.21</span><h3 class="nc-title">【オープンハウスグループ】株式会社おうちリンク社と提携</h3><span class="nc-more">続きを読む</span></div>
+        <div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
+        <div class="ncb"><span class="ncd">2026.02.21</span><h3 class="nct">【オープンハウスグループ】株式会社おうちリンク社と提携</h3><span class="ncm">続きを読む</span></div>
       </a>
       <a class="nc" href="https://connectpet.jp/posts/tCs7UJQf" target="_blank" rel="noopener">
-        <div class="nc-img"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_4ef84597-8a.webp" alt="" onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp'"></div>
-        <div class="nc-body"><span class="nc-date">2026.02.18</span><h3 class="nc-title">BS-TBS「ねこ自慢」に出演しました</h3><span class="nc-more">続きを読む</span></div>
+        <div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_4ef84597-8a.webp" alt="" onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp'"></div>
+        <div class="ncb"><span class="ncd">2026.02.18</span><h3 class="nct">BS-TBS「ねこ自慢」に出演しました</h3><span class="ncm">続きを読む</span></div>
       </a>
       <a class="nc" href="https://connectpet.jp/posts/yi7rw7WK" target="_blank" rel="noopener">
-        <div class="nc-img"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
-        <div class="nc-body"><span class="nc-date">2024.12.05</span><h3 class="nc-title">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました</h3><span class="nc-more">続きを読む</span></div>
+        <div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
+        <div class="ncb"><span class="ncd">2024.12.05</span><h3 class="nct">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました</h3><span class="ncm">続きを読む</span></div>
       </a>
-      <!-- loop set 2 -->
-      <a class="nc" href="https://connectpet.jp/posts/1XzTaJ-A" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
-        <div class="nc-img"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'"></div>
-        <div class="nc-body"><span class="nc-date">2026.03.31</span><h3 class="nc-title">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</h3><span class="nc-more">続きを読む</span></div>
-      </a>
-      <a class="nc" href="https://connectpet.jp/posts/oFGSkjTx" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
-        <div class="nc-img"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
-        <div class="nc-body"><span class="nc-date">2026.02.21</span><h3 class="nc-title">【オープンハウスグループ】株式会社おうちリンク社と提携</h3><span class="nc-more">続きを読む</span></div>
-      </a>
-      <a class="nc" href="https://connectpet.jp/posts/tCs7UJQf" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
-        <div class="nc-img"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_4ef84597-8a.webp" alt="" onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp'"></div>
-        <div class="nc-body"><span class="nc-date">2026.02.18</span><h3 class="nc-title">BS-TBS「ねこ自慢」に出演しました</h3><span class="nc-more">続きを読む</span></div>
-      </a>
-      <a class="nc" href="https://connectpet.jp/posts/yi7rw7WK" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
-        <div class="nc-img"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div>
-        <div class="nc-body"><span class="nc-date">2024.12.05</span><h3 class="nc-title">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました</h3><span class="nc-more">続きを読む</span></div>
-      </a>
+      <a class="nc" href="https://connectpet.jp/posts/1XzTaJ-A" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'"></div><div class="ncb"><span class="ncd">2026.03.31</span><h3 class="nct">保護猫にスマホでごはんをあげるアプリサービス「Paw Me」と提携しました。</h3><span class="ncm">続きを読む</span></div></a>
+      <a class="nc" href="https://connectpet.jp/posts/oFGSkjTx" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div><div class="ncb"><span class="ncd">2026.02.21</span><h3 class="nct">【オープンハウスグループ】株式会社おうちリンク社と提携</h3><span class="ncm">続きを読む</span></div></a>
+      <a class="nc" href="https://connectpet.jp/posts/tCs7UJQf" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_4ef84597-8a.webp" alt="" onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_240a2a5e-2a.webp'"></div><div class="ncb"><span class="ncd">2026.02.18</span><h3 class="nct">BS-TBS「ねこ自慢」に出演しました</h3><span class="ncm">続きを読む</span></div></a>
+      <a class="nc" href="https://connectpet.jp/posts/yi7rw7WK" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="ncimg"><img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp" alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'"></div><div class="ncb"><span class="ncd">2024.12.05</span><h3 class="nct">アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました</h3><span class="ncm">続きを読む</span></div></a>
     </div>
   </div>
-  <div class="news-foot reveal">
-    <a class="news-all" href="news.html">すべて見る <span class="narr"></span></a>
-  </div>
+  <div class="nfoot rv"><a class="al" href="news.html">すべて見る <span class="al-arr"></span></a></div>
 </section>
 
-<!-- ABOUT (parallax) -->
+<!-- ABOUT -->
 <section id="about">
-  <div class="about-bg" id="aboutBg">
+  <div class="abg" id="abg">
     <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp"
-         alt="" onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1920x1080_v-frms_webp_2474af04-.webp'">
+         alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'">
   </div>
-  <div class="about-ov"></div>
-  <div class="about-in">
-    <div class="reveal">
-      <div class="about-lbl">ABOUT US</div>
-      <h2 class="about-h2">私たちについて</h2>
-      <p class="about-catch">～ペットの殺処分ゼロをビジネスで実現し続ける～</p>
-      <p class="about-body">行政・ボランティア・個人の力だけでは解決できないペットの殺処分問題を、「リリースをしないペットの飼い主様を増やし、適切に保護ペットをつなぐ」循環を産み出すことで解決します。</p>
-      <a class="about-btn" href="about.html">私たちについて詳しく <span class="about-btn-arr"></span></a>
+  <div class="aov"></div>
+  <div class="ain">
+    <div class="rv">
+      <div class="albl">ABOUT US</div>
+      <h2 class="ah2">私たちについて</h2>
+      <p class="acatch">～ペットの殺処分ゼロをビジネスで実現し続ける～</p>
+      <p class="abody">行政・ボランティア・個人の力だけでは解決できないペットの殺処分問題を、「リリースをしないペットの飼い主様を増やし、適切に保護ペットをつなぐ」循環を産み出すことで解決します。</p>
+      <a class="abtn" href="about.html">私たちについて詳しく <span class="abtn-arr"></span></a>
     </div>
-    <div class="about-deco reveal d2">
+    <div class="adeco rv d2">
       <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_389aab64-cc.webp"
            alt="" onerror="this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
     </div>
@@ -1004,39 +735,35 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 
 <!-- SERVICES -->
 <section id="services">
-
-  <div class="svc-wrap reveal">
-    <div class="svc-cr">
-      <div class="svc-icon">
-        <!-- HomeCarアイコン: スマートホーム -->
+  <div class="swrap rv">
+    <div class="scr">
+      <div class="sicon">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 10.5L12 3l9 7.5V20.5a.5.5 0 01-.5.5H15v-6H9v6H3.5a.5.5 0 01-.5-.5z"/>
-          <path d="M10.5 13.5 Q12 12.2 13.5 13.5"/>
+          <path d="M10.5 13.5Q12 12.2 13.5 13.5"/>
           <circle cx="12" cy="10.5" r="1.2" fill="var(--or)" stroke="none"/>
         </svg>
       </div>
-      <span class="svc-ct">ペットと家族が安心して過ごせる</span>
-      <span class="svc-cdeco"></span>
+      <span class="sct">ペットと家族が安心して過ごせる</span>
+      <span class="scdeco"></span>
     </div>
-    <div class="svc-nw"><span class="svc-n">01</span></div>
-    <div class="svc-card">
-      <div class="svc-cb">
-        <h2 class="svc-name">在宅ペットケアサービス<br>「にゃんほっとHome Care」</h2>
-        <p class="svc-desc">旅行中・勤務中でも安心・快適・便利に猫のケアが全自動でできるアイテムが揃う。猫ケア家電サブスクサービス「にゃんほっとHomeCare」</p>
-        <a class="svc-btn" href="https://connectpet.jp/homecare">詳しく見る<svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
+    <div class="snw"><span class="sn">01</span></div>
+    <div class="scard">
+      <div class="scb">
+        <h2 class="sname">在宅ペットケアサービス<br>「にゃんほっとHome Care」</h2>
+        <p class="sdesc">旅行中・勤務中でも安心・快適・便利に猫のケアが全自動でできるアイテムが揃う。猫ケア家電サブスクサービス「にゃんほっとHomeCare」</p>
+        <a class="sbtn" href="https://connectpet.jp/homecare">詳しく見る<svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
       </div>
-      <div class="svc-ci">
+      <div class="sci">
         <img src="images/images/_theme_front_assets_image_homecare_01.webp.webp"
              alt="にゃんほっとHomeCare"
-             onerror="this.onerror=null;this.src='images/images/_theme_front_assets_image_homecare_02.webp.webp';this.addEventListener('error',function(){this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6'})">
+             onerror="this.onerror=null;this.src='images/images/_theme_front_assets_image_homecare_02.webp.webp';this.addEventListener('error',()=>this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6')">
       </div>
     </div>
   </div>
-
-  <div class="svc-wrap reveal">
-    <div class="svc-cr">
-      <div class="svc-icon">
-        <!-- にゃんほっとアイコン: 肉球 -->
+  <div class="swrap rv">
+    <div class="scr">
+      <div class="sicon">
         <svg viewBox="0 0 28 28" fill="var(--or)">
           <ellipse cx="14" cy="20.5" rx="7" ry="5.5"/>
           <circle cx="7"  cy="12.5" r="2.8"/>
@@ -1045,91 +772,79 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
           <circle cx="21" cy="12.5" r="2.8"/>
         </svg>
       </div>
-      <span class="svc-ct">保護ペットと繋がれる</span>
-      <span class="svc-cdeco"></span>
+      <span class="sct">保護ペットと繋がれる</span>
+      <span class="scdeco"></span>
     </div>
-    <div class="svc-nw l"><span class="svc-n">02</span></div>
-    <div class="svc-card il">
-      <div class="svc-ci">
+    <div class="snw l"><span class="sn">02</span></div>
+    <div class="scard il">
+      <div class="sci">
         <img src="https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4"
-             alt="にゃんほっと 保護猫譲渡特化型施設"
-             onerror="this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x2160_v-frms_webp_925aa1e1-.webp'">
+             alt="にゃんほっと 保護猫譲渡特化型施設">
       </div>
-      <div class="svc-cb">
-        <h2 class="svc-name">保護猫譲渡特化型施設<br>「にゃんほっと」</h2>
-        <p class="svc-desc">最も殺処分数の多い猫の譲渡に特化した施設。ペットリリースの原因となる「お世話の負荷」を下げる猫ケア家電の体験ショールームを併設。</p>
-        <a class="svc-btn" href="https://connectpet.jp/carestore">詳しく見る<svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
+      <div class="scb">
+        <h2 class="sname">保護猫譲渡特化型施設<br>「にゃんほっと」</h2>
+        <p class="sdesc">最も殺処分数の多い猫の譲渡に特化した施設。ペットリリースの原因となる「お世話の負荷」を下げる猫ケア家電の体験ショールームを併設。</p>
+        <a class="sbtn" href="https://connectpet.jp/carestore">詳しく見る<svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
       </div>
     </div>
   </div>
-
 </section>
 
 <!-- TEAM -->
 <section id="team">
-  <div class="team-in">
-    <div class="reveal">
-      <div class="team-hdlbl">OUR TEAM</div>
-      <h2 class="team-h2">メンバー紹介</h2>
+  <div class="tin">
+    <div class="rv">
+      <div class="lbl lbl-c">OUR TEAM</div>
+      <h2 class="th2">メンバー紹介</h2>
     </div>
-    <div class="team-cards">
-      <div class="tcard reveal d1">
-        <div class="tcard-ph">
+    <div class="tcards">
+      <div class="tcard rv d1">
+        <div class="tph">
           <img src="images/images/_studio-design-asset-files_projects_nBW2APpeav_s-946x1034_v-fs_webp_b80dcd69-b74.webp"
                alt="三浦朋之 代表取締役/CEO"
-               onerror="this.onerror=null;this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1280x1280_v-fms_webp_0db1ee58-e.webp';this.addEventListener('error',function(){this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'})">
+               onerror="this.onerror=null;this.src='images/images/_studio-design-asset-files_projects_nBW2APpeav_s-1280x1280_v-fms_webp_0db1ee58-e.webp';this.addEventListener('error',()=>this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4')">
         </div>
-        <div class="tcard-info">
-          <p class="tcard-name">三浦 朋之</p>
-          <p class="tcard-role">代表取締役 / CEO</p>
+        <div class="tinfo">
+          <p class="tname">三浦 朋之</p>
+          <p class="trole">代表取締役 / CEO</p>
         </div>
       </div>
     </div>
-    <a class="team-link reveal d2" href="https://connectpet.jp/team" target="_blank" rel="noopener">
-      メンバー詳細 <span class="tlarr"></span>
-    </a>
+    <a class="al rv d2" href="https://connectpet.jp/team" target="_blank" rel="noopener">メンバー詳細 <span class="al-arr"></span></a>
   </div>
 </section>
 
 <!-- POLICY -->
 <section id="policy">
   <div class="sw">
-    <div class="pol-head reveal">
-      <div class="pol-lbl">OUR POLICY</div>
-      <h2 class="pol-h2">私たちのポリシー</h2>
-      <p class="pol-intro">私たちは企業活動を通じて、ステークホルダーの皆様、それぞれの立場の方々に貢献するポリシーを保有しています。</p>
+    <div class="phead rv">
+      <div class="lbl">OUR POLICY</div>
+      <h2 class="ph2">私たちのポリシー</h2>
+      <p class="pintro">私たちは企業活動を通じて、ステークホルダーの皆様、それぞれの立場の方々に貢献するポリシーを保有しています。</p>
     </div>
-    <div class="pol-grid">
-      <div class="pol-card">
-        <p class="pol-no">01</p>
-        <p class="pol-tag">POLICY FOR PET</p>
-        <p class="pol-tag-ja">ペットに対するポリシー</p>
-        <h3 class="pol-title">フレンドリーカスタマイズ</h3>
-        <p class="pol-body">人間と同じようにペットも、十匹十色。性格も状況も異なります。一つの価値感によらず、それぞれにあったフレンドリー（親しみ）をカスタマイズし、安心を追求します。</p>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="pno">01</p><p class="ptag">POLICY FOR PET</p><p class="ptag-ja">ペットに対するポリシー</p>
+        <h3 class="ptitle">フレンドリーカスタマイズ</h3>
+        <p class="pbody">人間と同じようにペットも、十匹十色。性格も状況も異なります。一つの価値感によらず、それぞれにあったフレンドリー（親しみ）をカスタマイズし、安心を追求します。</p>
       </div>
-      <div class="pol-card">
-        <p class="pol-no">02</p>
-        <p class="pol-tag">POLICY FOR OWNER</p>
-        <p class="pol-tag-ja">飼い主（オーナー）に対するポリシー</p>
-        <h3 class="pol-title">ペットと飼い主にとって、最適な選択肢を数多く提示する</h3>
-        <p class="pol-body">多様な家族・ペットの状況にあった安心の移動の選択肢を常に探求すると共に、一つの選択肢に偏らない、最適な提案を開発し続けます。</p>
+      <div class="pcard">
+        <p class="pno">02</p><p class="ptag">POLICY FOR OWNER</p><p class="ptag-ja">飼い主（オーナー）に対するポリシー</p>
+        <h3 class="ptitle">ペットと飼い主にとって、最適な選択肢を数多く提示する</h3>
+        <p class="pbody">多様な家族・ペットの状況にあった安心の移動の選択肢を常に探求すると共に、一つの選択肢に偏らない、最適な提案を開発し続けます。</p>
       </div>
-      <div class="pol-card">
-        <p class="pol-no">03</p>
-        <p class="pol-tag">POLICY FOR WORKER</p>
-        <p class="pol-tag-ja">アニマルワーカーに対するポリシー</p>
-        <h3 class="pol-title">アニマルファーストを貫ける環境を</h3>
-        <p class="pol-body">弊社では、動物に向き合うアニマルワーカーの方にとって「アニマルファースト」の仕事環境の整備を追求し、その環境に集中できる仕組みづくりを経営陣・ビジネススタッフのミッションと定義し、取り組んでまいります。</p>
+      <div class="pcard">
+        <p class="pno">03</p><p class="ptag">POLICY FOR WORKER</p><p class="ptag-ja">アニマルワーカーに対するポリシー</p>
+        <h3 class="ptitle">アニマルファーストを貫ける環境を</h3>
+        <p class="pbody">弊社では、動物に向き合うアニマルワーカーの方にとって「アニマルファースト」の仕事環境の整備を追求し、その環境に集中できる仕組みづくりを経営陣・ビジネススタッフのミッションと定義し、取り組んでまいります。</p>
       </div>
-      <div class="pol-card">
-        <p class="pol-no">04</p>
-        <p class="pol-tag">POLICY FOR SOCIETY</p>
-        <p class="pol-tag-ja">社会に対するポリシー</p>
-        <h3 class="pol-title">ソーシャルバリューを追求する</h3>
-        <p class="pol-body">事業活動で構築する様々なサービス・インフラを通じて、私たちは以下の２つのソーシャルバリューを追求します。</p>
-        <div class="pol-sub">
-          <div class="pol-sub-item">持続可能な殺処分減少</div>
-          <div class="pol-sub-item">多様なペットに対する価値観をフラットに扱える文化創造</div>
+      <div class="pcard">
+        <p class="pno">04</p><p class="ptag">POLICY FOR SOCIETY</p><p class="ptag-ja">社会に対するポリシー</p>
+        <h3 class="ptitle">ソーシャルバリューを追求する</h3>
+        <p class="pbody">事業活動で構築する様々なサービス・インフラを通じて、私たちは以下の２つのソーシャルバリューを追求します。</p>
+        <div class="psub">
+          <div class="psub-item">持続可能な殺処分減少</div>
+          <div class="psub-item">多様なペットに対する価値観をフラットに扱える文化創造</div>
         </div>
       </div>
     </div>
@@ -1138,12 +853,12 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 
 <!-- COMPANY -->
 <section id="company">
-  <div class="co-in">
-    <div class="reveal">
-      <div class="co-hdlbl">COMPANY</div>
-      <h2 class="co-h2">会社概要</h2>
+  <div class="coin">
+    <div class="rv">
+      <div class="lbl lbl-c">COMPANY</div>
+      <h2 class="coh2">会社概要</h2>
     </div>
-    <table class="co-table reveal d1">
+    <table class="cotbl rv d1">
       <tr><th>社名</th><td>株式会社 Connect Pet</td></tr>
       <tr><th>事業内容</th><td>インターネット関連サービス、保護猫譲渡施設運営</td></tr>
       <tr><th>設立</th><td>2023年9月29日</td></tr>
@@ -1156,239 +871,104 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="ct-in">
-    <p class="ct-lbl reveal">CONTACT</p>
-    <h2 class="ct-h2 reveal d1">お問い合わせ</h2>
-    <p class="ct-body reveal d2">お問い合わせはフォームより受け付けております。</p>
-    <a class="ct-btn reveal d3" href="https://connectpet.jp/contact" target="_blank" rel="noopener">お問い合わせフォーム</a>
+  <div class="ctin">
+    <p class="ctlbl rv">CONTACT</p>
+    <h2 class="cth2 rv d1">お問い合わせ</h2>
+    <p class="ctbody rv d2">お問い合わせはフォームより受け付けております。</p>
+    <a class="ctbtn rv d3" href="https://connectpet.jp/contact" target="_blank" rel="noopener">お問い合わせフォーム</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="ft-in">
-    <div class="ft-top">
+  <div class="ftin">
+    <div class="fttop">
       <div>
-        <div class="ft-logo">
+        <div class="ftlogo">
           <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-182x24_a46f2d0e-8ed1-4088-b5a2-.svg"
-               alt="CONNECT PET"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-          <span class="ft-logo-fb" style="display:none">CONNECT <em>PET</em></span>
+               alt="CONNECT PET" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="ftlogo-fb" style="display:none">CONNECT <em>PET</em></span>
         </div>
-        <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
-        <div class="ft-sns">
-          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
-            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
+        <p class="fttag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
+        <div class="ftsns">
+          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram">
             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
         </div>
       </div>
-      <div class="ft-col"><h4>Pages</h4><ul>
-        <li><a href="#top">Top</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#services">Service</a></li>
-        <li><a href="#team">Our Team</a></li>
-        <li><a href="#policy">Our Policy</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="contact.html">Contact</a></li>
+      <div class="ftcol"><h4>Pages</h4><ul>
+        <li><a href="#top">トップ</a></li><li><a href="#about">私たちについて</a></li>
+        <li><a href="#services">サービス</a></li><li><a href="#team">チーム紹介</a></li>
+        <li><a href="#policy">ポリシー</a></li><li><a href="#news">ニュース</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
       </ul></div>
-      <div class="ft-col"><h4>Service</h4><ul>
+      <div class="ftcol"><h4>Service</h4><ul>
         <li><a href="homecare.html">在宅ペットケアサービス<br>「にゃんほっとHome Care」</a></li>
         <li style="margin-top:10px"><a href="carestore.html">保護猫譲渡特化型施設<br>「にゃんほっと」</a></li>
       </ul></div>
-      <div class="ft-col"><h4>Legal</h4><ul>
+      <div class="ftcol"><h4>Legal</h4><ul>
         <li><a href="legal.html">特定商取引法</a></li>
         <li><a href="privacy.html">プライバシーポリシー</a></li>
+        <li><a href="mailto:info@connectpet.jp">info@connectpet.jp</a></li>
       </ul></div>
     </div>
-    <div class="ft-bot">
+    <div class="ftbot">
       <span>&copy; CONNECT PET, Inc</span>
-      <div class="ft-bot-r">
-        <a href="legal.html">特定商取引法</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-      </div>
+      <div class="ftbot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
     </div>
   </div>
 </footer>
 
-<!-- ━━━ SCRIPTS — 最適化版 ━━━ -->
+<!-- ━━━ SCRIPTS ━━━ -->
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   LENIS — 正しいセットアップ
-   ★ gsap.tickerのみ使用
-     requestAnimationFrameループは使わない
-     (二重呼び出しがギクシャクの原因だった)
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-const lenis = new Lenis({
-  duration: 1.15,
-  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smoothWheel: true,
-  wheelMultiplier: 1,
-  touchMultiplier: 2,
-});
+/* LENIS — gsap.tickerのみ (二重呼び出しなし) */
+const lenis=new Lenis({duration:1.15,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true,wheelMultiplier:1,touchMultiplier:2});
 gsap.registerPlugin(ScrollTrigger);
-/* ★ gsap.ticker経由でLenisを駆動 (1回のみ) */
-gsap.ticker.add(time => lenis.raf(time * 1000));
+gsap.ticker.add(time=>lenis.raf(time*1000));
 gsap.ticker.lagSmoothing(0);
-lenis.on('scroll', ScrollTrigger.update);
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   CURSOR — RAF使用
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-const cur = document.getElementById('cur');
-const cur2 = document.getElementById('cur2');
-let mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-(function curLoop(){
-  cur.style.left  = mx + 'px'; cur.style.top  = my + 'px';
-  rx += (mx - rx) * .16; ry += (my - ry) * .16;
-  cur2.style.left = rx + 'px'; cur2.style.top = ry + 'px';
-  requestAnimationFrame(curLoop);
-})();
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   NAV
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-const nav = document.getElementById('nav');
-lenis.on('scroll', ({ scroll }) => nav.classList.toggle('sc', scroll > 80));
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   MENU + CAT RUNNER
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-const mb   = document.getElementById('mb');
-const menu = document.getElementById('menu');
-const catr = document.getElementById('catr');
-let mo = false;
-
-function updateMenuOrigin(){
-  const r = mb.getBoundingClientRect();
-  const x = r.left + r.width  / 2;
-  const y = r.top  + r.height / 2;
-  document.documentElement.style.setProperty('--mox', x + 'px');
-  document.documentElement.style.setProperty('--moy', y + 'px');
-}
-function openMenu(){
-  updateMenuOrigin();
-  mo = true;
-  catr.classList.remove('go'); void catr.offsetWidth;
-  catr.classList.add('go'); catr.style.opacity = '1';
-  catr.addEventListener('animationend', function cb(){
-    catr.removeEventListener('animationend', cb);
-    catr.style.opacity = '0'; catr.classList.remove('go');
-  });
-  setTimeout(() => menu.classList.add('open'), 130);
-  mb.classList.add('x');
-  lenis.stop();
-}
-function closeMenu(){
-  mo = false;
-  menu.classList.remove('open');
-  mb.classList.remove('x');
-  lenis.start();
-}
-mb.addEventListener('click', () => mo ? closeMenu() : openMenu());
-window.addEventListener('keydown', e => { if(e.key === 'Escape' && mo) closeMenu(); });
-document.querySelectorAll('.mlink').forEach(a => a.addEventListener('click', closeMenu));
-document.getElementById('mbg').addEventListener('click', closeMenu);
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   HERO SLIDESHOW
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-const slides = document.querySelectorAll('.hslide');
-const dots   = document.querySelectorAll('.hdot');
-let cur3 = 0;
-function nextSlide(){
-  slides[cur3].classList.remove('on'); dots[cur3].classList.remove('on');
-  cur3 = (cur3 + 1) % slides.length;
-  slides[cur3].classList.add('on'); dots[cur3].classList.add('on');
-}
-setInterval(nextSlide, 5500);
-dots.forEach((d, i) => d.addEventListener('click', () => {
-  slides[cur3].classList.remove('on'); dots[cur3].classList.remove('on');
-  cur3 = i; slides[cur3].classList.add('on'); dots[cur3].classList.add('on');
-}));
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   ABOUT PARALLAX (軽量 scrub)
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-gsap.to('#aboutBg', {
-  yPercent: -18, ease: 'none',
-  scrollTrigger: {
-    trigger: '#about',
-    start: 'top bottom', end: 'bottom top',
-    scrub: 1.5, /* smoothed scrub */
-  }
-});
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   SERVICE IMAGES — subtle parallax
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-document.querySelectorAll('.svc-ci').forEach(col => {
-  const img = col.querySelector('img');
-  if(!img) return;
-  gsap.to(img, {
-    yPercent: -6, ease: 'none',
-    scrollTrigger: {
-      trigger: col,
-      start: 'top bottom', end: 'bottom top',
-      scrub: 1.5,
-    }
-  });
-});
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   SCROLL REVEAL — IntersectionObserver
-   (GSAPのScrollTriggerより軽い)
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-const revealObserver = new IntersectionObserver(
-  entries => {
-    entries.forEach(e => {
-      if(e.isIntersecting){
-        e.target.classList.add('vis');
-        revealObserver.unobserve(e.target); /* 一度だけ */
-      }
-    });
-  },
-  { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
-);
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-/* Policy cards — re-use same observer */
-document.querySelectorAll('.pol-card').forEach(el => revealObserver.observe(el));
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   TICKER — CSS pause on hover
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-const tw = document.getElementById('tw');
-tw.addEventListener('mouseenter', () => tw.style.animationPlayState = 'paused');
-tw.addEventListener('mouseleave', () => tw.style.animationPlayState = 'running');
-
-window.addEventListener('resize', updateMenuOrigin);
-updateMenuOrigin();/* 初期化 */
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━
-   ANCHOR SMOOTH SCROLL
-━━━━━━━━━━━━━━━━━━━━━━━━ */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const id = a.getAttribute('href').slice(1);
-    const target = document.getElementById(id);
-    if(target){
-      e.preventDefault();
-      const wasOpen = mo;
-      if(mo) closeMenu();
-      setTimeout(
-        () => lenis.scrollTo(target, { offset: -80, duration: 1.1 }),
-        wasOpen ? 440 : 0
-      );
-    }
-  });
-});
+lenis.on('scroll',ScrollTrigger.update);
+/* CURSOR */
+const c1=document.getElementById('c1'),c2=document.getElementById('c2');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function loop(){c1.style.cssText=`left:${mx}px;top:${my}px`;rx+=(mx-rx)*.17;ry+=(my-ry)*.17;c2.style.cssText=`left:${rx}px;top:${ry}px`;requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>c2.classList.add('on'));el.addEventListener('mouseleave',()=>c2.classList.remove('on'))});
+/* NAV */
+const nav=document.getElementById('nav');
+lenis.on('scroll',({scroll})=>nav.classList.toggle('sc',scroll>80));
+/* MENU */
+const mb=document.getElementById('mb'),menu=document.getElementById('menu'),catr=document.getElementById('catr');
+let mo=false;
+function origin(){const r=mb.getBoundingClientRect();document.documentElement.style.setProperty('--mox',r.left+r.width/2+'px');document.documentElement.style.setProperty('--moy',r.top+r.height/2+'px')}
+function openMenu(){origin();mo=true;catr.classList.remove('go');void catr.offsetWidth;catr.classList.add('go');catr.style.opacity='1';catr.addEventListener('animationend',function cb(){catr.removeEventListener('animationend',cb);catr.style.opacity='0';catr.classList.remove('go')});setTimeout(()=>menu.classList.add('open'),130);mb.classList.add('x');lenis.stop()}
+function closeMenu(){mo=false;menu.classList.remove('open');mb.classList.remove('x');lenis.start()}
+mb.addEventListener('click',()=>mo?closeMenu():openMenu());
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&mo)closeMenu()});
+document.querySelectorAll('.mlink').forEach(a=>a.addEventListener('click',closeMenu));
+document.getElementById('mbg').addEventListener('click',closeMenu);
+window.addEventListener('resize',origin);origin();
+/* HERO */
+const hs=document.querySelectorAll('.hs'),dots=document.querySelectorAll('.hdot');
+let ci=0;
+function nextSlide(){hs[ci].classList.remove('on');dots[ci].classList.remove('on');ci=(ci+1)%hs.length;hs[ci].classList.add('on');dots[ci].classList.add('on')}
+setInterval(nextSlide,5500);
+dots.forEach((d,i)=>d.addEventListener('click',()=>{hs[ci].classList.remove('on');dots[ci].classList.remove('on');ci=i;hs[ci].classList.add('on');dots[ci].classList.add('on')}));
+/* ABOUT PARALLAX */
+gsap.to('#abg',{yPercent:-18,ease:'none',scrollTrigger:{trigger:'#about',start:'top bottom',end:'bottom top',scrub:1.5}});
+/* SERVICE PARALLAX */
+document.querySelectorAll('.sci').forEach(col=>{const img=col.querySelector('img');if(!img)return;gsap.to(img,{yPercent:-6,ease:'none',scrollTrigger:{trigger:col,start:'top bottom',end:'bottom top',scrub:1.5}})});
+/* SCROLL REVEAL */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{threshold:.07,rootMargin:'0px 0px -28px 0px'});
+document.querySelectorAll('.rv,.pcard').forEach(el=>io.observe(el));
+/* TICKER */
+const tw=document.getElementById('tw');
+tw.addEventListener('mouseenter',()=>tw.style.animationPlayState='paused');
+tw.addEventListener('mouseleave',()=>tw.style.animationPlayState='running');
+/* ANCHOR */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.getElementById(a.getAttribute('href').slice(1));if(t){e.preventDefault();const w=mo;if(mo)closeMenu();setTimeout(()=>lenis.scrollTo(t,{offset:-80,duration:1.1}),w?440:0)}})});
 </script>
 </body>
 </html>
