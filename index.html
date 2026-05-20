@@ -150,11 +150,11 @@ body:has(a:hover) #cur2,body:has(button:hover) #cur2{
 #menu{position:fixed;inset:0;z-index:450;pointer-events:none}
 #mbg{
   position:absolute;inset:0;background:#06080d;
-  clip-path:circle(0% at calc(100% - 74px) 40px);
+  clip-path:circle(0% at var(--mox,calc(100% - 74px)) var(--moy,40px));
   transition:clip-path .72s var(--e2);
 }
 #menu.open{pointer-events:all}
-#menu.open #mbg{clip-path:circle(160% at calc(100% - 74px) 40px)}
+#menu.open #mbg{clip-path:circle(160% at var(--mox,calc(100% - 74px)) var(--moy,40px))}
 /* cat bg photo in menu */
 #mcbg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 #mcbg img{
@@ -832,12 +832,12 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     <span class="nlogo-fb" style="display:none">CONNECT <em>PET</em></span>
   </a>
   <ul class="nl">
-    <li><a href="#about">About Us</a></li>
-    <li><a href="#services">Service</a></li>
-    <li><a href="#team">Our Team</a></li>
-    <li><a href="#policy">Our Policy</a></li>
-    <li><a href="#news">News</a></li>
-    <li><a href="contact.html">Contact</a></li>
+    <li><a href="#about">私たちについて</a></li>
+    <li><a href="#services">サービス</a></li>
+    <li><a href="#team">チーム</a></li>
+    <li><a href="#policy">ポリシー</a></li>
+    <li><a href="#news">ニュース</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
   </ul>
   <button id="mb" aria-label="メニュー"><span></span><span></span><span></span></button>
 </nav>
@@ -892,11 +892,11 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 
   <div class="hov"></div>
 
-  <!-- 左寄せ・煙のようにふわっと出現 -->
+  <!-- 左寄せ・煙のようにふわっと出現・常に2行 -->
   <div class="hleft">
     <h1 class="hh1">
-      <span class="hw">ペットの殺処分ゼロを</span>
-      <span class="hw l2">ビジネスで実現し続ける。</span>
+      <span class="hw" style="display:block">ペットの殺処分ゼロを</span>
+      <span class="hw l2" style="display:block">ビジネスで実現し続ける。</span>
     </h1>
   </div>
 
@@ -1265,7 +1265,15 @@ const menu = document.getElementById('menu');
 const catr = document.getElementById('catr');
 let mo = false;
 
+function updateMenuOrigin(){
+  const r = mb.getBoundingClientRect();
+  const x = r.left + r.width  / 2;
+  const y = r.top  + r.height / 2;
+  document.documentElement.style.setProperty('--mox', x + 'px');
+  document.documentElement.style.setProperty('--moy', y + 'px');
+}
 function openMenu(){
+  updateMenuOrigin();
   mo = true;
   catr.classList.remove('go'); void catr.offsetWidth;
   catr.classList.add('go'); catr.style.opacity = '1';
@@ -1359,6 +1367,9 @@ document.querySelectorAll('.pol-card').forEach(el => revealObserver.observe(el))
 const tw = document.getElementById('tw');
 tw.addEventListener('mouseenter', () => tw.style.animationPlayState = 'paused');
 tw.addEventListener('mouseleave', () => tw.style.animationPlayState = 'running');
+
+window.addEventListener('resize', updateMenuOrigin);
+updateMenuOrigin();/* 初期化 */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━
    ANCHOR SMOOTH SCROLL
