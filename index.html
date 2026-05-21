@@ -398,34 +398,31 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 .sicon-img img{width:100%;height:100%;object-fit:cover}
 @keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 
-/* ━━━ POLICY — 読みやすく縦積み ━━━ */
-.pgrid{display:flex;flex-direction:column;gap:2px}
+/* ━━━ POLICY — 2カラムカードグリッド ━━━ */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .pcard{
-  background:var(--w);padding:36px 48px;
-  position:relative;display:grid;grid-template-columns:280px 1fr;gap:40px;
-  align-items:start;
-  box-shadow:none;border-bottom:1px solid var(--ln);border-radius:0;
-  opacity:0;transform:translateX(-20px);
-  transition:opacity .6s var(--e3),transform .6s var(--e3),background .3s;
+  background:var(--w);border-radius:14px;padding:36px 32px;
+  position:relative;overflow:hidden;
+  box-shadow:0 2px 16px rgba(27,33,56,.05);
+  opacity:0;transform:translateY(16px);
+  transition:opacity .65s var(--e3),transform .65s var(--e3),background .3s,box-shadow .3s;
 }
-.pcard:first-child{border-radius:14px 14px 0 0}
-.pcard:last-child{border-radius:0 0 14px 14px;border-bottom:none}
-.pcard:hover{background:var(--olt)!important}
-.pcard.vis{opacity:1;transform:translateX(0)}
+.pcard:hover{background:var(--olt);box-shadow:0 6px 28px rgba(27,33,56,.09)}
+.pcard.vis{opacity:1;transform:translateY(0)}
 .pcard:nth-child(2){transition-delay:.08s}
 .pcard:nth-child(3){transition-delay:.16s}
 .pcard:nth-child(4){transition-delay:.24s}
-.pcard::before{display:none}/* remove old top bar */
-.pcard-left{display:flex;flex-direction:column;gap:6px;padding-top:4px}
-.pno-tag{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.pno-badge{
-  width:34px;height:34px;border-radius:50%;
-  background:var(--or);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--M);font-size:10px;font-weight:400;letter-spacing:.06em;
-  flex-shrink:0;
-}
-.pno{display:none}/* hide old no style */
+/* top color bar */
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--or)}
+.pno{font-family:var(--M);font-size:11px;letter-spacing:.2em;color:rgba(255,140,66,.5);margin-bottom:10px}
+.ptag{font-family:var(--M);font-size:9px;letter-spacing:.18em;color:var(--or);text-transform:uppercase;margin-bottom:3px}
+.ptag-ja{font-size:11.5px;color:var(--sil);letter-spacing:.08em;margin-bottom:16px}
+.ptitle{font-family:var(--S);font-size:18px;font-weight:700;color:var(--ink);line-height:1.55;margin-bottom:10px}
+.pbody{font-size:13.5px;line-height:2.05;color:var(--ink2)}
+/* sub items (policy 04) */
+.psub{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.psub-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);line-height:1.7}
+.psub-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--or);flex-shrink:0;margin-top:7px}
 
 /* ━━━ COMPANY TABLE CENTER ━━━ */
 .coin{max-width:1240px;margin:0 auto;padding:0 56px;display:flex;flex-direction:column;align-items:center}
@@ -804,27 +801,20 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
   </div>
   <div class="swrap rv">
     <div class="scr">
-      <!-- にゃんほっとロゴ: Image1の猫ハウス型オレンジアイコンを再現 -->
-      <div class="sicon" style="background:rgba(255,140,66,.1)">
-        <svg viewBox="0 0 44 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- 猫耳 left -->
+      <!-- にゃんほっとアイコン: サイト実物SVGを使用 -->
+      <div class="sicon" style="background:rgba(255,140,66,.1);overflow:hidden">
+        <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-120x120_58c1bde3-75dc-441a-b82e.svg"
+             alt="にゃんほっと" style="width:36px;height:36px;object-fit:contain"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <svg viewBox="0 0 44 46" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
           <path d="M8 20 L5 6 L16 14 Z" fill="var(--or)"/>
-          <!-- 猫耳 right -->
           <path d="M36 20 L39 6 L28 14 Z" fill="var(--or)"/>
-          <!-- 顔 -->
           <circle cx="22" cy="28" r="14" fill="none" stroke="var(--or)" stroke-width="2.5"/>
-          <!-- 目 left -->
           <ellipse cx="16.5" cy="26" rx="2" ry="2.2" fill="var(--or)"/>
-          <!-- 目 right -->
           <ellipse cx="27.5" cy="26" rx="2" ry="2.2" fill="var(--or)"/>
-          <!-- 鼻 -->
           <path d="M20.5 30 L22 28.5 L23.5 30 L22 31.5 Z" fill="var(--or)"/>
-          <!-- ひげ left -->
           <line x1="6" y1="30" x2="17" y2="31" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
-          <line x1="7" y1="33" x2="17" y2="33" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
-          <!-- ひげ right -->
           <line x1="27" y1="31" x2="38" y2="30" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
-          <line x1="27" y1="33" x2="37" y2="33" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
       </div>
       <span class="sct">保護ペットと繋がれる</span>
@@ -833,8 +823,9 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     <div class="snw l"><span class="sn">02</span></div>
     <div class="scard il">
       <div class="sci">
-        <img src="https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4"
-             alt="にゃんほっと 保護猫譲渡特化型施設">
+        <img src="images/_theme_front_assets_image_E3_81_AB_E3_82_83_E3_82_93_E3_81_BB_E3_81_A3_E3_81_A8_.jpg"
+             alt="にゃんほっと 保護猫譲渡特化型施設"
+             onerror="this.onerror=null;this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x2160_v-frms_webp_925aa1e1-.webp';this.addEventListener('error',()=>this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4')">
       </div>
       <div class="scb">
         <h2 class="sname">保護猫譲渡特化型施設<br>「にゃんほっと」</h2>
@@ -855,7 +846,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     <div class="tcards">
       <div class="tcard rv d1">
         <div class="tph">
-          <img src="images/_theme_front_assets_image_m01.jpg.jpg"
+          <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-946x1034_v-fs_webp_b80dcd69-b74.webp"
                alt="三浦朋之 代表取締役/CEO"
                onerror="this.onerror=null;this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
         </div>
@@ -879,51 +870,35 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     </div>
     <div class="pgrid">
       <div class="pcard">
-        <div class="pcard-left">
-          <div class="pno-tag"><div class="pno-badge">01</div></div>
-          <p class="ptag">POLICY FOR PET</p>
-          <p class="ptag-ja">ペットに対するポリシー</p>
-        </div>
-        <div>
-          <h3 class="ptitle">フレンドリーカスタマイズ</h3>
-          <p class="pbody">人間と同じようにペットも、十匹十色。性格も状況も異なります。一つの価値感によらず、それぞれにあったフレンドリー（親しみ）をカスタマイズし、安心を追求します。</p>
-        </div>
+        <p class="pno">01</p>
+        <p class="ptag">POLICY FOR PET</p>
+        <p class="ptag-ja">ペットに対するポリシー</p>
+        <h3 class="ptitle">フレンドリーカスタマイズ</h3>
+        <p class="pbody">人間と同じようにペットも、十匹十色。性格も状況も異なります。一つの価値感によらず、それぞれにあったフレンドリー（親しみ）をカスタマイズし、安心を追求します。</p>
       </div>
       <div class="pcard">
-        <div class="pcard-left">
-          <div class="pno-tag"><div class="pno-badge">02</div></div>
-          <p class="ptag">POLICY FOR OWNER</p>
-          <p class="ptag-ja">飼い主（オーナー）に対するポリシー</p>
-        </div>
-        <div>
-          <h3 class="ptitle">ペットと飼い主にとって、最適な選択肢を数多く提示する</h3>
-          <p class="pbody">多様な家族・ペットの状況にあった安心の移動の選択肢を常に探求すると共に、一つの選択肢に偏らない、最適な提案を開発し続けます。</p>
-        </div>
+        <p class="pno">02</p>
+        <p class="ptag">POLICY FOR OWNER</p>
+        <p class="ptag-ja">飼い主（オーナー）に対するポリシー</p>
+        <h3 class="ptitle">ペットと飼い主にとって、最適な選択肢を数多く提示する</h3>
+        <p class="pbody">多様な家族・ペットの状況にあった安心の移動の選択肢を常に探求すると共に、一つの選択肢に偏らない、最適な提案を開発し続けます。</p>
       </div>
       <div class="pcard">
-        <div class="pcard-left">
-          <div class="pno-tag"><div class="pno-badge">03</div></div>
-          <p class="ptag">POLICY FOR WORKER</p>
-          <p class="ptag-ja">アニマルワーカーに対するポリシー</p>
-        </div>
-        <div>
-          <h3 class="ptitle">アニマルファーストを貫ける環境を</h3>
-          <p class="pbody">弊社では、動物に向き合うアニマルワーカーの方にとって「アニマルファースト」の仕事環境の整備を追求し、その環境に集中できる仕組みづくりを経営陣・ビジネススタッフのミッションと定義し、取り組んでまいります。</p>
-        </div>
+        <p class="pno">03</p>
+        <p class="ptag">POLICY FOR WORKER</p>
+        <p class="ptag-ja">アニマルワーカーに対するポリシー</p>
+        <h3 class="ptitle">アニマルファーストを貫ける環境を</h3>
+        <p class="pbody">弊社では、動物に向き合うアニマルワーカーの方にとって「アニマルファースト」の仕事環境の整備を追求し、その環境に集中できる仕組みづくりを経営陣・ビジネススタッフのミッションと定義し、取り組んでまいります。</p>
       </div>
       <div class="pcard">
-        <div class="pcard-left">
-          <div class="pno-tag"><div class="pno-badge">04</div></div>
-          <p class="ptag">POLICY FOR SOCIETY</p>
-          <p class="ptag-ja">社会に対するポリシー</p>
-        </div>
-        <div>
-          <h3 class="ptitle">ソーシャルバリューを追求する</h3>
-          <p class="pbody">事業活動で構築する様々なサービス・インフラを通じて、私たちは以下の２つのソーシャルバリューを追求します。</p>
-          <div class="psub">
-            <div class="psub-item">持続可能な殺処分減少</div>
-            <div class="psub-item">多様なペットに対する価値観をフラットに扱える文化創造</div>
-          </div>
+        <p class="pno">04</p>
+        <p class="ptag">POLICY FOR SOCIETY</p>
+        <p class="ptag-ja">社会に対するポリシー</p>
+        <h3 class="ptitle">ソーシャルバリューを追求する</h3>
+        <p class="pbody">事業活動で構築する様々なサービス・インフラを通じて、私たちは以下の２つのソーシャルバリューを追求します。</p>
+        <div class="psub">
+          <div class="psub-item">持続可能な殺処分減少</div>
+          <div class="psub-item">多様なペットに対する価値観をフラットに扱える文化創造</div>
         </div>
       </div>
     </div>
