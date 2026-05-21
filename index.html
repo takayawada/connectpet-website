@@ -91,7 +91,7 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 .nlogo{display:flex;align-items:center}
 .nlogo img{height:26px;width:auto;
   filter:brightness(0) invert(1);transition:filter .42s}
-#nav.sc .nlogo img{filter:brightness(0)}
+#nav.sc .nlogo img{filter:none}
 .nlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;
   color:#fff;letter-spacing:.06em;transition:color .42s}
 .nlogo-fb em{color:var(--or);font-style:normal}
@@ -129,21 +129,14 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #menu{position:fixed;inset:0;z-index:550;pointer-events:none}
 #mbg{
-  position:absolute;inset:0;background:#050810;
+  position:absolute;inset:0;background:#fff;
   clip-path:circle(0% at var(--mox,calc(100% - 74px)) var(--moy,40px));
   transition:clip-path .72s var(--e2);
 }
 #menu.open{pointer-events:all}
 #menu.open #mbg{clip-path:circle(160% at var(--mox) var(--moy))}
-/* cat bg photo */
-#mcbg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-#mcbg img{
-  position:absolute;right:-4%;bottom:0;height:80%;
-  object-fit:contain;opacity:0;
-  filter:brightness(.4) saturate(.4);
-  transition:opacity .7s .44s;
-}
-#menu.open #mcbg img{opacity:.1}
+/* cat bg: 非表示 */
+#mcbg{display:none}
 /* CENTERED menu */
 #mwrap{
   position:relative;z-index:2;height:100dvh;
@@ -157,11 +150,11 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 }
 .mlink-en{
   font-family:var(--S);font-size:clamp(22px,3.8vw,50px);
-  font-weight:700;color:rgba(255,255,255,.82);letter-spacing:.03em;line-height:1;transition:color .3s;
+  font-weight:700;color:var(--or);letter-spacing:.03em;line-height:1;transition:color .3s;
 }
-.mlink-ja{font-size:11px;color:rgba(255,255,255,.26);letter-spacing:.14em;transition:color .3s}
-.mlink:hover .mlink-en{color:var(--or)}
-.mlink:hover .mlink-ja{color:rgba(255,140,66,.5)}
+.mlink-ja{font-size:11px;color:rgba(27,33,56,.38);letter-spacing:.14em;transition:color .3s}
+.mlink:hover .mlink-en{color:var(--or2)}
+.mlink:hover .mlink-ja{color:var(--or)}
 #menu.open .mlink{animation:mslide .4s var(--e1) forwards}
 #menu.open .mlink:nth-child(1){animation-delay:.05s}
 #menu.open .mlink:nth-child(2){animation-delay:.1s}
@@ -178,8 +171,8 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 }
 #menu.open .mfooter{opacity:1;transform:translateY(0)}
 .mfoot-row{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
-.mfoot-row a{font-size:11px;color:rgba(255,255,255,.2);letter-spacing:.06em;transition:color .3s}
-.mfoot-row a:hover{color:rgba(255,140,66,.65)}
+.mfoot-row a{font-size:11px;color:rgba(27,33,56,.3);letter-spacing:.06em;transition:color .3s}
+.mfoot-row a:hover{color:var(--or)}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    HERO
@@ -316,6 +309,8 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 }
 .ntr:hover{animation-play-state:paused}
 @keyframes nscroll{to{transform:translateX(-50%)}}
+/* スマホ: カード幅が広い分、遅くする */
+@media(max-width:640px){.ntr{animation-duration:44s}}
 .nc{
   flex:0 0 278px;background:var(--w);border-radius:14px;overflow:hidden;
   display:flex;flex-direction:column;
@@ -595,15 +590,29 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 @media(max-width:640px){
   #nav,#nav.sc{padding:14px 20px}
   .hleft{left:20px}
-  .hh1{font-size:clamp(30px,7.5vw,46px)}
+  .hh1{font-size:clamp(28px,7vw,42px)}
+  /* スマホ: blur除去でくっきり */
+  .hw{filter:none!important;animation:smokeInSP 1s var(--e3) forwards}
+  .hw.l2{animation-delay:.55s}
+  @keyframes smokeInSP{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  /* 背景画像サイズ調整 */
+  .hs img{height:100%;object-position:center center}
   .sw,.nhd,.ain,.swrap,.tin,.coin,.ctin,.ftin{padding-left:20px;padding-right:20px}
   .fttop{grid-template-columns:1fr;gap:24px}
   .ftbot{flex-direction:column;gap:10px;text-align:center}.ftbot-r{justify-content:center}
   #news,#about,#team,#policy,#company,#contact{padding:80px 0}
-  .pcard{padding:28px 22px}
+  .pcard{padding:24px 20px}
   .sn{font-size:clamp(64px,18vw,100px)}
-  .swrap{padding:56px 20px}
+  .swrap{padding:48px 20px}
 }
+/* サービス: スマホで画像を常に上に */
+@media(max-width:1080px){
+  .sci{order:-1!important}
+}
+/* サービス間のグレー線を削除 */
+.swrap+.swrap{border-top:none}
+/* ポリシー: 1カラム横長 */
+.pgrid{grid-template-columns:1fr!important}
 </style>
 </head>
 <body>
@@ -618,7 +627,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <!-- NAV -->
 <nav id="nav">
   <a class="nlogo" href="#top">
-    <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-182x24_a46f2d0e-8ed1-4088-b5a2-.svg"
+    <img src="images/connect_pet_logo.png"
          alt="CONNECT PET"
          onerror="this.onerror=null;this.src='images/_theme_front_assets_image_logo.png.png';this.style.height='24px';this.addEventListener('error',()=>{this.style.display='none';this.nextElementSibling.style.display='block'})">
     <span class="nlogo-fb" style="display:none">CONNECT <em>PET</em></span>
@@ -776,11 +785,12 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <section id="services">
   <div class="swrap rv">
     <div class="scr">
-      <!-- HomeCare: 機械の写真を円形クロップ + フロートアニメーション -->
-      <div class="sicon-img">
-        <img src="images/_theme_front_assets_image_homecare_01.webp.webp"
-             alt="HomeCare機器"
-             onerror="this.src='images/_theme_front_assets_image_homecare_02.webp.webp'">
+      <!-- 01 アイコン: にゃんほっとオレンジアイコン (Image4) -->
+      <div class="sicon" style="background:rgba(255,140,66,.08);overflow:hidden;border-radius:50%">
+        <img src="images/nyanhot_icon.png"
+             alt="にゃんほっとHome Care"
+             style="width:36px;height:36px;object-fit:contain"
+             onerror="this.style.display='none'">
       </div>
       <span class="sct">ペットと家族が安心して過ごせる</span>
       <span class="scdeco"></span>
@@ -793,29 +803,21 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
         <a class="sbtn" href="https://connectpet.jp/homecare">詳しく見る<svg viewBox="0 0 14 14"><path d="M1 7h12M8 2l6 5-6 5"/></svg></a>
       </div>
       <div class="sci">
-        <img src="images/_theme_front_assets_image_homecare_01.webp.webp"
+        <!-- 01 写真: homecare機械 (Image2) -->
+        <img src="images/homecare_machine.png"
              alt="にゃんほっとHomeCare"
-             onerror="this.onerror=null;this.src='images/_theme_front_assets_image_homecare_02.webp.webp';this.addEventListener('error',()=>this.src='https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6')">
+             onerror="this.src='images/_theme_front_assets_image_homecare_03.webp.webp'">
       </div>
     </div>
   </div>
   <div class="swrap rv">
     <div class="scr">
-      <!-- にゃんほっとアイコン: サイト実物SVGを使用 -->
-      <div class="sicon" style="background:rgba(255,140,66,.1);overflow:hidden">
-        <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-120x120_58c1bde3-75dc-441a-b82e.svg"
-             alt="にゃんほっと" style="width:36px;height:36px;object-fit:contain"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-        <svg viewBox="0 0 44 46" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
-          <path d="M8 20 L5 6 L16 14 Z" fill="var(--or)"/>
-          <path d="M36 20 L39 6 L28 14 Z" fill="var(--or)"/>
-          <circle cx="22" cy="28" r="14" fill="none" stroke="var(--or)" stroke-width="2.5"/>
-          <ellipse cx="16.5" cy="26" rx="2" ry="2.2" fill="var(--or)"/>
-          <ellipse cx="27.5" cy="26" rx="2" ry="2.2" fill="var(--or)"/>
-          <path d="M20.5 30 L22 28.5 L23.5 30 L22 31.5 Z" fill="var(--or)"/>
-          <line x1="6" y1="30" x2="17" y2="31" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
-          <line x1="27" y1="31" x2="38" y2="30" stroke="var(--or)" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
+      <!-- 02 アイコン: にゃんほっとオレンジアイコン (Image4) -->
+      <div class="sicon" style="background:rgba(255,140,66,.08);overflow:hidden;border-radius:50%">
+        <img src="images/nyanhot_icon.png"
+             alt="にゃんほっと"
+             style="width:36px;height:36px;object-fit:contain"
+             onerror="this.style.display='none'">
       </div>
       <span class="sct">保護ペットと繋がれる</span>
       <span class="scdeco"></span>
@@ -823,9 +825,10 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     <div class="snw l"><span class="sn">02</span></div>
     <div class="scard il">
       <div class="sci">
-        <img src="images/_theme_front_assets_image_E3_81_AB_E3_82_83_E3_82_93_E3_81_BB_E3_81_A3_E3_81_A8_.jpg"
+        <!-- 02 写真: にゃんほっと施設 (Image3) -->
+        <img src="images/nyanhot_facility.png"
              alt="にゃんほっと 保護猫譲渡特化型施設"
-             onerror="this.onerror=null;this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x2160_v-frms_webp_925aa1e1-.webp';this.addEventListener('error',()=>this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4')">
+             onerror="this.onerror=null;this.src='images/_theme_front_assets_image_E3_81_AB_E3_82_83_E3_82_93_E3_81_BB_E3_81_A3_E3_81_A8_.jpg';this.addEventListener('error',()=>this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4')">
       </div>
       <div class="scb">
         <h2 class="sname">保護猫譲渡特化型施設<br>「にゃんほっと」</h2>
@@ -939,7 +942,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     <div class="fttop">
       <div>
         <div class="ftlogo">
-          <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-182x24_a46f2d0e-8ed1-4088-b5a2-.svg"
+          <img src="images/connect_pet_logo.png"
                alt="CONNECT PET" onerror="this.onerror=null;this.src='images/_theme_front_assets_image_logo.png.png';this.addEventListener('error',()=>{this.style.display='none';this.nextElementSibling.style.display='block'})">
           <span class="ftlogo-fb" style="display:none">CONNECT <em>PET</em></span>
         </div>
