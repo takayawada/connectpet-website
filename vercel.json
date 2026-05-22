@@ -1,22 +1,14 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "**/*.html", "use": "@vercel/static" },
-    { "src": "css/**",    "use": "@vercel/static" },
-    { "src": "js/**",     "use": "@vercel/static" },
-    { "src": "images/**", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/",         "dest": "/index.html" },
-    { "src": "/about",    "dest": "/about.html" },
-    { "src": "/service",  "dest": "/service.html" },
-    { "src": "/carestore","dest": "/carestore.html" },
-    { "src": "/homecare", "dest": "/homecare.html" },
-    { "src": "/news",     "dest": "/news.html" },
-    { "src": "/contact",  "dest": "/contact.html" },
-    { "src": "/legal",    "dest": "/legal.html" },
-    { "src": "/privacy",  "dest": "/privacy.html" }
-  ],
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/about",     "destination": "/about.html" },
+    { "source": "/service",   "destination": "/service.html" },
+    { "source": "/carestore", "destination": "/carestore.html" },
+    { "source": "/homecare",  "destination": "/homecare.html" },
+    { "source": "/news",      "destination": "/news.html" },
+    { "source": "/contact",   "destination": "/contact.html" },
+    { "source": "/legal",     "destination": "/legal.html" },
+    { "source": "/privacy",   "destination": "/privacy.html" }
+  ]
 }
