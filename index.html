@@ -60,7 +60,7 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 @media(hover:none){#c1,#c2{display:none}*{cursor:auto!important}}
 
 /* ━━━ CAT RUNNER (右→左) ━━━ */
-#catr{
+#catr{display:none!important}
   position:fixed;top:0;left:0;z-index:900;
   pointer-events:none;opacity:0;
   width:160px;height:96px;overflow:hidden;border-radius:0 0 8px 8px;
@@ -391,29 +391,22 @@ p,li{word-break:break-all;overflow-wrap:break-word}
   margin-top:16px;
   background:var(--or);
   border-radius:14px;
-  padding:72px 56px;
+  padding:36px 32px;
+  position:relative;overflow:hidden;
+  box-shadow:0 2px 16px rgba(27,33,56,.05);
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:32px;
+  opacity:0;transform:translateY(16px);
+  transition:opacity .65s var(--e3),transform .65s var(--e3);
 }
-.pv-item{
-  display:flex;flex-direction:column;align-items:center;
-  text-align:center;gap:22px;
-}
-.pv-icon{
-  width:96px;height:96px;
-  border:2px solid rgba(255,255,255,.4);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.15);
-}
-.pv-icon svg{width:48px;height:48px}
-.pv-label{
-  font-size:15px;color:#fff;
-  line-height:1.8;letter-spacing:.02em;
-  font-family:var(--B);font-weight:500;
-}
+.pol-values.vis{opacity:1;transform:translateY(0)}
+.pv-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
+.pv-icon{width:80px;height:80px;border:2px solid rgba(255,255,255,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.15)}
+.pv-icon svg{width:40px;height:40px}
+.pv-label{font-size:14px;color:#fff;line-height:1.8;font-family:var(--B);font-weight:500}
 @media(max-width:640px){
-  .pol-values{padding:40px 20px;gap:16px;grid-template-columns:1fr 1fr}
+  .pol-values{padding:28px 20px;gap:16px;grid-template-columns:1fr 1fr}
   .pv-icon{width:64px;height:64px}
   .pv-icon svg{width:30px;height:30px}
   .pv-label{font-size:11px}
@@ -857,7 +850,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
       <span class="sct">保護ペットと繋がれる</span>
       <span class="scdeco"></span>
     </div>
-    <div class="snw"><span class="sn">02</span></div>
+    <div class="snw l"><span class="sn">02</span></div>
     <div class="scard il">
       <div class="sci">
         <!-- 02 写真: にゃんほっと施設 (Image3) -->
@@ -940,31 +933,31 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
         </div>
       </div>
     </div>
+
+    <!-- ソーシャルバリュー：pcardと同サイズ内 -->
+    <div class="pol-values rv">
+      <div class="pv-item">
+        <div class="pv-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3"  y="8"  width="11" height="32" rx="2"/>
+            <rect x="18" y="18" width="11" height="22" rx="2"/>
+            <rect x="33" y="28" width="11" height="12" rx="2"/>
+            <line x1="2" y1="44" x2="46" y2="44"/>
+          </svg>
+        </div>
+        <p class="pv-label">持続可能な<br>殺処分減少</p>
+      </div>
+      <div class="pv-item">
+        <div class="pv-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 42C24 42 4 30 4 16C4 9 9.5 4 16 4C19.5 4 22.5 5.8 24 8.5C25.5 5.8 28.5 4 32 4C38.5 4 44 9 44 16C44 30 24 42 24 42Z"/>
+          </svg>
+        </div>
+        <p class="pv-label">多様なペットに対する<br>価値観をフラットに<br>扱える文化創造</p>
+      </div>
+    </div>
   </div>
 </section>
-
-<!-- ソーシャルバリュー 全幅オレンジブロック -->
-<div class="pol-values rv">
-  <div class="pv-item">
-    <div class="pv-icon">
-      <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3"  y="8"  width="11" height="32" rx="2"/>
-        <rect x="18" y="18" width="11" height="22" rx="2"/>
-        <rect x="33" y="28" width="11" height="12" rx="2"/>
-        <line x1="2" y1="44" x2="46" y2="44"/>
-      </svg>
-    </div>
-    <p class="pv-label">持続可能な<br>殺処分減少</p>
-  </div>
-  <div class="pv-item">
-    <div class="pv-icon">
-      <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M24 42C24 42 4 30 4 16C4 9 9.5 4 16 4C19.5 4 22.5 5.8 24 8.5C25.5 5.8 28.5 4 32 4C38.5 4 44 9 44 16C44 30 24 42 24 42Z"/>
-      </svg>
-    </div>
-    <p class="pv-label">多様なペットに対する<br>価値観をフラットに<br>扱える文化創造</p>
-  </div>
-</div>
 
 <!-- COMPANY -->
 <section id="company">
