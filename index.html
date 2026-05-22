@@ -60,7 +60,7 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 @media(hover:none){#c1,#c2{display:none}*{cursor:auto!important}}
 
 /* ━━━ CAT RUNNER (右→左) ━━━ */
-#catr{display:none!important;
+#catr{
   position:fixed;top:0;left:0;z-index:900;
   pointer-events:none;opacity:0;
   width:160px;height:96px;overflow:hidden;border-radius:0 0 8px 8px;
@@ -131,7 +131,7 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 #mbg{
   position:absolute;inset:0;background:#fff;
   clip-path:circle(0% at var(--mox,calc(100% - 74px)) var(--moy,40px));
-  transition:clip-path .72s var(--e2);
+  transition:clip-path .45s var(--e2);
 }
 #menu.open{pointer-events:all}
 #menu.open #mbg{clip-path:circle(160% at var(--mox) var(--moy))}
@@ -384,14 +384,14 @@ p,li{word-break:break-all;overflow-wrap:break-word}
   border-radius:16px;box-shadow:0 8px 32px rgba(27,33,56,.1);
 }
 /* アイコン白背景を消す */
-.sicon img{mix-blend-mode:screen}
+.sicon img{mix-blend-mode:multiply}
 
 /* ポリシー Social Values ブロック */
 .pol-values{
-  margin-top:16px;
+  margin-top:0;
   background:var(--or);
-  border-radius:14px;
-  padding:56px 48px;
+  border-radius:0;
+  padding:72px 56px;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:32px;
@@ -402,21 +402,21 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 }
 .pv-icon{
   width:96px;height:96px;
-  border:2px solid rgba(255,255,255,.15);border-radius:50%;
+  border:2px solid rgba(255,255,255,.4);border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.05);
+  background:rgba(255,255,255,.15);
 }
 .pv-icon svg{width:48px;height:48px}
 .pv-label{
-  font-size:14px;color:rgba(255,255,255,.7);
-  line-height:1.75;letter-spacing:.02em;
-  font-family:var(--B);
+  font-size:15px;color:#fff;
+  line-height:1.8;letter-spacing:.02em;
+  font-family:var(--B);font-weight:500;
 }
 @media(max-width:640px){
-  .pol-values{padding:36px 20px;gap:28px;grid-template-columns:1fr}
+  .pol-values{padding:48px 24px;gap:28px;grid-template-columns:1fr}
   .pv-icon{width:80px;height:80px}
-  .pv-icon svg{width:38px;height:38px}
-  .pv-label{font-size:13px}
+  .pv-icon svg{width:36px;height:36px}
+  .pv-label{font-size:14px}
 }
 
 /* ━━━ SERVICE ICON — 写真円形クロップ + アニメ ━━━ */
@@ -643,7 +643,6 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 /* サービス: スマホで画像を常に上に */
 @media(max-width:1080px){
   .sci{order:-1!important}
-  .snw{justify-content:flex-start}
 }
 /* サービス間のグレー線を削除 */
 .swrap+.swrap{border-top:none}
@@ -822,10 +821,10 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
   <div class="swrap rv">
     <div class="scr">
       <!-- 01 アイコン: にゃんほっとオレンジアイコン (Image4) -->
-      <div class="sicon" style="background:transparent">
+      <div class="sicon" style="background:#fff;overflow:hidden;border-radius:50%;box-shadow:0 2px 12px rgba(255,140,66,.2)">
         <img src="images/nyanhot_icon.png"
              alt="にゃんほっとHome Care"
-             style="width:44px;height:44px;object-fit:contain"
+             style="width:38px;height:38px;object-fit:contain;mix-blend-mode:multiply"
              onerror="this.style.display='none'">
       </div>
       <span class="sct">ペットと家族が安心して過ごせる</span>
@@ -849,10 +848,10 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
   <div class="swrap rv">
     <div class="scr">
       <!-- 02 アイコン: にゃんほっとオレンジアイコン (Image4) -->
-      <div class="sicon" style="background:transparent">
+      <div class="sicon" style="background:#fff;overflow:hidden;border-radius:50%;box-shadow:0 2px 12px rgba(255,140,66,.2)">
         <img src="images/nyanhot_icon.png"
              alt="にゃんほっと"
-             style="width:44px;height:44px;object-fit:contain"
+             style="width:38px;height:38px;object-fit:contain;mix-blend-mode:multiply"
              onerror="this.style.display='none'">
       </div>
       <span class="sct">保護ペットと繋がれる</span>
@@ -941,35 +940,34 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
         </div>
       </div>
     </div>
-
-    <!-- ソーシャルバリュー ビジュアルブロック（フワッと浮き出る） -->
-    <div class="pol-values rv">
-      <div class="pv-item">
-        <div class="pv-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3"  y="8"  width="11" height="32" rx="2"/>
-            <rect x="18" y="18" width="11" height="22" rx="2"/>
-            <rect x="33" y="28" width="11" height="12" rx="2"/>
-            <line x1="2" y1="44" x2="46" y2="44"/>
-          </svg>
-        </div>
-        <p class="pv-label">持続可能な<br>殺処分減少</p>
-      </div>
-      <div class="pv-item">
-        <div class="pv-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M24 42C24 42 4 30 4 16C4 9 9.5 4 16 4C19.5 4 22.5 5.8 24 8.5C25.5 5.8 28.5 4 32 4C38.5 4 44 9 44 16C44 30 24 42 24 42Z"/>
-            <path d="M16 24Q24 18 32 24"/>
-            <circle cx="17" cy="21" r="1.8" fill="white" stroke="none"/>
-            <circle cx="31" cy="21" r="1.8" fill="white" stroke="none"/>
-          </svg>
-        </div>
-        <p class="pv-label">多様なペットに対する価値観を<br>フラットに扱える文化創造</p>
-      </div>
-    </div>
-
   </div>
 </section>
+
+<!-- ソーシャルバリュー 全幅オレンジブロック -->
+<div class="pol-values rv">
+  <div class="pv-item">
+    <div class="pv-icon">
+      <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3"  y="8"  width="11" height="32" rx="2"/>
+        <rect x="18" y="18" width="11" height="22" rx="2"/>
+        <rect x="33" y="28" width="11" height="12" rx="2"/>
+        <line x1="2" y1="44" x2="46" y2="44"/>
+      </svg>
+    </div>
+    <p class="pv-label">持続可能な<br>殺処分減少</p>
+  </div>
+  <div class="pv-item">
+    <div class="pv-icon">
+      <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M24 42C24 42 4 30 4 16C4 9 9.5 4 16 4C19.5 4 22.5 5.8 24 8.5C25.5 5.8 28.5 4 32 4C38.5 4 44 9 44 16C44 30 24 42 24 42Z"/>
+        <path d="M16 24Q24 18 32 24"/>
+        <circle cx="17" cy="21" r="1.8" fill="white" stroke="none"/>
+        <circle cx="31" cy="21" r="1.8" fill="white" stroke="none"/>
+      </svg>
+    </div>
+    <p class="pv-label">多様なペットに対する価値観を<br>フラットに扱える文化創造</p>
+  </div>
+</div>
 
 <!-- COMPANY -->
 <section id="company">
@@ -1009,7 +1007,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
                alt="CONNECT PET" onerror="this.onerror=null;this.src='images/_theme_front_assets_image_logo.png.png';this.addEventListener('error',()=>{this.style.display='none';this.nextElementSibling.style.display='block'})">
           <span class="ftlogo-fb" style="display:none">CONNECT <em>PET</em></span>
         </div>
-        <p class="fttag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
+        <p class="fttag">ペットの殺処分ゼロをビジネスで実現し続ける、<br>ソーシャルスタートアップカンパニー。</p>
         <div class="ftsns">
           <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram">
             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
