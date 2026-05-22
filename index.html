@@ -413,7 +413,7 @@ p,li{word-break:break-all;overflow-wrap:break-word}
   font-family:var(--B);
 }
 @media(max-width:640px){
-  .pol-values{padding:36px 24px;gap:24px}
+  .pol-values{padding:36px 20px;gap:28px;grid-template-columns:1fr}
   .pv-icon{width:80px;height:80px}
   .pv-icon svg{width:38px;height:38px}
   .pv-label{font-size:13px}
@@ -643,6 +643,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 /* サービス: スマホで画像を常に上に */
 @media(max-width:1080px){
   .sci{order:-1!important}
+  .snw{justify-content:flex-start}
 }
 /* サービス間のグレー線を削除 */
 .swrap+.swrap{border-top:none}
