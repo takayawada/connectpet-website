@@ -103,7 +103,26 @@ body{font-family:var(--B);background:var(--f1);color:var(--ink);min-height:100vh
 .ai-opt{font-size:11px;padding:5px 12px;border-radius:20px;border:1.5px solid rgba(255,140,66,.3);background:#fff;color:var(--ink2);cursor:pointer;font-family:var(--B);transition:all .2s}
 .ai-opt:hover,.ai-opt.sel{background:var(--or);color:#fff;border-color:var(--or)}
 
-/* Quill */
+/* ─── IMAGE UPLOAD ─── */
+.upload-area{
+  border:2px dashed var(--bd);border-radius:10px;
+  min-height:140px;cursor:pointer;transition:all .2s;
+  position:relative;overflow:hidden;background:var(--f1);
+}
+.upload-area:hover{border-color:var(--or);background:#fff9f5}
+.upload-area.drag{border-color:var(--or);background:#fff4ee;transform:scale(1.01)}
+.upload-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;gap:8px;pointer-events:none}
+.upload-icon{font-size:32px;line-height:1}
+.upload-text{font-size:13px;font-weight:700;color:var(--ink)}
+.upload-sub{font-size:11px;color:var(--ink2)}
+.upload-preview{position:relative;width:100%}
+.upload-preview img{width:100%;max-height:220px;object-fit:cover;display:block}
+.upload-remove{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;border:none;padding:6px 12px;border-radius:6px;font-size:11px;cursor:pointer;font-family:var(--B);transition:background .2s}
+.upload-remove:hover{background:rgba(0,0,0,.85)}
+.upload-progress{padding:24px 28px;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.progress-bar{height:6px;background:var(--f2);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--or);border-radius:3px;width:0%;transition:width .3s}
+.progress-text{font-size:12px;color:var(--ink2)}
 .ql-container{font-family:var(--B);font-size:14px;border-radius:0 0 8px 8px;border:1.5px solid var(--bd);border-top:none}
 .ql-toolbar{border-radius:8px 8px 0 0;border:1.5px solid var(--bd)}
 .ql-editor{min-height:280px;line-height:1.8}
@@ -203,11 +222,25 @@ body{font-family:var(--B);background:var(--f1);color:var(--ink);min-height:100vh
         </div>
 
         <div class="form-row">
-          <label class="form-label">アイキャッチ画像URL</label>
-          <input class="form-input" id="fImage" placeholder="https://... （画像のURLを貼り付け）" oninput="previewImage(this.value)">
-          <div id="imgPreview" style="margin-top:10px;display:none">
-            <img id="imgPreviewEl" style="max-height:120px;border-radius:8px;border:1px solid var(--bd)" alt="プレビュー">
+          <label class="form-label">アイキャッチ画像</label>
+          <!-- アップロードエリア -->
+          <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()" ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+            <div class="upload-inner" id="uploadInner">
+              <div class="upload-icon">🖼</div>
+              <div class="upload-text">クリックまたはドラッグ＆ドロップで画像を追加</div>
+              <div class="upload-sub">JPG・PNG・WebP・GIF 対応</div>
+            </div>
+            <div class="upload-preview" id="uploadPreview" style="display:none">
+              <img id="uploadPreviewImg" alt="">
+              <button class="upload-remove" onclick="removeImage(event)">✕ 画像を変更</button>
+            </div>
+            <div class="upload-progress" id="uploadProgress" style="display:none">
+              <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+              <span class="progress-text">アップロード中...</span>
+            </div>
           </div>
+          <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFileSelect(this.files[0])">
+          <input type="hidden" id="fImage">
         </div>
 
         <div class="form-row">
@@ -390,12 +423,73 @@ function newPost(){
   document.getElementById('fSlug').value = '';
   document.getElementById('fImage').value = '';
   document.getElementById('fPublished').checked = false;
-  document.getElementById('imgPreview').style.display = 'none';
+  document.getElementById('uploadPreview').style.display = 'none';
+  document.getElementById('uploadProgress').style.display = 'none';
+  document.getElementById('uploadInner').style.display = 'flex';
   quill.setText('');
   renderList();
 }
 
-/* ─── EDIT POST ─── */
+/* ─── IMAGE UPLOAD ─── */
+function onDragOver(e){e.preventDefault();document.getElementById('uploadArea').classList.add('drag')}
+function onDragLeave(e){document.getElementById('uploadArea').classList.remove('drag')}
+function onDrop(e){e.preventDefault();document.getElementById('uploadArea').classList.remove('drag');const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/'))handleFileSelect(f)}
+
+async function handleFileSelect(file){
+  if(!file)return;
+  const area=document.getElementById('uploadArea');
+  const inner=document.getElementById('uploadInner');
+  const preview=document.getElementById('uploadPreview');
+  const progress=document.getElementById('uploadProgress');
+  const fill=document.getElementById('progressFill');
+
+  inner.style.display='none';
+  preview.style.display='none';
+  progress.style.display='flex';
+
+  /* アニメーション */
+  let pct=0;
+  const timer=setInterval(()=>{pct=Math.min(pct+Math.random()*15,90);fill.style.width=pct+'%'},200);
+
+  try{
+    const ext=file.name.split('.').pop();
+    const fname=`${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const res=await fetch(`${SUPABASE_URL}/storage/v1/object/news-images/${fname}`,{
+      method:'POST',
+      headers:{
+        'apikey':SUPABASE_KEY,
+        'Authorization':`Bearer ${SUPABASE_KEY}`,
+        'Content-Type':file.type,
+        'x-upsert':'true'
+      },
+      body:file
+    });
+    if(!res.ok)throw new Error(await res.text());
+    clearInterval(timer);fill.style.width='100%';
+    const publicUrl=`${SUPABASE_URL}/storage/v1/object/public/news-images/${fname}`;
+    document.getElementById('fImage').value=publicUrl;
+    setTimeout(()=>{
+      progress.style.display='none';
+      document.getElementById('uploadPreviewImg').src=publicUrl;
+      preview.style.display='block';
+    },400);
+    showToast('画像をアップロードしました','ok');
+  }catch(e){
+    clearInterval(timer);
+    progress.style.display='none';
+    inner.style.display='flex';
+    showToast('アップロード失敗：'+e.message,'err');
+  }
+}
+
+function removeImage(e){
+  e.stopPropagation();
+  document.getElementById('fImage').value='';
+  document.getElementById('uploadPreview').style.display='none';
+  document.getElementById('uploadInner').style.display='flex';
+}
+
+/* ─── EDIT POST (画像プレビュー対応) ─── */
 function editPost(id){
   const n = allNews.find(x => x.id === id);
   if(!n) return;
@@ -408,7 +502,15 @@ function editPost(id){
   document.getElementById('fImage').value     = n.image_url || '';
   document.getElementById('fPublished').checked = !!n.is_published;
   quill.clipboard.dangerouslyPasteHTML(n.body || '');
-  previewImage(n.image_url || '');
+  if(n.image_url){
+    document.getElementById('uploadPreviewImg').src = n.image_url;
+    document.getElementById('uploadPreview').style.display = 'block';
+    document.getElementById('uploadInner').style.display = 'none';
+    document.getElementById('uploadProgress').style.display = 'none';
+  } else {
+    document.getElementById('uploadPreview').style.display = 'none';
+    document.getElementById('uploadInner').style.display = 'flex';
+  }
   renderList();
 }
 
