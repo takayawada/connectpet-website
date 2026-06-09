@@ -1072,16 +1072,23 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
     {title:'アメリカン・エキスプレスの経営者向けWebマガジンに弊社代表が掲載されました',published_at:'2024-12-05',image_url:'images/_studio-design-asset-files_projects_nBW2APpeav_s-1116x1116_v-fs_webp_69a02568-0c.webp',slug:'https://connectpet.jp/posts/yi7rw7WK'},
   ];
   const fmt=d=>{if(!d)return '';const p=d.split('-');return `${p[0]}.${p[1]}.${p[2]}`};
-  const card=n=>{const u=n.slug?.startsWith('http')?n.slug:`news/${n.slug||''}`;return `<a class="nc" href="${u}" target="_blank" rel="noopener"><div class="ncimg"><img src="${n.image_url||OG}" alt="" loading="lazy" onerror="this.src='${OG}'"></div><div class="ncb"><span class="ncd">${fmt(n.published_at)}</span><h3 class="nct">${n.title||''}</h3><span class="ncm">続きを読む</span></div></a>`};
+  const card=n=>{
+    const u=`/news-post.html?id=${n.id}`;
+    return `<a class="nc" href="${u}"><div class="ncimg"><img src="${n.image_url||OG}" alt="" loading="lazy" onerror="this.src='${OG}'"></div><div class="ncb"><span class="ncd">${fmt(n.published_at)}</span><h3 class="nct">${n.title||''}</h3><span class="ncm">続きを読む</span></div></a>`};
   const track=document.getElementById('newsTrack');
   if(!track)return;
   try{
     const res=await fetch(`${SB_URL}/rest/v1/news?select=*&is_published=eq.true&order=published_at.desc&limit=8`,{headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}});
     const data=await res.json();
     const items=(Array.isArray(data)&&data.length)?data:FALLBACK;
-    track.innerHTML=items.map(card).join('')+items.map(card).join('');
+    /* 4件以上あればループ複製、少なければそのまま */
+    const html=items.map(card).join('');
+    track.innerHTML=items.length>=4?html+html:html;
+    /* 少ない場合はアニメーション停止 */
+    if(items.length<4) track.style.animation='none';
   }catch(e){
-    track.innerHTML=FALLBACK.map(card).join('')+FALLBACK.map(card).join('');
+    const html=FALLBACK.map(card).join('');
+    track.innerHTML=html+html;
   }
 })();
 </script>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEWS | Connect Pet</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#ff8c42;--nv:#0b0e1a;--w:#fff;
+  --f1:#fdf8f3;--ink:#1b2138;--ink2:#4a526a;--sil:#94a0b8;
+  --B:'Noto Sans JP',sans-serif;--S:'Zen Kaku Gothic New',sans-serif;--M:'DM Mono',monospace;
+}
+body{font-family:var(--B);background:var(--f1);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(253,248,243,.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(27,33,56,.08);
+  padding:16px 40px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo img{height:22px;width:auto}
+.nav-back{
+  font-family:var(--M);font-size:11px;letter-spacing:.14em;
+  color:var(--sil);display:flex;align-items:center;gap:8px;
+  transition:color .2s;
+}
+.nav-back:hover{color:var(--or)}
+.nav-back::before{content:'←'}
+
+/* HERO IMG */
+.post-hero{width:100%;max-height:480px;overflow:hidden}
+.post-hero img{width:100%;height:480px;object-fit:cover;display:block}
+
+/* ARTICLE */
+.article{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+.post-meta{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.post-date{font-family:var(--M);font-size:11px;color:var(--or);letter-spacing:.14em}
+.post-title{
+  font-family:var(--S);font-size:clamp(24px,4vw,40px);
+  font-weight:900;line-height:1.35;margin-bottom:36px;
+  color:var(--ink);
+}
+.post-body{
+  font-size:15px;line-height:2.1;color:var(--ink2);
+}
+.post-body h1,.post-body h2,.post-body h3{
+  font-family:var(--S);font-weight:700;color:var(--ink);
+  margin:32px 0 14px;
+}
+.post-body h1{font-size:24px}
+.post-body h2{font-size:20px}
+.post-body h3{font-size:17px}
+.post-body p{margin-bottom:18px}
+.post-body strong{font-weight:700;color:var(--ink)}
+.post-body ul,.post-body ol{padding-left:24px;margin-bottom:18px}
+.post-body li{margin-bottom:8px}
+.post-body a{color:var(--or);border-bottom:1px solid rgba(255,140,66,.3);transition:border-color .2s}
+.post-body a:hover{border-color:var(--or)}
+.post-body img{max-width:100%;border-radius:10px;margin:24px 0}
+.post-body blockquote{border-left:3px solid var(--or);padding-left:16px;color:var(--sil);margin:24px 0}
+
+/* BACK BTN */
+.back-wrap{margin-top:56px;padding-top:32px;border-top:1px solid rgba(27,33,56,.08)}
+.back-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--M);font-size:11px;letter-spacing:.14em;
+  color:var(--or);border-bottom:1px solid rgba(255,140,66,.3);
+  padding-bottom:6px;transition:gap .3s,border-color .3s;
+}
+.back-btn:hover{gap:16px;border-color:var(--or)}
+
+/* LOADING / ERROR */
+.state{
+  max-width:760px;margin:80px auto;padding:0 24px;
+  text-align:center;color:var(--sil);font-size:14px;
+}
+.state-icon{font-size:40px;margin-bottom:16px}
+
+@media(max-width:640px){
+  nav{padding:14px 20px}
+  .post-hero img{height:260px}
+  .article{padding:32px 20px 60px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/"><img src="images/connect_pet_logo.png" alt="CONNECT PET" onerror="this.style.display='none'"></a>
+  <a class="nav-back" href="/#news">ニュース一覧</a>
+</nav>
+
+<div id="root">
+  <div class="state">
+    <div class="state-icon">⏳</div>
+    <p>読み込み中...</p>
+  </div>
+</div>
+
+<script>
+const SB_URL = 'https://ifccjxzsoozipldjnehu.supabase.co';
+const SB_KEY = 'sb_publishable_DXxwbYEqzJlTitVPo9Cciw_UCU6sa7b';
+
+function fmt(d){
+  if(!d) return '';
+  const p = d.split('-');
+  return `${p[0]}.${p[1]}.${p[2]}`;
+}
+
+async function load(){
+  const params = new URLSearchParams(location.search);
+  const id     = params.get('id');
+  if(!id){ showError('記事が見つかりません'); return; }
+
+  try{
+    const res  = await fetch(`${SB_URL}/rest/v1/news?id=eq.${id}&select=*`,{
+      headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}
+    });
+    const data = await res.json();
+    if(!Array.isArray(data)||!data.length){ showError('記事が見つかりません'); return; }
+    render(data[0]);
+  }catch(e){
+    showError('読み込みに失敗しました');
+  }
+}
+
+function render(n){
+  document.title = `${n.title||'NEWS'} | Connect Pet`;
+
+  const heroHtml = n.image_url
+    ? `<div class="post-hero"><img src="${n.image_url}" alt="${n.title||''}"></div>`
+    : '';
+
+  document.getElementById('root').innerHTML = `
+    ${heroHtml}
+    <article class="article">
+      <div class="post-meta">
+        <span class="post-date">${fmt(n.published_at)}</span>
+      </div>
+      <h1 class="post-title">${n.title||''}</h1>
+      <div class="post-body">${n.body||''}</div>
+      <div class="back-wrap">
+        <a class="back-btn" href="/#news">← ニュース一覧に戻る</a>
+      </div>
+    </article>
+  `;
+}
+
+function showError(msg){
+  document.getElementById('root').innerHTML = `
+    <div class="state">
+      <div class="state-icon">📭</div>
+      <p>${msg}</p>
+      <p style="margin-top:16px"><a href="/" style="color:var(--or)">トップへ戻る</a></p>
+    </div>
+  `;
+}
+
+load();
+</script>
+</body>
+</html>
