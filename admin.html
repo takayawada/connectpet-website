@@ -51,8 +51,16 @@ body{font-family:var(--B);background:var(--f1);color:var(--ink);min-height:100vh
 .header{
   background:var(--nv);height:60px;padding:0 28px;
   display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:100;
+  position:sticky;top:0;z-index:100;gap:16px;
 }
+.header-tabs{display:flex;gap:4px;background:rgba(255,255,255,.06);border-radius:8px;padding:4px}
+.header-tab{
+  font-family:var(--B);font-size:12px;font-weight:600;
+  padding:7px 16px;border-radius:6px;cursor:pointer;
+  color:rgba(255,255,255,.45);transition:all .2s;white-space:nowrap;
+}
+.header-tab.active{background:var(--or);color:#fff}
+.header-tab:not(.active):hover{background:rgba(255,255,255,.08);color:#fff}
 .header-logo img{height:22px;filter:brightness(0) invert(1)}
 .header-right{display:flex;align-items:center;gap:16px}
 .header-link{font-size:12px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
@@ -214,7 +222,11 @@ body{font-family:var(--B);background:var(--f1);color:var(--ink);min-height:100vh
 <div id="appScreen">
   <header class="header">
     <div class="header-logo">
-      <img src="images/connect_pet_logo.png" alt="CONNECT PET">
+      <img src="images/connect_pet_logo.png" alt="CONNECT PET" style="height:22px;filter:brightness(0) invert(1)">
+    </div>
+    <div class="header-tabs">
+      <span class="header-tab active">📰 NEWS管理</span>
+      <a class="header-tab" href="/admin-cats.html">🐱 猫管理</a>
     </div>
     <div class="header-right">
       <a class="header-link" href="/" target="_blank">サイトを見る →</a>
