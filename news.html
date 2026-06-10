@@ -2,150 +2,242 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Connect Pet</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ニュース一覧 | Connect Pet</title>
+<meta name="description" content="株式会社Connect Petの最新ニュース・お知らせ一覧">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="common.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#ff8c42;--nv:#0b0e1a;--w:#fff;
+  --f1:#fdf8f3;--f2:#faeee5;
+  --ink:#1b2138;--ink2:#4a526a;--sil:#94a0b8;--ln:rgba(27,33,56,.08);
+  --S:'Zen Kaku Gothic New',sans-serif;
+  --B:'Noto Sans JP',sans-serif;
+  --M:'DM Mono',monospace;
+  --e1:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--B);background:var(--f1);color:var(--ink);-webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:500;
+  background:rgba(253,248,243,.96);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--ln);
+  padding:15px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo img{height:22px;width:auto}
+.nav-logo-fb{font-family:var(--S);font-size:14px;font-weight:700;color:var(--nv);letter-spacing:.05em}
+.nav-logo-fb em{color:var(--or);font-style:normal}
+.nav-home{font-family:var(--M);font-size:11px;letter-spacing:.14em;color:var(--sil);transition:color .2s}
+.nav-home:hover{color:var(--or)}
+
+/* PAGE HEADER */
+.page-header{
+  background:var(--nv);padding:72px 48px 60px;
+  position:relative;overflow:hidden;
+}
+.page-header::before{
+  content:'NEWS';position:absolute;right:-20px;bottom:-40px;
+  font-family:var(--S);font-size:200px;font-weight:900;
+  color:rgba(255,255,255,.03);line-height:1;pointer-events:none;
+  letter-spacing:-.05em;
+}
+.page-header-inner{max-width:1200px;margin:0 auto}
+.page-eyebrow{font-family:var(--M);font-size:10px;letter-spacing:.28em;color:var(--or);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.page-eyebrow::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.page-title{font-family:var(--S);font-size:clamp(36px,5vw,64px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.02em}
+.page-subtitle{font-size:14px;color:rgba(255,255,255,.45);margin-top:14px;letter-spacing:.04em}
+
+/* CONTENT */
+.content{max-width:1200px;margin:0 auto;padding:64px 48px 96px}
+
+/* FILTER */
+.filter-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px}
+.filter-count{font-family:var(--M);font-size:11px;color:var(--sil);letter-spacing:.14em}
+.filter-count span{color:var(--or);font-weight:700}
+
+/* GRID */
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.nc{
+  background:var(--w);border-radius:14px;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 2px 18px rgba(27,33,56,.06);
+  transition:transform .4s var(--e1),box-shadow .4s;
+  cursor:pointer;
+}
+.nc:hover{transform:translateY(-5px);box-shadow:0 14px 42px rgba(27,33,56,.12)}
+.nc-img{height:200px;overflow:hidden;background:var(--f2);flex-shrink:0}
+.nc-img img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--e1)}
+.nc:hover .nc-img img{transform:scale(1.06)}
+.nc-body{padding:20px 22px;flex:1;display:flex;flex-direction:column;gap:7px}
+.nc-date{font-family:var(--M);font-size:9.5px;color:var(--or);letter-spacing:.14em}
+.nc-title{font-family:var(--S);font-size:15px;font-weight:700;color:var(--ink);line-height:1.65;flex:1;transition:color .25s}
+.nc:hover .nc-title{color:var(--or)}
+.nc-more{font-family:var(--M);font-size:9px;color:var(--or);letter-spacing:.1em;padding-top:12px;border-top:1px solid var(--ln);margin-top:auto}
+
+/* EMPTY */
+.empty-state{text-align:center;padding:80px 20px;color:var(--sil)}
+.empty-icon{font-size:48px;margin-bottom:16px}
+.empty-text{font-size:15px}
+
+/* LOADING */
+.loading-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.skeleton{background:var(--w);border-radius:14px;overflow:hidden;box-shadow:0 2px 18px rgba(27,33,56,.06)}
+.skeleton-img{height:200px;background:linear-gradient(90deg,var(--f2) 25%,#f0e0d0 50%,var(--f2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.skeleton-body{padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.skeleton-line{height:12px;border-radius:6px;background:linear-gradient(90deg,var(--f2) 25%,#f0e0d0 50%,var(--f2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.skeleton-line.short{width:60%}
+@keyframes shimmer{to{background-position:-200% 0}}
+
+/* PAGINATION */
+.pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:56px}
+.page-btn{
+  width:40px;height:40px;border-radius:8px;border:1.5px solid var(--ln);
+  background:var(--w);color:var(--ink);font-family:var(--M);font-size:12px;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;
+}
+.page-btn:hover{border-color:var(--or);color:var(--or)}
+.page-btn.active{background:var(--or);border-color:var(--or);color:#fff}
+.page-btn:disabled{opacity:.35;cursor:not-allowed}
+.page-dots{color:var(--sil);font-family:var(--M);font-size:12px;padding:0 4px}
+
+/* FOOTER MINI */
+.footer-mini{background:var(--nv);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;border-top:2.5px solid var(--or)}
+.footer-mini-logo img{height:18px;filter:brightness(0) invert(1);opacity:.7}
+.footer-mini-copy{font-family:var(--M);font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.1em}
+
+@media(max-width:1080px){
+  nav,.page-header,.content,.footer-mini{padding-left:28px;padding-right:28px}
+  .news-grid,.loading-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  nav{padding:13px 20px}
+  .page-header{padding:48px 20px 40px}
+  .content{padding:40px 20px 72px}
+  .news-grid,.loading-grid{grid-template-columns:1fr}
+  .footer-mini{padding:24px 20px;flex-direction:column;gap:10px;text-align:center}
+}
+</style>
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur-r"></div>
-
-<div id="cat-runner" aria-hidden="true">
-  <svg width="100" height="68" viewBox="0 0 100 68" fill="none">
-    <g class="cg">
-      <ellipse cx="48" cy="40" rx="26" ry="15" fill="#ff8c42"/>
-      <circle cx="76" cy="26" r="14" fill="#ff8c42"/>
-      <polygon points="66,16 60,3 73,12" fill="#ff8c42"/>
-      <polygon points="82,12 80,1 90,10" fill="#ff8c42"/>
-      <path d="M22 38 C8 28 3 14 9 6 C14 0 19 4 18 11 C17 17 23 30 22 38Z" fill="#ff8c42"/>
-      <circle cx="79" cy="24" r="2.2" fill="#0a0e1a"/>
-      <line x1="76" y1="32" x2="92" y2="29" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <line x1="76" y1="34" x2="93" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <rect x="60" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="70" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="34" y="51" width="7" height="14" rx="3.5" fill="#ff8c42"/>
-      <rect x="45" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-    </g>
-  </svg>
-</div>
-
-<nav id="nav">
-  <a class="nav-logo" href="index.html">
-    <img class="logo-img" src="images/logo.svg" alt="Connect Pet"
-         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
-    <span class="logo-fb" id="lf" style="display:none">Connect<em>Pet</em></span>
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nav-logo-fb" style="display:none">CONNECT <em>PET</em></span>
   </a>
-  <ul class="nav-links">
-    <li><a href="about.html">について</a></li>
-    <li><a href="service.html">サービス</a></li>
-    <li><a href="carestore.html">にゃんほっと</a></li>
-    <li><a href="homecare.html">HomeCare</a></li>
-    <li><a href="news.html">ニュース</a></li>
-    <li><a href="contact.html">お問い合わせ</a></li>
-  </ul>
-  <button id="mbtn" aria-label="メニューを開く" aria-expanded="false">
-    <span class="mbl"></span><span class="mbl"></span><span class="mbl"></span>
-  </button>
+  <a class="nav-home" href="/">← トップに戻る</a>
 </nav>
 
-<div id="fullmenu" role="dialog" aria-modal="true">
-  <div id="menu-bg"></div>
-  <div id="menu-in">
-    <nav class="m-nav">
-      <a class="m-item" href="index.html"><span class="mn">00</span>トップ</a>
-      <a class="m-item" href="about.html"><span class="mn">01</span>について</a>
-      <a class="m-item" href="service.html"><span class="mn">02</span>サービス</a>
-      <a class="m-item" href="carestore.html"><span class="mn">03</span>にゃんほっと</a>
-      <a class="m-item" href="homecare.html"><span class="mn">04</span>HomeCare</a>
-      <a class="m-item" href="news.html"><span class="mn">05</span>ニュース</a>
-      <a class="m-item" href="contact.html"><span class="mn">06</span>お問い合わせ</a>
-    </nav>
-    <div class="m-foot">
-      <div class="m-foot-row">
-        <a href="legal.html">特定商取引法</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
-      </div>
-      <p class="m-esc">esc or click to close</p>
-    </div>
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow">NEWS</div>
+    <h1 class="page-title">お知らせ</h1>
+    <p class="page-subtitle">Connect Pet からの最新情報</p>
   </div>
 </div>
 
-<main>
-  <div class="page-hero">
-    <div class="page-hero-in">
-      <div class="eyebrow">NEWS</div>
-      <h1 class="page-h1">ニュース</h1>
+<div class="content">
+  <div class="filter-row">
+    <p class="filter-count" id="filterCount">読み込み中...</p>
+  </div>
+  <div id="newsContainer">
+    <div class="loading-grid">
+      <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div></div>
+      <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div></div>
+      <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div></div>
     </div>
   </div>
-  <div class="cp-in">
-    <p class="cp-p">コンテンツを読み込んでいます...</p>
-  </div>
-  <section id="cta">
-    <div class="cta-in">
-      <div class="sr">
-        <div class="cta-lbl">CONTACT</div>
-        <h2 class="cta-h2">お気軽にご相談ください。</h2>
-      </div>
-      <div class="cta-btns sr d2">
-        <a class="btn-w magnetic" href="contact.html">無料相談をする</a>
-      </div>
-    </div>
-  </section>
-</main>
+  <div id="paginationWrap"></div>
+</div>
 
-<a id="line-cta" href="https://lin.ee/connectpet" target="_blank" rel="noopener" aria-label="LINEで相談する">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
-  <span>LINE相談</span>
-</a>
-
-<footer>
-  <div class="ft-in">
-    <div class="ft-top">
-      <div>
-        <div class="ft-name">Connect <em>Pet</em></div>
-        <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
-        <div class="ft-sns">
-          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="ft-col"><h4>Pages</h4><ul>
-        <li><a href="index.html">トップ</a></li>
-        <li><a href="about.html">について</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="news.html">ニュース</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
-      </ul></div>
-      <div class="ft-col"><h4>Services</h4><ul>
-        <li><a href="carestore.html">にゃんほっと</a></li>
-        <li><a href="carestore-cat.html">保護猫を迎える</a></li>
-        <li><a href="homecare.html">HomeCare</a></li>
-      </ul></div>
-      <div class="ft-col"><h4>Legal</h4><ul>
-        <li><a href="legal.html">特定商取引法</a></li>
-        <li><a href="privacy.html">プライバシーポリシー</a></li>
-      </ul></div>
-    </div>
-    <div class="ft-bot">
-      <span>&copy; 2025 株式会社 Connect Pet. All rights reserved.</span>
-      <div class="ft-bot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
-    </div>
+<footer class="footer-mini">
+  <div class="footer-mini-logo">
+    <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+         onerror="this.style.display='none'">
   </div>
+  <span class="footer-mini-copy">&copy; CONNECT PET, Inc</span>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="common.js"></script>
+<script>
+const SB_URL  = 'https://ifccjxzsoozipldjnehu.supabase.co';
+const SB_KEY  = 'sb_publishable_DXxwbYEqzJlTitVPo9Cciw_UCU6sa7b';
+const OG      = 'https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6';
+const PER_PAGE = 9;
+
+let allNews = [];
+let currentPage = 1;
+
+function fmt(d){ if(!d) return ''; const p=d.split('-'); return `${p[0]}.${p[1]}.${p[2]}` }
+
+async function init(){
+  try{
+    const res = await fetch(`${SB_URL}/rest/v1/news?select=*&is_published=eq.true&order=published_at.desc`,{
+      headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}
+    });
+    allNews = await res.json();
+    if(!Array.isArray(allNews)) allNews = [];
+  }catch(e){ allNews = [] }
+  renderPage(1);
+}
+
+function renderPage(page){
+  currentPage = page;
+  const total = allNews.length;
+  const pages = Math.ceil(total / PER_PAGE);
+  const start = (page-1)*PER_PAGE;
+  const items = allNews.slice(start, start+PER_PAGE);
+
+  document.getElementById('filterCount').innerHTML =
+    `<span>${total}</span> 件のニュース`;
+
+  const container = document.getElementById('newsContainer');
+  if(!total){
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><p class="empty-text">ニュースはまだありません</p></div>`;
+    document.getElementById('paginationWrap').innerHTML = '';
+    return;
+  }
+
+  container.innerHTML = `<div class="news-grid">${items.map(n=>`
+    <a class="nc" href="/news-post.html?id=${n.id}">
+      <div class="nc-img"><img src="${n.image_url||OG}" alt="${n.title||''}" loading="lazy" onerror="this.src='${OG}'"></div>
+      <div class="nc-body">
+        <span class="nc-date">${fmt(n.published_at)}</span>
+        <h2 class="nc-title">${n.title||''}</h2>
+        <span class="nc-more">続きを読む →</span>
+      </div>
+    </a>
+  `).join('')}</div>`;
+
+  /* ページネーション */
+  if(pages <= 1){ document.getElementById('paginationWrap').innerHTML=''; return; }
+  const btns = [];
+  btns.push(`<button class="page-btn" ${page===1?'disabled':''} onclick="renderPage(${page-1})">←</button>`);
+  for(let i=1;i<=pages;i++){
+    if(i===1||i===pages||Math.abs(i-page)<=1){
+      btns.push(`<button class="page-btn${i===page?' active':''}" onclick="renderPage(${i})">${i}</button>`);
+    } else if(Math.abs(i-page)===2){
+      btns.push(`<span class="page-dots">…</span>`);
+    }
+  }
+  btns.push(`<button class="page-btn" ${page===pages?'disabled':''} onclick="renderPage(${page+1})">→</button>`);
+  document.getElementById('paginationWrap').innerHTML = `<div class="pagination">${btns.join('')}</div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+init();
+</script>
 </body>
 </html>

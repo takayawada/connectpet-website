@@ -157,7 +157,22 @@ body{font-family:var(--B);background:var(--f1);color:var(--ink);min-height:100vh
 .progress-fill{height:100%;background:var(--or);border-radius:3px;width:0;transition:width .3s}
 .progress-text{font-size:12px;color:var(--ink2)}
 
-/* Quill */
+/* AI Box */
+.ai-box{background:linear-gradient(135deg,#fff9f5,#fff);border:1.5px solid rgba(255,140,66,.22);border-radius:10px;padding:16px 18px;margin-bottom:18px}
+.ai-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.ai-label{font-size:12px;font-weight:700;color:var(--or);letter-spacing:.06em}
+.ai-hint{font-size:11px;color:var(--ink2)}
+.ai-row{display:flex;gap:10px}
+.ai-btn{background:var(--or);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:12px;font-weight:700;font-family:var(--B);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background .2s}
+.ai-btn:hover{background:#e87530}
+.ai-btn:disabled{background:var(--bd);cursor:not-allowed}
+/* Video */
+.video-zone{border:2px dashed var(--bd);border-radius:10px;min-height:100px;cursor:pointer;transition:all .2s;background:var(--f1);position:relative;overflow:hidden}
+.video-zone:hover{border-color:var(--or);background:#fff9f5}
+.video-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:6px;pointer-events:none}
+.video-preview-wrap{display:none}
+.video-preview-wrap video{width:100%;max-height:220px;display:block;border-radius:8px}
+.video-remove{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;border:none;padding:5px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:var(--B)}
 .ql-toolbar{border-radius:8px 8px 0 0;border:1.5px solid var(--bd)}
 .ql-container{border-radius:0 0 8px 8px;border:1.5px solid var(--bd);border-top:none;font-family:var(--B);font-size:14px}
 .ql-editor{min-height:240px;line-height:1.8}
@@ -236,7 +251,17 @@ body{font-family:var(--B);background:var(--f1);color:var(--ink);min-height:100vh
           <input class="field-input" id="fTitle" placeholder="記事のタイトルを入力">
         </div>
 
-        <div class="field field-row">
+        <!-- AI文章生成 -->
+        <div class="ai-box">
+          <div class="ai-head">
+            <span class="ai-label">✦ AI文章生成</span>
+            <span class="ai-hint">APIキー設定後に使用できます</span>
+          </div>
+          <div class="ai-row">
+            <input class="field-input" id="aiPrompt" placeholder="例：Paw Meとの提携について。保護猫にスマホでごはんをあげるアプリ…">
+            <button class="ai-btn" id="aiBtn" onclick="generateAI()">生成</button>
+          </div>
+        </div>
           <div>
             <label class="field-label">公開日</label>
             <input class="field-input" id="fDate" type="date">
@@ -266,6 +291,23 @@ body{font-family:var(--B);background:var(--f1);color:var(--ink);min-height:100vh
           </div>
           <input type="file" id="fileInput" accept="image/*" style="display:none">
           <input type="hidden" id="fImage">
+        </div>
+
+        <div class="field">
+          <label class="field-label">動画（任意）</label>
+          <div class="video-zone" id="videoZone" onclick="document.getElementById('videoInput').click()">
+            <div class="video-empty" id="videoEmpty">
+              <div style="font-size:24px">🎬</div>
+              <div style="font-size:13px;font-weight:700;color:var(--ink)">クリックまたはD&Dで動画を追加</div>
+              <div style="font-size:11px;color:var(--ink2)">MP4・MOV・WebM 対応（最大50MB）</div>
+            </div>
+            <div class="video-preview-wrap" id="videoPreviewWrap">
+              <video id="videoPreviewEl" controls></video>
+              <button class="video-remove" id="videoRemoveBtn">✕ 削除</button>
+            </div>
+          </div>
+          <input type="file" id="videoInput" accept="video/*" style="display:none">
+          <input type="hidden" id="fVideo">
         </div>
 
         <div class="field">
@@ -499,6 +541,70 @@ function showImagePreview(url){
   document.getElementById('uploadProgressWrap').style.display = 'none';
   document.getElementById('uploadPreviewImg').src         = url;
   document.getElementById('uploadImgWrap').style.display  = 'block';
+}
+
+/* ── VIDEO UPLOAD ── */
+const videoZone = document.getElementById('videoZone');
+videoZone.addEventListener('dragover', e=>{e.preventDefault(); videoZone.style.borderColor='var(--or)'});
+videoZone.addEventListener('dragleave', ()=>videoZone.style.borderColor='');
+videoZone.addEventListener('drop', e=>{e.preventDefault(); const f=e.dataTransfer.files[0]; if(f&&f.type.startsWith('video/')) uploadVideo(f)});
+document.getElementById('videoInput').onchange = function(){ if(this.files[0]) uploadVideo(this.files[0]) };
+document.getElementById('videoRemoveBtn').onclick = function(e){
+  e.stopPropagation();
+  document.getElementById('fVideo').value='';
+  document.getElementById('videoPreviewWrap').style.display='none';
+  document.getElementById('videoEmpty').style.display='flex';
+};
+
+async function uploadVideo(file){
+  if(file.size > 52428800){ showToast('ファイルサイズが50MBを超えています','err'); return; }
+  document.getElementById('videoEmpty').style.display='none';
+  showToast('動画をアップロード中...','ok');
+  try{
+    const ext=file.name.split('.').pop();
+    const name=`video-${Date.now()}.${ext}`;
+    const res=await fetch(`${SB_URL}/storage/v1/object/news-images/${name}`,{
+      method:'POST',
+      headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Content-Type':file.type,'x-upsert':'true'},
+      body:file
+    });
+    if(!res.ok) throw new Error(await res.text());
+    const url=`${SB_URL}/storage/v1/object/public/news-images/${name}`;
+    document.getElementById('fVideo').value=url;
+    document.getElementById('videoPreviewEl').src=url;
+    document.getElementById('videoPreviewWrap').style.display='block';
+    showToast('動画をアップロードしました','ok');
+  }catch(e){ document.getElementById('videoEmpty').style.display='flex'; showToast('動画アップロード失敗','err') }
+}
+
+/* ── AI GENERATION ── */
+const AI_KEY = ''; /* ← Claude APIキーをここに入力 */
+async function generateAI(){
+  const prompt = document.getElementById('aiPrompt').value.trim();
+  if(!prompt){ showToast('キーワードを入力してください','err'); return; }
+  if(!AI_KEY){ showToast('APIキーが未設定です。admin.htmlのAI_KEYに入力してください','err'); return; }
+  const btn = document.getElementById('aiBtn');
+  btn.disabled=true; btn.textContent='生成中...';
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':AI_KEY,'anthropic-version':'2023-06-01'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:1200,
+        messages:[{role:'user',content:`Connect Pet（ペットの殺処分ゼロを目指す会社）のNEWS記事を日本語で書いてください。
+自然で人間らしい文章で、丁寧かつ読みやすく。
+内容：${prompt}
+JSON形式で返してください：{"title":"タイトル","body":"<p>本文HTML（段落・太字・リスト使用可）</p>"}`}]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text||'';
+    const parsed = JSON.parse(text.replace(/```json|```/g,'').trim());
+    if(parsed.title) document.getElementById('fTitle').value=parsed.title;
+    if(parsed.body) quill.clipboard.dangerouslyPasteHTML(parsed.body);
+    showToast('AI生成完了！編集してから保存してください','ok');
+  }catch(e){ showToast('AI生成失敗：'+e.message,'err') }
+  btn.disabled=false; btn.textContent='生成';
 }
 
 /* ── UTILS ── */
