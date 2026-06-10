@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>猫管理 | Connect Pet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#ff8c42;--nv:#0b0e1a;--w:#fff;
+  --f1:#f8f9fa;--f2:#f1f3f5;--f3:#fff9f5;
+  --ink:#1b2138;--ink2:#6c757d;--bd:#dee2e6;
+  --err:#e74c3c;--ok:#27ae60;
+  --B:'Noto Sans JP',sans-serif;--M:'DM Mono',monospace;
+}
+body{font-family:var(--B);background:var(--f1);color:var(--ink);min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;background:var(--nv);display:flex;align-items:center;justify-content:center;z-index:9999}
+.login-box{background:var(--w);border-radius:16px;padding:48px 40px;width:100%;max-width:380px}
+.login-logo{margin-bottom:24px;text-align:center}
+.login-logo img{height:28px;width:auto}
+.login-sub{font-size:13px;color:var(--ink2);text-align:center;margin-bottom:28px}
+.lbl{font-size:12px;font-weight:700;display:block;margin-bottom:8px;letter-spacing:.06em}
+.linput{width:100%;padding:12px 16px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:var(--B);outline:none;transition:border-color .2s}
+.linput:focus{border-color:var(--or)}
+.lbtn{width:100%;margin-top:16px;padding:14px;background:var(--or);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;font-family:var(--B);cursor:pointer}
+.lbtn:hover{background:#e87530}
+.lerr{color:var(--err);font-size:12px;margin-top:10px;text-align:center;display:none}
+
+/* APP */
+#appScreen{display:none}
+.header{background:var(--nv);height:60px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.header-left{display:flex;align-items:center;gap:20px}
+.header-logo img{height:20px;filter:brightness(0) invert(1)}
+.header-tab{font-family:var(--M);font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.4);padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .2s}
+.header-tab:hover,.header-tab.active{background:rgba(255,140,66,.15);color:var(--or)}
+.logout-btn{font-size:12px;color:rgba(255,255,255,.35);background:none;border:1px solid rgba(255,255,255,.15);padding:6px 14px;border-radius:6px;cursor:pointer;font-family:var(--B);transition:all .2s}
+.logout-btn:hover{border-color:var(--or);color:var(--or)}
+
+.layout{max-width:1200px;margin:0 auto;padding:24px 20px;display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}
+
+/* LIST */
+.list-panel{background:var(--w);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);overflow:hidden}
+.list-head{padding:16px 18px;border-bottom:1px solid var(--f2);display:flex;align-items:center;justify-content:space-between}
+.list-title{font-size:13px;font-weight:700}
+.btn-new{background:var(--or);color:#fff;border:none;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:700;font-family:var(--B);cursor:pointer}
+.btn-new:hover{background:#e87530}
+.cat-list{list-style:none;max-height:calc(100vh - 160px);overflow-y:auto}
+.cat-item{padding:12px 18px;border-bottom:1px solid var(--f2);cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:10px}
+.cat-item:hover{background:var(--f1)}
+.cat-item.active{background:#fff4ee;border-left:3px solid var(--or)}
+.cat-item-thumb{width:38px;height:38px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--f2)}
+.cat-item-info{flex:1;min-width:0}
+.cat-item-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cat-item-meta{font-size:10px;color:var(--ink2);margin-top:2px}
+.badge-s{font-size:9px;padding:2px 7px;border-radius:20px;font-family:var(--M)}
+.badge-av{background:#fff4ee;color:var(--or)}
+.badge-ad{background:var(--f2);color:var(--ink2)}
+.list-empty{padding:36px 18px;text-align:center;color:var(--ink2);font-size:13px}
+
+/* EDITOR */
+.editor-panel{background:var(--w);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.editor-head{padding:16px 22px;border-bottom:1px solid var(--f2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.editor-mode{font-size:14px;font-weight:700}
+.editor-btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn-save{background:var(--or);color:#fff;border:none;padding:8px 18px;border-radius:7px;font-size:12px;font-weight:700;font-family:var(--B);cursor:pointer}
+.btn-save:hover{background:#e87530}
+.btn-del{background:none;color:var(--err);border:1px solid var(--err);padding:8px 14px;border-radius:7px;font-size:12px;font-weight:700;font-family:var(--B);cursor:pointer}
+.btn-del:hover{background:var(--err);color:#fff}
+.editor-body{padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+.field-label{font-size:11px;font-weight:700;letter-spacing:.08em;display:block;margin-bottom:6px;color:var(--ink2)}
+.field-input,.field-select,.field-textarea{width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:13px;font-family:var(--B);outline:none;transition:border-color .2s;background:var(--w);color:var(--ink)}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:var(--or)}
+.field-textarea{min-height:100px;resize:vertical;line-height:1.7}
+
+/* Status toggle */
+.status-toggle{display:flex;gap:8px}
+.stbtn{
+  flex:1;padding:9px;border-radius:8px;font-size:12px;font-weight:700;font-family:var(--B);cursor:pointer;
+  border:1.5px solid var(--bd);background:var(--f1);color:var(--ink2);transition:all .2s;text-align:center;
+}
+.stbtn.active.av{background:#fff4ee;border-color:var(--or);color:var(--or)}
+.stbtn.active.ad{background:var(--f2);border-color:var(--ink2);color:var(--ink2)}
+
+/* Checkboxes */
+.checks-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chk-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--f1);cursor:pointer;font-size:12px;transition:background .2s;user-select:none}
+.chk-item:hover{background:var(--f2)}
+.chk-item input{width:15px;height:15px;accent-color:var(--or);cursor:pointer;flex-shrink:0}
+.chk-item.checked{background:#e8f8ee;color:#1a7a3c}
+
+/* Photos */
+.photos-area{border:2px dashed var(--bd);border-radius:10px;padding:16px;background:var(--f1);transition:border-color .2s}
+.photos-area:hover{border-color:var(--or)}
+.photos-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;min-height:60px}
+.photo-thumb{position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;flex-shrink:0}
+.photo-thumb img{width:100%;height:100%;object-fit:cover}
+.photo-thumb-rm{
+  position:absolute;top:3px;right:3px;width:18px;height:18px;
+  background:rgba(0,0,0,.65);color:#fff;border:none;border-radius:50%;
+  font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.photos-add-btn{
+  width:72px;height:72px;border:1.5px dashed var(--bd);border-radius:8px;
+  background:var(--f2);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:22px;transition:border-color .2s;flex-shrink:0;
+}
+.photos-add-btn:hover{border-color:var(--or)}
+.photos-hint{font-size:10px;color:var(--ink2);margin-top:4px}
+
+/* Video */
+.video-zone{border:2px dashed var(--bd);border-radius:10px;padding:16px;text-align:center;cursor:pointer;background:var(--f1);transition:border-color .2s;min-height:80px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;color:var(--ink2)}
+.video-zone:hover{border-color:var(--or)}
+.video-preview{width:100%;border-radius:8px;margin-top:8px;display:block}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;color:#fff;display:none;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.toast.ok{background:var(--ok)}
+.toast.err{background:var(--err)}
+
+/* Upload progress */
+.up-progress{display:none;font-size:11px;color:var(--or);margin-top:6px}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .cat-list{max-height:180px}
+  .editor-body{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  .checks-row{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo"><img src="images/connect_pet_logo.png" alt="CONNECT PET"></div>
+    <p class="login-sub">猫管理画面</p>
+    <label class="lbl">パスワード</label>
+    <input class="linput" type="password" id="pwInput" placeholder="パスワードを入力">
+    <button class="lbtn" id="loginBtn">ログイン</button>
+    <p class="lerr" id="loginErr">パスワードが違います</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appScreen">
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo"><img src="images/connect_pet_logo.png" alt="CONNECT PET"></div>
+      <a class="header-tab" href="/admin.html">NEWS</a>
+      <span class="header-tab active">猫管理</span>
+    </div>
+    <button class="logout-btn" id="logoutBtn">ログアウト</button>
+  </header>
+
+  <div class="layout">
+    <!-- LIST -->
+    <div class="list-panel">
+      <div class="list-head">
+        <span class="list-title">在籍猫一覧</span>
+        <button class="btn-new" id="btnNew">＋ 新規追加</button>
+      </div>
+      <ul class="cat-list" id="catList"><li class="list-empty">読み込み中...</li></ul>
+    </div>
+
+    <!-- EDITOR -->
+    <div class="editor-panel">
+      <div class="editor-head">
+        <span class="editor-mode" id="editorMode">新規追加</span>
+        <div class="editor-btns">
+          <button class="btn-save" id="btnSave">保存する</button>
+          <button class="btn-del" id="btnDel" style="display:none">削除</button>
+        </div>
+      </div>
+      <div class="editor-body">
+
+        <!-- 名前 -->
+        <div class="full">
+          <label class="field-label">名前 *</label>
+          <input class="field-input" id="fName" placeholder="猫の名前">
+        </div>
+
+        <!-- ステータス -->
+        <div class="full">
+          <label class="field-label">ステータス</label>
+          <div class="status-toggle">
+            <button class="stbtn av active" id="stAvailable" onclick="setStatus('available')">在籍中</button>
+            <button class="stbtn ad" id="stAdopted" onclick="setStatus('adopted')">譲渡済み</button>
+          </div>
+          <input type="hidden" id="fStatus" value="available">
+        </div>
+
+        <!-- 性別 -->
+        <div>
+          <label class="field-label">性別</label>
+          <select class="field-select" id="fGender">
+            <option value="">未選択</option>
+            <option value="male">オス</option>
+            <option value="female">メス</option>
+          </select>
+        </div>
+
+        <!-- 年齢 -->
+        <div>
+          <label class="field-label">年齢</label>
+          <input class="field-input" id="fAge" placeholder="例：2歳 / 生後3ヶ月">
+        </div>
+
+        <!-- 毛色 -->
+        <div>
+          <label class="field-label">毛色</label>
+          <select class="field-select" id="fColor">
+            <option value="">未選択</option>
+            <option>茶色・キジ</option><option>サバ</option><option>白</option>
+            <option>黒</option><option>グレー</option><option>茶白</option>
+            <option>黒白</option><option>三毛</option><option>サビ</option><option>その他</option>
+          </select>
+        </div>
+
+        <!-- 出身 -->
+        <div>
+          <label class="field-label">出身地</label>
+          <select class="field-select" id="fOrigin">
+            <option value="">未選択</option>
+            <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option>
+            <option>秋田県</option><option>山形県</option><option>福島県</option><option>茨城県</option>
+            <option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option>
+            <option>東京都</option><option>神奈川県</option><option>新潟県</option><option>富山県</option>
+            <option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option>
+            <option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option>
+            <option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option>
+            <option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option>
+            <option>岡山県</option><option>広島県</option><option>山口県</option><option>徳島県</option>
+            <option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option>
+            <option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option>
+            <option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
+          </select>
+        </div>
+
+        <!-- 写真 -->
+        <div class="full">
+          <label class="field-label">写真（複数可）</label>
+          <div class="photos-area" id="photosArea">
+            <div class="photos-grid" id="photosGrid">
+              <button class="photos-add-btn" onclick="document.getElementById('photoInput').click()" type="button">＋</button>
+            </div>
+            <p class="photos-hint">＋ボタンで写真を追加。複数枚登録すると自動スライダーで表示されます</p>
+          </div>
+          <div class="up-progress" id="photoProgress">アップロード中...</div>
+          <input type="file" id="photoInput" accept="image/*" multiple style="display:none">
+        </div>
+
+        <!-- 動画 -->
+        <div class="full">
+          <label class="field-label">動画（任意）</label>
+          <div class="video-zone" id="videoZone" onclick="document.getElementById('videoInput').click()">
+            <span id="videoZoneText">🎬 クリックまたはD&Dで動画を追加（MP4/MOV/WebM・50MBまで）</span>
+          </div>
+          <input type="hidden" id="fVideo">
+          <input type="file" id="videoInput" accept="video/*" style="display:none">
+        </div>
+
+        <!-- 健康チェック -->
+        <div class="full">
+          <label class="field-label">健康チェック</label>
+          <div class="checks-row">
+            <label class="chk-item" id="ckMicro"><input type="checkbox" id="fMicro"> マイクロチップ挿入</label>
+            <label class="chk-item" id="ckNeuter"><input type="checkbox" id="fNeuter"> 避妊・去勢済</label>
+            <label class="chk-item" id="ckVaccine"><input type="checkbox" id="fVaccine"> ワクチン接種済</label>
+            <label class="chk-item" id="ckFecal"><input type="checkbox" id="fFecal"> 検便検査済</label>
+            <label class="chk-item" id="ckDeworm"><input type="checkbox" id="fDeworm"> 駆虫処置済</label>
+          </div>
+        </div>
+
+        <!-- コメント -->
+        <div class="full">
+          <label class="field-label">紹介コメント</label>
+          <textarea class="field-textarea" id="fComment" placeholder="この子の性格・特徴・エピソードなどを自由に書いてください"></textarea>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SB_URL = 'https://ifccjxzsoozipldjnehu.supabase.co';
+const SB_KEY = 'sb_publishable_DXxwbYEqzJlTitVPo9Cciw_UCU6sa7b';
+const PASS   = 'connectpet2024';
+
+/* SESSION */
+function isLoggedIn(){ return sessionStorage.getItem('cp_admin')==='1' }
+function setLogin(v){ v?sessionStorage.setItem('cp_admin','1'):sessionStorage.removeItem('cp_admin') }
+if(isLoggedIn()){ showApp() } else { showLogin() }
+function showLogin(){ document.getElementById('loginScreen').style.display='flex'; document.getElementById('appScreen').style.display='none' }
+function showApp(){ document.getElementById('loginScreen').style.display='none'; document.getElementById('appScreen').style.display='block'; loadCats() }
+
+document.getElementById('loginBtn').onclick=function(){ if(document.getElementById('pwInput').value===PASS){ setLogin(true);showApp() }else{ document.getElementById('loginErr').style.display='block' } }
+document.getElementById('pwInput').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('loginBtn').click() })
+document.getElementById('logoutBtn').onclick=function(){ setLogin(false);showLogin() }
+
+/* STATE */
+let allCats=[], currentId=null, currentPhotos=[];
+
+/* SUPABASE */
+async function sb(path, method='GET', body=null){
+  const res=await fetch(`${SB_URL}/rest/v1/${path}`,{
+    method, headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Content-Type':'application/json','Prefer':method==='POST'?'return=representation':'return=minimal'},
+    body:body?JSON.stringify(body):null
+  });
+  if(res.status===204) return null;
+  return res.json();
+}
+
+/* LOAD */
+async function loadCats(){
+  try{ allCats=await sb('cats?select=*&order=created_at.desc')||[]; }catch(e){ allCats=[] }
+  renderList();
+}
+
+function renderList(){
+  const ul=document.getElementById('catList');
+  if(!allCats.length){ ul.innerHTML='<li class="list-empty">登録された猫がありません</li>'; return; }
+  ul.innerHTML=allCats.map(c=>{
+    const thumb=Array.isArray(c.photos)&&c.photos.length?c.photos[0]:'';
+    const isAdopted=c.status==='adopted';
+    return `<li class="cat-item${currentId===c.id?' active':''}" data-id="${c.id}">
+      ${thumb?`<img class="cat-item-thumb" src="${thumb}" alt="" onerror="this.style.display='none'">`:'<div class="cat-item-thumb" style="background:var(--f2)"></div>'}
+      <div class="cat-item-info">
+        <div class="cat-item-name">${c.name||'名前なし'}</div>
+        <div class="cat-item-meta">${c.gender==='male'?'オス':c.gender==='female'?'メス':''} ${c.age||''}</div>
+      </div>
+      <span class="badge-s ${isAdopted?'badge-ad':'badge-av'}">${isAdopted?'譲渡済':'在籍'}</span>
+    </li>`;
+  }).join('');
+  ul.querySelectorAll('.cat-item').forEach(el=>el.addEventListener('click',()=>editCat(parseInt(el.dataset.id))));
+}
+
+/* NEW */
+document.getElementById('btnNew').onclick=function(){
+  currentId=null; currentPhotos=[];
+  document.getElementById('editorMode').textContent='新規追加';
+  document.getElementById('btnDel').style.display='none';
+  document.getElementById('fName').value='';
+  document.getElementById('fGender').value='';
+  document.getElementById('fAge').value='';
+  document.getElementById('fColor').value='';
+  document.getElementById('fOrigin').value='';
+  document.getElementById('fVideo').value='';
+  document.getElementById('fComment').value='';
+  document.getElementById('videoZoneText').textContent='🎬 クリックまたはD&Dで動画を追加';
+  document.getElementById('fMicro').checked=false;
+  document.getElementById('fNeuter').checked=false;
+  document.getElementById('fVaccine').checked=false;
+  document.getElementById('fFecal').checked=false;
+  document.getElementById('fDeworm').checked=false;
+  setStatus('available');
+  updateCheckStyles();
+  renderPhotos();
+  renderList();
+};
+
+/* EDIT */
+function editCat(id){
+  const c=allCats.find(x=>x.id===id); if(!c) return;
+  currentId=id; currentPhotos=Array.isArray(c.photos)?[...c.photos]:[];
+  document.getElementById('editorMode').textContent='編集中';
+  document.getElementById('btnDel').style.display='inline-block';
+  document.getElementById('fName').value=c.name||'';
+  document.getElementById('fGender').value=c.gender||'';
+  document.getElementById('fAge').value=c.age||'';
+  document.getElementById('fColor').value=c.color||'';
+  document.getElementById('fOrigin').value=c.origin||'';
+  document.getElementById('fVideo').value=c.video_url||'';
+  document.getElementById('fComment').value=c.comment||'';
+  document.getElementById('fMicro').checked=!!c.has_microchip;
+  document.getElementById('fNeuter').checked=!!c.is_neutered;
+  document.getElementById('fVaccine').checked=!!c.is_vaccinated;
+  document.getElementById('fFecal').checked=!!c.is_fecal_tested;
+  document.getElementById('fDeworm').checked=!!c.is_dewormed;
+  setStatus(c.status||'available');
+  updateCheckStyles();
+  if(c.video_url) document.getElementById('videoZoneText').textContent='✅ 動画登録済み（クリックで変更）';
+  renderPhotos();
+  renderList();
+}
+
+/* STATUS */
+function setStatus(v){
+  document.getElementById('fStatus').value=v;
+  document.getElementById('stAvailable').classList.toggle('active',v==='available');
+  document.getElementById('stAdopted').classList.toggle('active',v==='adopted');
+}
+
+/* CHECKBOXES */
+['Micro','Neuter','Vaccine','Fecal','Deworm'].forEach(k=>{
+  document.getElementById('f'+k).addEventListener('change',updateCheckStyles);
+});
+function updateCheckStyles(){
+  ['Micro','Neuter','Vaccine','Fecal','Deworm'].forEach(k=>{
+    const el=document.getElementById('ck'+k);
+    if(el) el.classList.toggle('checked',document.getElementById('f'+k).checked);
+  });
+}
+
+/* PHOTOS */
+function renderPhotos(){
+  const grid=document.getElementById('photosGrid');
+  const thumbs=currentPhotos.map((url,i)=>`
+    <div class="photo-thumb">
+      <img src="${url}" alt="">
+      <button class="photo-thumb-rm" onclick="removePhoto(${i})">×</button>
+    </div>`).join('');
+  grid.innerHTML=thumbs+`<button class="photos-add-btn" onclick="document.getElementById('photoInput').click()" type="button">＋</button>`;
+}
+function removePhoto(i){ currentPhotos.splice(i,1); renderPhotos() }
+
+document.getElementById('photoInput').onchange=async function(){
+  const files=Array.from(this.files);
+  document.getElementById('photoProgress').style.display='block';
+  for(const file of files){
+    const url=await uploadFile(file,'image');
+    if(url) currentPhotos.push(url);
+  }
+  document.getElementById('photoProgress').style.display='none';
+  renderPhotos();
+  this.value='';
+};
+
+/* VIDEO */
+const vzone=document.getElementById('videoZone');
+vzone.addEventListener('dragover',e=>{e.preventDefault();vzone.style.borderColor='var(--or)'});
+vzone.addEventListener('dragleave',()=>vzone.style.borderColor='');
+vzone.addEventListener('drop',e=>{e.preventDefault();vzone.style.borderColor='';const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('video/'))uploadVideoFile(f)});
+document.getElementById('videoInput').onchange=function(){if(this.files[0])uploadVideoFile(this.files[0])};
+
+async function uploadVideoFile(file){
+  if(file.size>52428800){showToast('50MB以内の動画を選択してください','err');return}
+  document.getElementById('videoZoneText').textContent='⏳ アップロード中...';
+  const url=await uploadFile(file,'video');
+  if(url){
+    document.getElementById('fVideo').value=url;
+    document.getElementById('videoZoneText').textContent='✅ 動画登録済み（クリックで変更）';
+    showToast('動画をアップロードしました','ok');
+  }
+}
+
+async function uploadFile(file, type){
+  try{
+    const ext=file.name.split('.').pop();
+    const name=`${type}-${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const res=await fetch(`${SB_URL}/storage/v1/object/news-images/${name}`,{
+      method:'POST',
+      headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Content-Type':file.type,'x-upsert':'true'},
+      body:file
+    });
+    if(!res.ok) throw new Error(await res.text());
+    return `${SB_URL}/storage/v1/object/public/news-images/${name}`;
+  }catch(e){ showToast('アップロード失敗: '+e.message,'err'); return null }
+}
+
+/* SAVE */
+document.getElementById('btnSave').onclick=async function(){
+  const name=document.getElementById('fName').value.trim();
+  if(!name){showToast('名前を入力してください','err');return}
+  const data={
+    name,
+    gender:document.getElementById('fGender').value||null,
+    age:document.getElementById('fAge').value.trim()||null,
+    color:document.getElementById('fColor').value||null,
+    origin:document.getElementById('fOrigin').value||null,
+    status:document.getElementById('fStatus').value,
+    photos:JSON.stringify(currentPhotos),
+    video_url:document.getElementById('fVideo').value||null,
+    comment:document.getElementById('fComment').value.trim()||null,
+    has_microchip:document.getElementById('fMicro').checked,
+    is_neutered:document.getElementById('fNeuter').checked,
+    is_vaccinated:document.getElementById('fVaccine').checked,
+    is_fecal_tested:document.getElementById('fFecal').checked,
+    is_dewormed:document.getElementById('fDeworm').checked,
+  };
+  try{
+    if(currentId){
+      await sb(`cats?id=eq.${currentId}`,'PATCH',data);
+      allCats=allCats.map(c=>c.id===currentId?{...c,...data,photos:currentPhotos}:c);
+      showToast('保存しました','ok');
+    }else{
+      const res=await sb('cats','POST',data);
+      if(res&&res[0]){ currentId=res[0].id; allCats=[res[0],...allCats]; }
+      document.getElementById('editorMode').textContent='編集中';
+      document.getElementById('btnDel').style.display='inline-block';
+      showToast('登録しました','ok');
+    }
+    renderList();
+  }catch(e){ showToast('保存失敗: '+e.message,'err') }
+};
+
+/* DELETE */
+document.getElementById('btnDel').onclick=async function(){
+  if(!currentId||!confirm('この猫の情報を削除しますか？')) return;
+  try{
+    await sb(`cats?id=eq.${currentId}`,'DELETE');
+    allCats=allCats.filter(c=>c.id!==currentId);
+    document.getElementById('btnNew').click();
+    showToast('削除しました','ok');
+  }catch(e){showToast('削除失敗','err')}
+};
+
+/* TOAST */
+function showToast(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast '+type; t.style.display='block';
+  clearTimeout(t._t); t._t=setTimeout(()=>t.style.display='none',3500);
+}
+</script>
+</body>
+</html>

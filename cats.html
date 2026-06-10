@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>在籍猫を探す | Connect Pet</title>
+<meta name="description" content="里親を待つ保護猫たちをご紹介します。あなたと出会いを待っている猫がいます。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#ff8c42;--or2:#e87530;--nv:#0b0e1a;--w:#fff;
+  --f1:#fdf8f3;--f2:#faeee5;--f3:#fff9f5;
+  --ink:#1b2138;--ink2:#4a526a;--sil:#94a0b8;--ln:rgba(27,33,56,.08);
+  --S:'Zen Kaku Gothic New',sans-serif;
+  --B:'Noto Sans JP',sans-serif;
+  --M:'DM Mono',monospace;
+  --e1:cubic-bezier(.16,1,.3,1);
+  --e3:cubic-bezier(.25,.46,.45,.94);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--B);background:var(--f1);color:var(--ink);-webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:500;
+  background:rgba(253,248,243,.96);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--ln);
+  padding:14px 48px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo img{height:22px;width:auto}
+.nav-logo-fb{font-family:var(--S);font-size:14px;font-weight:700;color:var(--nv)}
+.nav-logo-fb em{color:var(--or);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-link{font-family:var(--M);font-size:11px;letter-spacing:.14em;color:var(--sil);transition:color .2s}
+.nav-link:hover{color:var(--or)}
+.nav-cta{
+  font-family:var(--B);font-size:12px;font-weight:700;
+  background:var(--or);color:#fff;padding:9px 20px;border-radius:8px;
+  letter-spacing:.04em;transition:background .2s,transform .2s;
+}
+.nav-cta:hover{background:var(--or2);transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{
+  background:var(--nv);padding:80px 48px 72px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'🐱';position:absolute;right:-40px;bottom:-60px;
+  font-size:320px;line-height:1;opacity:.04;pointer-events:none;
+}
+.hero-inner{max-width:1200px;margin:0 auto}
+.hero-eyebrow{font-family:var(--M);font-size:10px;letter-spacing:.28em;color:var(--or);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.hero-eyebrow::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.hero-title{font-family:var(--S);font-size:clamp(36px,5vw,68px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px}
+.hero-title em{color:var(--or);font-style:normal}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.45);line-height:1.9;max-width:480px;letter-spacing:.03em}
+.hero-stats{display:flex;gap:36px;margin-top:36px}
+.hero-stat-n{font-family:var(--S);font-size:36px;font-weight:900;color:var(--or);line-height:1}
+.hero-stat-l{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.06em;margin-top:4px}
+
+/* ── FILTER BAR ── */
+.filter-wrap{
+  position:sticky;top:52px;z-index:400;
+  background:rgba(253,248,243,.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--ln);
+  padding:14px 48px;
+}
+.filter-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.filter-label{font-family:var(--M);font-size:9px;letter-spacing:.2em;color:var(--sil);white-space:nowrap;margin-right:4px}
+
+.filter-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.ftab{
+  font-family:var(--B);font-size:12px;font-weight:500;
+  padding:6px 14px;border-radius:20px;border:1.5px solid var(--ln);
+  background:var(--w);color:var(--ink2);cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.ftab:hover{border-color:var(--or);color:var(--or)}
+.ftab.active{background:var(--or);border-color:var(--or);color:#fff;font-weight:700}
+
+.filter-select{
+  font-family:var(--B);font-size:12px;padding:7px 12px;
+  border:1.5px solid var(--ln);border-radius:8px;
+  background:var(--w);color:var(--ink2);cursor:pointer;outline:none;
+  transition:border-color .2s;
+}
+.filter-select:focus{border-color:var(--or)}
+
+.filter-sep{width:1px;height:20px;background:var(--ln);flex-shrink:0}
+.filter-count-badge{
+  margin-left:auto;font-family:var(--M);font-size:10px;
+  color:var(--sil);letter-spacing:.1em;white-space:nowrap;
+}
+.filter-count-badge span{color:var(--or);font-weight:700}
+
+/* ── CONTENT ── */
+.content{max-width:1200px;margin:0 auto;padding:48px 48px 96px}
+
+/* ── CAT GRID ── */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+
+.cat-card{
+  background:var(--w);border-radius:20px;overflow:hidden;
+  box-shadow:0 2px 16px rgba(27,33,56,.06);
+  transition:transform .42s var(--e1),box-shadow .42s;
+  display:flex;flex-direction:column;
+  position:relative;
+}
+.cat-card:hover{transform:translateY(-7px);box-shadow:0 20px 52px rgba(27,33,56,.13)}
+.cat-card.adopted{opacity:.68}
+
+/* Card photo */
+.card-photo{position:relative;overflow:hidden;aspect-ratio:4/3;flex-shrink:0;background:var(--f2)}
+.card-photo img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--e1);display:block}
+.cat-card:hover .card-photo img{transform:scale(1.07)}
+.card-photo-count{
+  position:absolute;bottom:10px;left:12px;
+  background:rgba(11,14,26,.55);color:#fff;
+  font-family:var(--M);font-size:9px;letter-spacing:.1em;
+  padding:3px 9px;border-radius:20px;
+}
+
+/* Status badge */
+.status-badge{
+  position:absolute;top:12px;right:12px;z-index:2;
+  font-family:var(--B);font-size:10px;font-weight:700;
+  padding:5px 12px;border-radius:20px;letter-spacing:.04em;
+}
+.status-available{background:var(--or);color:#fff;box-shadow:0 2px 8px rgba(255,140,66,.4)}
+.status-adopted{background:rgba(27,33,56,.75);color:rgba(255,255,255,.7);backdrop-filter:blur(4px)}
+
+/* Card body */
+.card-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+.card-name{font-family:var(--S);font-size:20px;font-weight:900;color:var(--ink);line-height:1;letter-spacing:-.01em}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{
+  font-family:var(--B);font-size:10px;font-weight:500;
+  padding:3px 10px;border-radius:20px;
+  background:var(--f2);color:var(--ink2);
+}
+.tag.gender-male{background:#e8f4ff;color:#2d6cb4}
+.tag.gender-female{background:#ffe8f0;color:#c0397a}
+.card-checks{display:flex;gap:5px;margin-top:2px;flex-wrap:wrap}
+.check-dot{
+  width:7px;height:7px;border-radius:50%;flex-shrink:0;
+  background:var(--ln);
+}
+.check-dot.done{background:#27ae60}
+.check-dot[title]{cursor:default}
+.card-cta{
+  margin-top:auto;padding-top:14px;border-top:1px solid var(--ln);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-cta-text{font-family:var(--M);font-size:10px;letter-spacing:.12em;color:var(--or);transition:color .2s}
+.cat-card:hover .card-cta-text{color:var(--or2)}
+.card-cta-arr{font-size:12px;color:var(--or);transition:transform .3s}
+.cat-card:hover .card-cta-arr{transform:translateX(4px)}
+
+/* ── EMPTY ── */
+.empty-state{text-align:center;padding:80px 20px;grid-column:1/-1}
+.empty-icon{font-size:64px;margin-bottom:18px}
+.empty-title{font-family:var(--S);font-size:22px;font-weight:700;margin-bottom:10px}
+.empty-sub{font-size:14px;color:var(--sil)}
+
+/* ── SKELETON ── */
+.skeleton-card{background:var(--w);border-radius:20px;overflow:hidden;box-shadow:0 2px 16px rgba(27,33,56,.06)}
+.skel-img{aspect-ratio:4/3;background:linear-gradient(90deg,var(--f2) 25%,#f0e0d0 50%,var(--f2) 75%);background-size:200%;animation:sh 1.5s infinite}
+.skel-body{padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.skel-line{height:12px;border-radius:6px;background:linear-gradient(90deg,var(--f2) 25%,#f0e0d0 50%,var(--f2) 75%);background-size:200%;animation:sh 1.5s infinite}
+.skel-line.s{width:50%}
+@keyframes sh{to{background-position:-200% 0}}
+
+/* ── PAGINATION ── */
+.pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:52px;flex-wrap:wrap}
+.pg-btn{width:40px;height:40px;border-radius:9px;border:1.5px solid var(--ln);background:var(--w);color:var(--ink);font-family:var(--M);font-size:12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.pg-btn:hover:not(:disabled){border-color:var(--or);color:var(--or)}
+.pg-btn.active{background:var(--or);border-color:var(--or);color:#fff}
+.pg-btn:disabled{opacity:.3;cursor:default}
+.pg-dots{color:var(--sil);font-family:var(--M);font-size:12px}
+
+/* ── CTA BANNER ── */
+.cta-banner{
+  background:var(--nv);margin:72px 0 0;padding:56px 48px;border-radius:20px;
+  display:flex;align-items:center;justify-content:space-between;gap:32px;
+  position:relative;overflow:hidden;
+}
+.cta-banner::before{content:'🏠';position:absolute;right:-20px;top:-30px;font-size:200px;opacity:.06;pointer-events:none}
+.cta-banner-body{position:relative}
+.cta-banner-title{font-family:var(--S);font-size:clamp(22px,3vw,34px);font-weight:900;color:#fff;margin-bottom:10px}
+.cta-banner-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.8}
+.cta-banner-btn{
+  flex-shrink:0;background:var(--or);color:#fff;
+  font-family:var(--B);font-size:14px;font-weight:700;
+  padding:16px 36px;border-radius:10px;white-space:nowrap;
+  transition:background .2s,transform .2s;position:relative;
+}
+.cta-banner-btn:hover{background:var(--or2);transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+footer{background:var(--nv);padding:32px 48px;margin-top:0;display:flex;align-items:center;justify-content:space-between}
+.ft-logo img{height:18px;filter:brightness(0) invert(1);opacity:.6}
+.ft-copy{font-family:var(--M);font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.1em}
+
+@media(max-width:1080px){
+  nav,.hero,.filter-wrap,.content,footer{padding-left:28px;padding-right:28px}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  nav{padding:12px 20px}
+  .hero{padding:52px 20px 44px}
+  .filter-wrap{padding:12px 20px;top:50px}
+  .content{padding:36px 20px 72px}
+  footer{padding:24px 20px;flex-direction:column;gap:10px}
+  .cat-grid{grid-template-columns:1fr}
+  .hero-stats{gap:24px}
+  .cta-banner{flex-direction:column;padding:36px 24px}
+  .cta-banner-btn{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nav-logo-fb" style="display:none">CONNECT <em>PET</em></span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="/">トップ</a>
+    <a class="nav-cta" href="/contact.html">里親になりたい方へ</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">CATS</div>
+    <h1 class="hero-title">あなたを待っている<br><em>猫</em>がいます。</h1>
+    <p class="hero-sub">秩父のセントラルケアセンターで医療ケア・人馴れを完了した猫たちが、池袋の施設であなたとの出会いを待っています。</p>
+    <div class="hero-stats">
+      <div><div class="hero-stat-n" id="availableCount">—</div><div class="hero-stat-l">在籍中</div></div>
+      <div><div class="hero-stat-n" id="adoptedCount">—</div><div class="hero-stat-l">譲渡済み</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="filter-wrap">
+  <div class="filter-inner">
+    <span class="filter-label">ステータス</span>
+    <div class="filter-tabs" id="statusTabs">
+      <button class="ftab active" data-status="">すべて</button>
+      <button class="ftab" data-status="available">在籍中</button>
+      <button class="ftab" data-status="adopted">譲渡済み</button>
+    </div>
+    <div class="filter-sep"></div>
+    <span class="filter-label">性別</span>
+    <div class="filter-tabs" id="genderTabs">
+      <button class="ftab active" data-gender="">すべて</button>
+      <button class="ftab" data-gender="male">オス</button>
+      <button class="ftab" data-gender="female">メス</button>
+    </div>
+    <div class="filter-sep"></div>
+    <select class="filter-select" id="colorFilter">
+      <option value="">毛色：すべて</option>
+      <option>茶色・キジ</option><option>サバ</option><option>白</option>
+      <option>黒</option><option>グレー</option><option>茶白</option>
+      <option>黒白</option><option>三毛</option><option>サビ</option><option>その他</option>
+    </select>
+    <span class="filter-count-badge"><span id="filteredCount">0</span> 匹</span>
+  </div>
+</div>
+
+<div class="content">
+  <div class="cat-grid" id="catGrid">
+    <div class="skeleton-card"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s"></div><div class="skel-line"></div><div class="skel-line s"></div></div></div>
+    <div class="skeleton-card"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s"></div><div class="skel-line"></div><div class="skel-line s"></div></div></div>
+    <div class="skeleton-card"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s"></div><div class="skel-line"></div><div class="skel-line s"></div></div></div>
+  </div>
+  <div id="paginationWrap"></div>
+
+  <div class="cta-banner">
+    <div class="cta-banner-body">
+      <h2 class="cta-banner-title">気になる猫が見つかりましたか？</h2>
+      <p class="cta-banner-sub">里親になりたい方は、お気軽にお問い合わせください。<br>見学のご予約も受け付けています。</p>
+    </div>
+    <a class="cta-banner-btn" href="/contact.html">無料でお問い合わせ →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-logo"><img src="images/connect_pet_logo.png" alt="CONNECT PET" onerror="this.style.display='none'"></div>
+  <span class="ft-copy">&copy; CONNECT PET, Inc</span>
+</footer>
+
+<script>
+const SB_URL = 'https://ifccjxzsoozipldjnehu.supabase.co';
+const SB_KEY = 'sb_publishable_DXxwbYEqzJlTitVPo9Cciw_UCU6sa7b';
+const PER    = 9;
+const OG     = 'https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6';
+
+let all=[], filtered=[], page=1;
+let fStatus='', fGender='', fColor='';
+
+const CHECKS=[
+  {key:'has_microchip',label:'マイクロチップ'},
+  {key:'is_neutered',label:'避妊去勢'},
+  {key:'is_vaccinated',label:'ワクチン'},
+  {key:'is_fecal_tested',label:'検便'},
+  {key:'is_dewormed',label:'駆虫'},
+];
+
+async function init(){
+  try{
+    const res = await fetch(`${SB_URL}/rest/v1/cats?select=*&order=created_at.desc`,{
+      headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}
+    });
+    all = await res.json();
+    if(!Array.isArray(all)) all=[];
+  }catch(e){ all=[] }
+  /* stats */
+  document.getElementById('availableCount').textContent = all.filter(c=>c.status==='available').length;
+  document.getElementById('adoptedCount').textContent   = all.filter(c=>c.status==='adopted').length;
+  applyFilter();
+}
+
+function applyFilter(){
+  filtered = all.filter(c=>{
+    if(fStatus && c.status!==fStatus) return false;
+    if(fGender && c.gender!==fGender) return false;
+    if(fColor  && c.color!==fColor)   return false;
+    return true;
+  });
+  document.getElementById('filteredCount').textContent = filtered.length;
+  renderPage(1);
+}
+
+function renderPage(p){
+  page=p;
+  const total=filtered.length, pages=Math.ceil(total/PER);
+  const items=filtered.slice((p-1)*PER,(p-1)*PER+PER);
+  const grid=document.getElementById('catGrid');
+
+  if(!total){
+    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">🐾</div><h3 class="empty-title">該当する猫がいません</h3><p class="empty-sub">条件を変えて探してみてください</p></div>`;
+    document.getElementById('paginationWrap').innerHTML='';
+    return;
+  }
+
+  grid.innerHTML = items.map(c=>{
+    const photos = Array.isArray(c.photos)&&c.photos.length ? c.photos : null;
+    const thumb  = photos ? photos[0] : OG;
+    const adopted = c.status==='adopted';
+    const checkDots = CHECKS.map(ch=>`<div class="check-dot${c[ch.key]?' done':''}" title="${ch.label}"></div>`).join('');
+    const gClass = c.gender==='male'?'gender-male':c.gender==='female'?'gender-female':'';
+    const gLabel = c.gender==='male'?'オス':c.gender==='female'?'メス':'';
+    return `
+      <a class="cat-card${adopted?' adopted':''}" href="/cat-post.html?id=${c.id}">
+        <div class="card-photo">
+          <img src="${thumb}" alt="${c.name||''}" loading="lazy" onerror="this.src='${OG}'">
+          ${photos&&photos.length>1?`<span class="card-photo-count">📷 ${photos.length}</span>`:''}
+          <span class="status-badge ${adopted?'status-adopted':'status-available'}">${adopted?'譲渡済み 🏠':'在籍中'}</span>
+        </div>
+        <div class="card-body">
+          <h2 class="card-name">${c.name||'名前未設定'}</h2>
+          <div class="card-tags">
+            ${gLabel?`<span class="tag ${gClass}">${gLabel}</span>`:''}
+            ${c.age?`<span class="tag">${c.age}</span>`:''}
+            ${c.color?`<span class="tag">${c.color}</span>`:''}
+            ${c.origin?`<span class="tag">📍${c.origin}</span>`:''}
+          </div>
+          <div class="card-checks">${checkDots}</div>
+          <div class="card-cta">
+            <span class="card-cta-text">${adopted?'譲渡済みを見る':'プロフィールを見る'}</span>
+            <span class="card-cta-arr">→</span>
+          </div>
+        </div>
+      </a>`;
+  }).join('');
+
+  /* pagination */
+  if(pages<=1){ document.getElementById('paginationWrap').innerHTML=''; return; }
+  const btns=[];
+  btns.push(`<button class="pg-btn" ${p===1?'disabled':''} onclick="renderPage(${p-1})">←</button>`);
+  for(let i=1;i<=pages;i++){
+    if(i===1||i===pages||Math.abs(i-p)<=1) btns.push(`<button class="pg-btn${i===p?' active':''}" onclick="renderPage(${i})">${i}</button>`);
+    else if(Math.abs(i-p)===2) btns.push(`<span class="pg-dots">…</span>`);
+  }
+  btns.push(`<button class="pg-btn" ${p===pages?'disabled':''} onclick="renderPage(${p+1})">→</button>`);
+  document.getElementById('paginationWrap').innerHTML=`<div class="pagination">${btns.join('')}</div>`;
+  window.scrollTo({top:document.querySelector('.filter-wrap').offsetTop-60,behavior:'smooth'});
+}
+
+/* filter events */
+document.querySelectorAll('#statusTabs .ftab').forEach(b=>{
+  b.addEventListener('click',()=>{ document.querySelectorAll('#statusTabs .ftab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); fStatus=b.dataset.status; applyFilter(); });
+});
+document.querySelectorAll('#genderTabs .ftab').forEach(b=>{
+  b.addEventListener('click',()=>{ document.querySelectorAll('#genderTabs .ftab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); fGender=b.dataset.gender; applyFilter(); });
+});
+document.getElementById('colorFilter').addEventListener('change',e=>{ fColor=e.target.value; applyFilter(); });
+
+init();
+</script>
+</body>
+</html>
