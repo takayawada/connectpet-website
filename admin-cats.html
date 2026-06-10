@@ -32,11 +32,15 @@ a{color:inherit;text-decoration:none}
 
 /* APP */
 #appScreen{display:none}
-.header{background:var(--nv);height:60px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.header-left{display:flex;align-items:center;gap:20px}
+.header{background:var(--nv);height:60px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;gap:16px}
 .header-logo img{height:20px;filter:brightness(0) invert(1)}
-.header-tab{font-family:var(--M);font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.4);padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .2s}
-.header-tab:hover,.header-tab.active{background:rgba(255,140,66,.15);color:var(--or)}
+.header-tabs{display:flex;gap:4px;background:rgba(255,255,255,.06);border-radius:8px;padding:4px}
+.header-tab{font-family:var(--B);font-size:12px;font-weight:600;padding:7px 14px;border-radius:6px;cursor:pointer;color:rgba(255,255,255,.4);transition:all .2s;white-space:nowrap}
+.header-tab.active{background:var(--or);color:#fff}
+.header-tab:not(.active):hover{background:rgba(255,255,255,.08);color:#fff}
+.header-right{display:flex;align-items:center;gap:14px}
+.header-link{font-size:12px;color:rgba(255,255,255,.4);transition:color .2s}
+.header-link:hover{color:var(--or)}
 .logout-btn{font-size:12px;color:rgba(255,255,255,.35);background:none;border:1px solid rgba(255,255,255,.15);padding:6px 14px;border-radius:6px;cursor:pointer;font-family:var(--B);transition:all .2s}
 .logout-btn:hover{border-color:var(--or);color:var(--or)}
 
@@ -56,9 +60,13 @@ a{color:inherit;text-decoration:none}
 .cat-item-info{flex:1;min-width:0}
 .cat-item-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cat-item-meta{font-size:10px;color:var(--ink2);margin-top:2px}
-.badge-s{font-size:9px;padding:2px 7px;border-radius:20px;font-family:var(--M)}
-.badge-av{background:#fff4ee;color:var(--or)}
-.badge-ad{background:var(--f2);color:var(--ink2)}
+.status-toggle-btn{
+  flex-shrink:0;font-size:10px;font-weight:700;font-family:var(--B);
+  padding:4px 10px;border-radius:20px;border:none;cursor:pointer;
+  background:#fff4ee;color:var(--or);transition:all .2s;
+}
+.status-toggle-btn.adopted{background:var(--f2);color:var(--ink2)}
+.status-toggle-btn:hover{filter:brightness(.9)}
 .list-empty{padding:36px 18px;text-align:center;color:var(--ink2);font-size:13px}
 
 /* EDITOR */
@@ -97,13 +105,18 @@ a{color:inherit;text-decoration:none}
 .photos-area{border:2px dashed var(--bd);border-radius:10px;padding:16px;background:var(--f1);transition:border-color .2s}
 .photos-area:hover{border-color:var(--or)}
 .photos-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;min-height:60px}
-.photo-thumb{position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;flex-shrink:0}
-.photo-thumb img{width:100%;height:100%;object-fit:cover}
+.photo-thumb{position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;flex-shrink:0;cursor:grab;transition:transform .2s,opacity .2s,outline .2s}
+.photo-thumb:active{cursor:grabbing}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 .photo-thumb-rm{
   position:absolute;top:3px;right:3px;width:18px;height:18px;
   background:rgba(0,0,0,.65);color:#fff;border:none;border-radius:50%;
   font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;
 }
+.drag-handle{position:absolute;bottom:3px;left:3px;color:rgba(255,255,255,.7);font-size:10px;pointer-events:none;letter-spacing:-1px}
+.order-badge{position:absolute;top:3px;left:3px;background:rgba(255,140,66,.85);color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:4px;pointer-events:none}
+.photo-thumb.dragging{opacity:.4;transform:scale(.94)}
+.photo-thumb.drag-over{outline:2.5px dashed var(--or);transform:scale(1.06)}
 .photos-add-btn{
   width:72px;height:72px;border:1.5px dashed var(--bd);border-radius:8px;
   background:var(--f2);cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -151,12 +164,15 @@ a{color:inherit;text-decoration:none}
 <!-- APP -->
 <div id="appScreen">
   <header class="header">
-    <div class="header-left">
-      <div class="header-logo"><img src="images/connect_pet_logo.png" alt="CONNECT PET"></div>
-      <a class="header-tab" href="/admin.html">NEWS</a>
-      <span class="header-tab active">猫管理</span>
+    <div class="header-logo"><img src="images/connect_pet_logo.png" alt="CONNECT PET"></div>
+    <div class="header-tabs">
+      <a class="header-tab" href="/admin.html">📰 NEWS管理</a>
+      <span class="header-tab active">🐱 在籍猫管理</span>
     </div>
-    <button class="logout-btn" id="logoutBtn">ログアウト</button>
+    <div class="header-right">
+      <a class="header-link" href="/" target="_blank">サイトを見る →</a>
+      <button class="logout-btn" id="logoutBtn">ログアウト</button>
+    </div>
   </header>
 
   <div class="layout">
@@ -186,15 +202,8 @@ a{color:inherit;text-decoration:none}
           <input class="field-input" id="fName" placeholder="猫の名前">
         </div>
 
-        <!-- ステータス -->
-        <div class="full">
-          <label class="field-label">ステータス</label>
-          <div class="status-toggle">
-            <button class="stbtn av active" id="stAvailable" onclick="setStatus('available')">在籍中</button>
-            <button class="stbtn ad" id="stAdopted" onclick="setStatus('adopted')">譲渡済み</button>
-          </div>
-          <input type="hidden" id="fStatus" value="available">
-        </div>
+        <!-- ステータスは一覧から変更 -->
+        <input type="hidden" id="fStatus" value="available">
 
         <!-- 性別 -->
         <div>
@@ -214,13 +223,13 @@ a{color:inherit;text-decoration:none}
 
         <!-- 毛色 -->
         <div>
-          <label class="field-label">毛色</label>
-          <select class="field-select" id="fColor">
-            <option value="">未選択</option>
+          <label class="field-label">毛色（選択または自由入力）</label>
+          <input class="field-input" id="fColor" list="colorList" placeholder="茶色・キジ / サバ / 白 / 黒…">
+          <datalist id="colorList">
             <option>茶色・キジ</option><option>サバ</option><option>白</option>
             <option>黒</option><option>グレー</option><option>茶白</option>
-            <option>黒白</option><option>三毛</option><option>サビ</option><option>その他</option>
-          </select>
+            <option>黒白</option><option>三毛</option><option>サビ</option>
+          </datalist>
         </div>
 
         <!-- 出身 -->
@@ -300,6 +309,13 @@ const PASS   = 'connectpet2024';
 function isLoggedIn(){ return sessionStorage.getItem('cp_admin')==='1' }
 function setLogin(v){ v?sessionStorage.setItem('cp_admin','1'):sessionStorage.removeItem('cp_admin') }
 if(isLoggedIn()){ showApp() } else { showLogin() }
+
+/* カスタム毛色の復元 */
+(function(){
+  const saved=JSON.parse(localStorage.getItem('cp_colors')||'[]');
+  const dl=document.getElementById('colorList');
+  saved.forEach(c=>{ const o=document.createElement('option');o.value=c;dl.appendChild(o) });
+})();
 function showLogin(){ document.getElementById('loginScreen').style.display='flex'; document.getElementById('appScreen').style.display='none' }
 function showApp(){ document.getElementById('loginScreen').style.display='none'; document.getElementById('appScreen').style.display='block'; loadCats() }
 
@@ -330,15 +346,19 @@ function renderList(){
   const ul=document.getElementById('catList');
   if(!allCats.length){ ul.innerHTML='<li class="list-empty">登録された猫がありません</li>'; return; }
   ul.innerHTML=allCats.map(c=>{
-    const thumb=Array.isArray(c.photos)&&c.photos.length?c.photos[0]:'';
-    const isAdopted=c.status==='adopted';
+    const photos = Array.isArray(c.photos) ? c.photos : (typeof c.photos==='string'?JSON.parse(c.photos||'[]'):[]);
+    const thumb = photos.length ? photos[0] : '';
+    const isAdopted = c.status==='adopted';
     return `<li class="cat-item${currentId===c.id?' active':''}" data-id="${c.id}">
-      ${thumb?`<img class="cat-item-thumb" src="${thumb}" alt="" onerror="this.style.display='none'">`:'<div class="cat-item-thumb" style="background:var(--f2)"></div>'}
+      ${thumb
+        ?`<img class="cat-item-thumb" src="${thumb}" alt="${c.name||''}" onerror="this.style.background='var(--f2)';this.style.display='none'">`
+        :`<div class="cat-item-thumb" style="background:var(--f2);display:flex;align-items:center;justify-content:center;font-size:18px">🐱</div>`
+      }
       <div class="cat-item-info">
         <div class="cat-item-name">${c.name||'名前なし'}</div>
         <div class="cat-item-meta">${c.gender==='male'?'オス':c.gender==='female'?'メス':''} ${c.age||''}</div>
       </div>
-      <span class="badge-s ${isAdopted?'badge-ad':'badge-av'}">${isAdopted?'譲渡済':'在籍'}</span>
+      <button class="status-toggle-btn ${isAdopted?'adopted':''}" data-id="${c.id}" onclick="toggleStatus(event,${c.id})">${isAdopted?'譲渡済み':'在籍中'}</button>
     </li>`;
   }).join('');
   ul.querySelectorAll('.cat-item').forEach(el=>el.addEventListener('click',()=>editCat(parseInt(el.dataset.id))));
@@ -368,10 +388,30 @@ document.getElementById('btnNew').onclick=function(){
   renderList();
 };
 
-/* EDIT */
+/* STATUS TOGGLE in list */
+async function toggleStatus(e, id){
+  e.stopPropagation();
+  const cat = allCats.find(c=>c.id===id);
+  if(!cat) return;
+  const newStatus = cat.status==='adopted' ? 'available' : 'adopted';
+  if(!confirm(`「${cat.name}」を${newStatus==='adopted'?'譲渡済み':'在籍中'}に変更しますか？`)) return;
+  try{
+    await sb(`cats?id=eq.${id}`,'PATCH',{status:newStatus});
+    cat.status = newStatus;
+    if(currentId===id) document.getElementById('fStatus').value = newStatus;
+    renderList();
+    showToast(newStatus==='adopted'?'譲渡済みに変更しました 🏠':'在籍中に戻しました','ok');
+  }catch(e){ showToast('変更に失敗しました','err') }
+}
+
+/* EDIT - fix photos parse */
 function editCat(id){
   const c=allCats.find(x=>x.id===id); if(!c) return;
-  currentId=id; currentPhotos=Array.isArray(c.photos)?[...c.photos]:[];
+  currentId=id;
+  /* photos: parse if string (Supabaseから文字列で来る場合がある) */
+  const raw = c.photos;
+  currentPhotos = Array.isArray(raw) ? [...raw]
+    : (typeof raw==='string'&&raw ? JSON.parse(raw) : []);
   document.getElementById('editorMode').textContent='編集中';
   document.getElementById('btnDel').style.display='inline-block';
   document.getElementById('fName').value=c.name||'';
@@ -386,19 +426,15 @@ function editCat(id){
   document.getElementById('fVaccine').checked=!!c.is_vaccinated;
   document.getElementById('fFecal').checked=!!c.is_fecal_tested;
   document.getElementById('fDeworm').checked=!!c.is_dewormed;
-  setStatus(c.status||'available');
+  document.getElementById('fStatus').value=c.status||'available';
   updateCheckStyles();
   if(c.video_url) document.getElementById('videoZoneText').textContent='✅ 動画登録済み（クリックで変更）';
+  else document.getElementById('videoZoneText').textContent='🎬 クリックまたはD&Dで動画を追加';
   renderPhotos();
   renderList();
 }
 
-/* STATUS */
-function setStatus(v){
-  document.getElementById('fStatus').value=v;
-  document.getElementById('stAvailable').classList.toggle('active',v==='available');
-  document.getElementById('stAdopted').classList.toggle('active',v==='adopted');
-}
+/* STATUS (setStatusはリストのトグルボタンから呼ぶ) */
 
 /* CHECKBOXES */
 ['Micro','Neuter','Vaccine','Fecal','Deworm'].forEach(k=>{
@@ -411,15 +447,66 @@ function updateCheckStyles(){
   });
 }
 
-/* PHOTOS */
+/* ── 写真並び替え（マウス＋タッチ対応） ── */
+let dragIdx = null;
+let touchDragEl = null, touchStartIdx = null;
+
 function renderPhotos(){
-  const grid=document.getElementById('photosGrid');
-  const thumbs=currentPhotos.map((url,i)=>`
-    <div class="photo-thumb">
-      <img src="${url}" alt="">
-      <button class="photo-thumb-rm" onclick="removePhoto(${i})">×</button>
+  const grid = document.getElementById('photosGrid');
+  const thumbs = currentPhotos.map((url, i) => `
+    <div class="photo-thumb" draggable="true" data-idx="${i}">
+      <img src="${url}" alt="" onerror="this.style.background='var(--f2)'">
+      <button class="photo-thumb-rm" onclick="removePhoto(${i})" type="button">×</button>
+      <div class="drag-handle" title="ドラッグで並び替え">⠿</div>
+      <div class="order-badge">${i+1}</div>
     </div>`).join('');
-  grid.innerHTML=thumbs+`<button class="photos-add-btn" onclick="document.getElementById('photoInput').click()" type="button">＋</button>`;
+  grid.innerHTML = thumbs + `<button class="photos-add-btn" onclick="document.getElementById('photoInput').click()" type="button">＋</button>`;
+
+  grid.querySelectorAll('.photo-thumb').forEach(el => {
+    const idx = parseInt(el.dataset.idx);
+
+    /* Desktop drag */
+    el.addEventListener('dragstart', () => { dragIdx = idx; el.classList.add('dragging'); });
+    el.addEventListener('dragend',   () => { dragIdx = null; el.classList.remove('dragging'); grid.querySelectorAll('.photo-thumb').forEach(x=>x.classList.remove('drag-over')); });
+    el.addEventListener('dragover',  e => { e.preventDefault(); el.classList.add('drag-over'); });
+    el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+    el.addEventListener('drop', e => {
+      e.preventDefault();
+      el.classList.remove('drag-over');
+      if(dragIdx !== null && dragIdx !== idx){
+        const moved = currentPhotos.splice(dragIdx, 1)[0];
+        currentPhotos.splice(idx, 0, moved);
+        renderPhotos();
+      }
+    });
+
+    /* Touch drag */
+    el.addEventListener('touchstart', e => {
+      touchStartIdx = idx; touchDragEl = el;
+      el.classList.add('dragging');
+    }, {passive:true});
+
+    el.addEventListener('touchmove', e => {
+      e.preventDefault();
+      const t = e.touches[0];
+      const over = document.elementFromPoint(t.clientX, t.clientY)?.closest('.photo-thumb');
+      grid.querySelectorAll('.photo-thumb').forEach(x=>x.classList.remove('drag-over'));
+      if(over && over !== touchDragEl) over.classList.add('drag-over');
+    }, {passive:false});
+
+    el.addEventListener('touchend', e => {
+      const t = e.changedTouches[0];
+      const target = document.elementFromPoint(t.clientX, t.clientY)?.closest('.photo-thumb');
+      grid.querySelectorAll('.photo-thumb').forEach(x=>x.classList.remove('drag-over','dragging'));
+      if(target && target !== touchDragEl){
+        const toIdx = parseInt(target.dataset.idx);
+        const moved = currentPhotos.splice(touchStartIdx, 1)[0];
+        currentPhotos.splice(toIdx, 0, moved);
+        renderPhotos();
+      }
+      touchDragEl = null;
+    }, {passive:true});
+  });
 }
 function removePhoto(i){ currentPhotos.splice(i,1); renderPhotos() }
 
@@ -478,7 +565,7 @@ document.getElementById('btnSave').onclick=async function(){
     color:document.getElementById('fColor').value||null,
     origin:document.getElementById('fOrigin').value||null,
     status:document.getElementById('fStatus').value,
-    photos:JSON.stringify(currentPhotos),
+    photos: currentPhotos,
     video_url:document.getElementById('fVideo').value||null,
     comment:document.getElementById('fComment').value.trim()||null,
     has_microchip:document.getElementById('fMicro').checked,
@@ -487,6 +574,17 @@ document.getElementById('btnSave').onclick=async function(){
     is_fecal_tested:document.getElementById('fFecal').checked,
     is_dewormed:document.getElementById('fDeworm').checked,
   };
+  /* カスタム毛色を記憶 */
+  const colorVal = (data.color||'').trim();
+  if(colorVal){
+    const dl=document.getElementById('colorList');
+    const existing=Array.from(dl.options).map(o=>o.value);
+    if(!existing.includes(colorVal)){
+      const opt=document.createElement('option'); opt.value=colorVal; dl.appendChild(opt);
+      const saved=JSON.parse(localStorage.getItem('cp_colors')||'[]');
+      if(!saved.includes(colorVal)){ saved.push(colorVal); localStorage.setItem('cp_colors',JSON.stringify(saved)) }
+    }
+  }
   try{
     if(currentId){
       await sb(`cats?id=eq.${currentId}`,'PATCH',data);
