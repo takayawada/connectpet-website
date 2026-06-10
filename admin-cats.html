@@ -268,11 +268,11 @@ a{color:inherit;text-decoration:none}
         <!-- 動画 -->
         <div class="full">
           <label class="field-label">動画（任意）</label>
-          <div class="video-zone" id="videoZone" onclick="document.getElementById('videoInput').click()">
+          <div class="video-zone" id="videoZone">
             <span id="videoZoneText">🎬 クリックまたはD&Dで動画を追加（MP4/MOV/WebM・50MBまで）</span>
           </div>
           <input type="hidden" id="fVideo">
-          <input type="file" id="videoInput" accept="video/*" style="display:none">
+          <input type="file" id="videoInput" accept="video/mp4,video/mov,video/quicktime,video/webm" style="display:none">
         </div>
 
         <!-- 健康チェック -->
@@ -346,19 +346,22 @@ function renderList(){
   const ul=document.getElementById('catList');
   if(!allCats.length){ ul.innerHTML='<li class="list-empty">登録された猫がありません</li>'; return; }
   ul.innerHTML=allCats.map(c=>{
-    const photos = Array.isArray(c.photos) ? c.photos : (typeof c.photos==='string'?JSON.parse(c.photos||'[]'):[]);
-    const thumb = photos.length ? photos[0] : '';
-    const isAdopted = c.status==='adopted';
+    /* photos: JSONB配列・文字列・null全て対応 */
+    let photos=[];
+    if(Array.isArray(c.photos)) photos=c.photos;
+    else if(typeof c.photos==='string'&&c.photos&&c.photos!=='[]') try{ photos=JSON.parse(c.photos) }catch(e){}
+    const thumb=photos[0]||'';
+    const isAdopted=c.status==='adopted';
     return `<li class="cat-item${currentId===c.id?' active':''}" data-id="${c.id}">
       ${thumb
-        ?`<img class="cat-item-thumb" src="${thumb}" alt="${c.name||''}" onerror="this.style.background='var(--f2)';this.style.display='none'">`
-        :`<div class="cat-item-thumb" style="background:var(--f2);display:flex;align-items:center;justify-content:center;font-size:18px">🐱</div>`
+        ?`<img class="cat-item-thumb" src="${thumb}" alt="${c.name||''}">`
+        :`<div class="cat-item-thumb" style="background:var(--f2);display:flex;align-items:center;justify-content:center;font-size:20px">🐱</div>`
       }
       <div class="cat-item-info">
         <div class="cat-item-name">${c.name||'名前なし'}</div>
         <div class="cat-item-meta">${c.gender==='male'?'オス':c.gender==='female'?'メス':''} ${c.age||''}</div>
       </div>
-      <button class="status-toggle-btn ${isAdopted?'adopted':''}" data-id="${c.id}" onclick="toggleStatus(event,${c.id})">${isAdopted?'譲渡済み':'在籍中'}</button>
+      <button class="status-toggle-btn${isAdopted?' adopted':''}" data-id="${c.id}" onclick="toggleStatus(event,${c.id})">${isAdopted?'譲渡済み':'在籍中'}</button>
     </li>`;
   }).join('');
   ul.querySelectorAll('.cat-item').forEach(el=>el.addEventListener('click',()=>editCat(parseInt(el.dataset.id))));
@@ -382,7 +385,7 @@ document.getElementById('btnNew').onclick=function(){
   document.getElementById('fVaccine').checked=false;
   document.getElementById('fFecal').checked=false;
   document.getElementById('fDeworm').checked=false;
-  setStatus('available');
+  document.getElementById('fStatus').value='available'; /* 直接セット */
   updateCheckStyles();
   renderPhotos();
   renderList();
@@ -523,11 +526,18 @@ document.getElementById('photoInput').onchange=async function(){
 };
 
 /* VIDEO */
-const vzone=document.getElementById('videoZone');
-vzone.addEventListener('dragover',e=>{e.preventDefault();vzone.style.borderColor='var(--or)'});
-vzone.addEventListener('dragleave',()=>vzone.style.borderColor='');
-vzone.addEventListener('drop',e=>{e.preventDefault();vzone.style.borderColor='';const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('video/'))uploadVideoFile(f)});
-document.getElementById('videoInput').onchange=function(){if(this.files[0])uploadVideoFile(this.files[0])};
+const vzone = document.getElementById('videoZone');
+vzone.addEventListener('click', ()=>document.getElementById('videoInput').click());
+vzone.addEventListener('dragover',  e=>{e.preventDefault(); vzone.style.borderColor='var(--or)'});
+vzone.addEventListener('dragleave', ()=>vzone.style.borderColor='');
+vzone.addEventListener('drop', e=>{
+  e.preventDefault(); vzone.style.borderColor='';
+  const f=e.dataTransfer.files[0];
+  if(f&&f.type.startsWith('video/')) uploadVideoFile(f);
+});
+document.getElementById('videoInput').addEventListener('change', function(){
+  if(this.files[0]) uploadVideoFile(this.files[0]);
+});
 
 async function uploadVideoFile(file){
   if(file.size>52428800){showToast('50MB以内の動画を選択してください','err');return}
@@ -588,11 +598,17 @@ document.getElementById('btnSave').onclick=async function(){
   try{
     if(currentId){
       await sb(`cats?id=eq.${currentId}`,'PATCH',data);
-      allCats=allCats.map(c=>c.id===currentId?{...c,...data,photos:currentPhotos}:c);
+      /* ローカルを即時更新 */
+      allCats=allCats.map(c=>c.id===currentId?{...c,...data,photos:[...currentPhotos]}:c);
       showToast('保存しました','ok');
     }else{
       const res=await sb('cats','POST',data);
-      if(res&&res[0]){ currentId=res[0].id; allCats=[res[0],...allCats]; }
+      if(res&&res[0]){
+        currentId=res[0].id;
+        /* 保存したphotosをローカル配列で上書き（Supabaseの返りが不定のため） */
+        const newCat={...res[0],photos:[...currentPhotos]};
+        allCats=[newCat,...allCats];
+      }
       document.getElementById('editorMode').textContent='編集中';
       document.getElementById('btnDel').style.display='inline-block';
       showToast('登録しました','ok');
