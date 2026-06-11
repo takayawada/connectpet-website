@@ -31,8 +31,8 @@ nav{position:sticky;top:0;z-index:500;background:rgba(253,248,243,.96);backdrop-
 .nav-back:hover{color:var(--or)}
 
 /* ── MEDIA SECTION ── */
-.media-section{background:var(--nv);position:relative}
-.media-section-inner{max-width:900px;margin:0 auto} /* PC: 中央寄せ */
+.media-section{background:var(--nv);position:relative;padding:32px 0}
+.media-section-inner{width:100%}
 /* Photo slider */
 .slider{position:relative;overflow:hidden;aspect-ratio:4/3;max-height:580px;background:var(--nv)}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--e1)}
@@ -226,7 +226,7 @@ function render(c){
 
   /* ── Info grid ── */
   const gLabel = c.gender==='male'?'オス':c.gender==='female'?'メス':'—';
-  const ageDisplay = c.age ? (isNaN(c.age.toString().trim()) ? c.age : c.age + '歳') : '—';
+  const ageDisplay = c.age ? (/[歳月年後]/.test(c.age) ? c.age : c.age + '歳') : '—';
   const infoRows=[
     ['性別', gLabel],['年齢', ageDisplay],
     ['毛色', c.color||'—'],['出身', c.origin||'—'],
