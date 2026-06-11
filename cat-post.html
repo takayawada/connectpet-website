@@ -39,10 +39,9 @@ nav{position:sticky;top:0;z-index:500;background:rgba(253,248,243,.96);backdrop-
 .slide.active{opacity:1;position:relative}
 .slide img{
   width:100%;height:100%;
-  object-fit:contain;   /* 縦横どちらも全体表示 */
-  object-position:center center;
+  object-fit:cover;
+  object-position:center 30%; /* 猫の顔が上寄りに来やすいため上30%を中心に */
   display:block;
-  background:#0b0e1a;  /* 黒枠は写真のbackgroundで表示 */
 }
 .slide video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
 /* Slider controls */
