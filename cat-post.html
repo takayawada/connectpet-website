@@ -31,10 +31,14 @@ nav{position:sticky;top:0;z-index:500;background:rgba(253,248,243,.96);backdrop-
 .nav-back:hover{color:var(--or)}
 
 /* ── MEDIA SECTION ── */
-.media-section{background:var(--nv);position:relative;padding:32px 0}
+.media-section{background:var(--nv);padding:40px}
 .media-section-inner{width:100%}
 /* Photo slider */
-.slider{position:relative;overflow:hidden;aspect-ratio:4/3;max-height:580px;background:var(--nv)}
+.slider{
+  position:relative;overflow:hidden;
+  width:100%;aspect-ratio:4/3;
+  /* max-height削除：aspect-ratioと競合して幅が縮まるため */
+}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--e1)}
 .slide.active{opacity:1;position:relative}
 .slide img{
@@ -156,12 +160,12 @@ nav{position:sticky;top:0;z-index:500;background:rgba(253,248,243,.96);backdrop-
 
 @media(max-width:960px){
   .main-wrap{grid-template-columns:1fr;padding:36px 28px 72px}
-  .cta-card{position:static;order:2} /* CTAはプロフィールの後 */
+  .cta-card{position:static;order:2}
   .profile-col{order:1}
   nav{padding:13px 20px}
 }
 @media(max-width:640px){
-  .slider{aspect-ratio:4/3;max-height:320px}
+  .media-section{padding:20px}
   .main-wrap{padding:28px 20px 64px;gap:28px}
   .info-grid{grid-template-columns:1fr}
 }
