@@ -37,7 +37,13 @@ nav{position:sticky;top:0;z-index:500;background:rgba(253,248,243,.96);backdrop-
 .slider{position:relative;overflow:hidden;aspect-ratio:4/3;max-height:580px;background:var(--nv)}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--e1)}
 .slide.active{opacity:1;position:relative}
-.slide img{width:100%;height:100%;object-fit:cover;display:block}
+.slide img{
+  width:100%;height:100%;
+  object-fit:contain;   /* 縦横どちらも全体表示 */
+  object-position:center center;
+  display:block;
+  background:#0b0e1a;  /* 黒枠は写真のbackgroundで表示 */
+}
 .slide video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
 /* Slider controls */
 .slider-prev,.slider-next{
@@ -129,18 +135,19 @@ nav{position:sticky;top:0;z-index:500;background:rgba(253,248,243,.96);backdrop-
 .cta-cat-name{font-family:var(--S);font-size:13px;font-weight:700;color:var(--ink);text-align:center;margin-bottom:14px}
 
 /* Back nav */
-.post-nav{display:flex;gap:12px;margin-top:48px;flex-wrap:wrap}
+.post-nav{display:flex;gap:12px;margin-top:48px}
 .post-nav-item{
   flex:1;min-width:0;background:var(--w);border-radius:12px;
   padding:16px 18px;border:1.5px solid var(--ln);
   transition:border-color .25s,transform .3s;
   display:flex;flex-direction:column;gap:5px;
+  text-decoration:none;
 }
 .post-nav-item:hover{border-color:var(--or);transform:translateY(-2px)}
 .post-nav-item.nav-next{text-align:right}
 .nav-dir{font-family:var(--M);font-size:9px;letter-spacing:.2em;color:var(--or)}
 .nav-name{font-family:var(--S);font-size:14px;font-weight:700;color:var(--ink)}
-.nav-empty{flex:1;background:transparent;border:1.5px dashed var(--ln);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:center;color:var(--sil);font-size:12px}
+.nav-placeholder{flex:1} /* 片方だけある場合のスペーサー */
 
 .nav-skeleton{flex:1;height:60px;background:var(--f2);border-radius:12px;animation:sh 1.5s infinite}
 @keyframes sh{0%,100%{opacity:.6}50%{opacity:1}}min-height:60vh;display:flex;align-items:center;justify-content:center}
@@ -329,27 +336,40 @@ function goSlide(i){
 
 /* ── Adjacent cats ── */
 async function loadNav(c){
+  const nav = document.getElementById('postNav');
+  if(!nav) return;
   try{
-    const [pR,nR] = await Promise.all([
-      fetch(`${SB_URL}/rest/v1/cats?select=id,name&created_at=lt.${c.created_at}&order=created_at.desc&limit=1`,{headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}}),
-      fetch(`${SB_URL}/rest/v1/cats?select=id,name&created_at=gt.${c.created_at}&order=created_at.asc&limit=1`,{headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}})
-    ]);
-    const [prev,next] = await Promise.all([pR.json(),nR.json()]);
-    const p = Array.isArray(prev)&&prev.length?prev[0]:null;
-    const n = Array.isArray(next)&&next.length?next[0]:null;
-    const nav = document.getElementById('postNav');
-    if(!nav) return;
+    /* 全catのidリストを取得して前後を探す */
+    const res = await fetch(
+      `${SB_URL}/rest/v1/cats?select=id,name&order=id.asc`,
+      {headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}}
+    );
+    const all = await res.json();
+    if(!Array.isArray(all)||!all.length){ nav.innerHTML=''; return; }
+
+    const idx = all.findIndex(x=>x.id===c.id);
+    const p   = idx > 0              ? all[idx-1] : null;
+    const n   = idx < all.length-1   ? all[idx+1] : null;
+
+    /* 両方ない場合はナビを非表示 */
+    if(!p && !n){ nav.innerHTML=''; return; }
+
     const prevHtml = p
-      ? `<a class="post-nav-item" href="/cat-post.html?id=${p.id}"><span class="nav-dir">← 前の子</span><span class="nav-name">${p.name}</span></a>`
-      : `<div class="nav-empty">前の子はいません</div>`;
+      ? `<a class="post-nav-item" href="/cat-post.html?id=${p.id}">
+           <span class="nav-dir">← 前の子</span>
+           <span class="nav-name">${p.name}</span>
+         </a>`
+      : `<div class="nav-placeholder"></div>`;
+
     const nextHtml = n
-      ? `<a class="post-nav-item nav-next" href="/cat-post.html?id=${n.id}"><span class="nav-dir">次の子 →</span><span class="nav-name">${n.name}</span></a>`
-      : `<div class="nav-empty">次の子はいません</div>`;
+      ? `<a class="post-nav-item nav-next" href="/cat-post.html?id=${n.id}">
+           <span class="nav-dir">次の子 →</span>
+           <span class="nav-name">${n.name}</span>
+         </a>`
+      : `<div class="nav-placeholder"></div>`;
+
     nav.innerHTML = prevHtml + nextHtml;
-  }catch(e){
-    const nav = document.getElementById('postNav');
-    if(nav) nav.innerHTML='<div class="nav-empty">前の子はいません</div><div class="nav-empty">次の子はいません</div>';
-  }
+  }catch(e){ nav.innerHTML=''; }
 }
 
 function showErr(msg){
