@@ -40,7 +40,7 @@ nav{position:sticky;top:0;z-index:500;background:rgba(253,248,243,.96);backdrop-
 .slide img{
   width:100%;height:100%;
   object-fit:cover;
-  object-position:center 30%; /* 猫の顔が上寄りに来やすいため上30%を中心に */
+  object-position:center center;
   display:block;
 }
 .slide video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
@@ -226,8 +226,9 @@ function render(c){
 
   /* ── Info grid ── */
   const gLabel = c.gender==='male'?'オス':c.gender==='female'?'メス':'—';
+  const ageDisplay = c.age ? (isNaN(c.age.toString().trim()) ? c.age : c.age + '歳') : '—';
   const infoRows=[
-    ['性別', gLabel],['年齢', c.age||'—'],
+    ['性別', gLabel],['年齢', ageDisplay],
     ['毛色', c.color||'—'],['出身', c.origin||'—'],
   ].map(([k,v])=>`<div class="info-item"><span class="info-key">${k}</span><span class="info-val">${v}</span></div>`).join('');
 
