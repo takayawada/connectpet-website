@@ -2,150 +2,298 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Connect Pet</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>プライバシーポリシー | 株式会社 Connect Pet</title>
+<meta name="description" content="株式会社Connect Petのプライバシーポリシーです。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="common.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --w:#ffffff;--f1:#fdf8f3;--f2:#faeee5;
+  --or:#ff8c42;--or2:#e87530;
+  --nv:#0a0d18;--ink:#1b2138;--ink2:#4a526a;--sil:#8fa0b5;
+  --ln:rgba(27,33,56,.08);
+  --S:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+  --B:'Noto Sans JP',sans-serif;
+  --M:'DM Mono',monospace;
+  --e1:cubic-bezier(.16,1,.3,1);
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--f1);color:var(--ink);font-family:var(--B);
+  -webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:500;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--ln);
+  padding:18px 56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nlogo{display:flex;align-items:center}
+.nlogo img{height:24px;width:auto}
+.nlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;color:var(--ink);letter-spacing:.06em}
+.nlogo-fb em{color:var(--or);font-style:normal}
+.nav-back{
+  font-family:var(--M);font-size:11px;letter-spacing:.14em;color:var(--sil);
+  display:flex;align-items:center;gap:8px;transition:color .25s;
+}
+.nav-back:hover{color:var(--or)}
+
+/* ── HEADER ── */
+.page-head{padding:72px 56px 48px;max-width:780px;margin:0 auto}
+.page-eyebrow{
+  font-family:var(--M);font-size:10px;letter-spacing:.28em;color:var(--or);
+  display:flex;align-items:center;gap:12px;margin-bottom:18px;
+}
+.page-eyebrow::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.page-title{
+  font-family:var(--S);font-size:clamp(28px,4.2vw,46px);font-weight:900;
+  color:var(--ink);line-height:1.3;letter-spacing:-.01em;
+}
+.page-updated{font-size:12px;color:var(--sil);margin-top:16px;font-family:var(--M);letter-spacing:.06em}
+
+/* ── CONTENT ── */
+.content{max-width:780px;margin:0 auto;padding:0 56px 96px}
+.privacy-card{background:var(--w);border-radius:16px;padding:48px;box-shadow:0 2px 20px rgba(27,33,56,.05)}
+.privacy-card section{margin-bottom:36px}
+.privacy-card section:last-child{margin-bottom:0}
+.sec-title{
+  font-family:var(--S);font-size:17px;font-weight:700;color:var(--ink);
+  margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--or);
+  display:inline-block;
+}
+.sec-body{font-size:13.5px;line-height:2.05;color:var(--ink2)}
+.sec-body p{margin-bottom:14px}
+.sec-body p:last-child{margin-bottom:0}
+.sec-body ul{padding-left:22px;margin:14px 0}
+.sec-body li{margin-bottom:8px;line-height:1.9}
+.sec-body li ul{margin:10px 0}
+.sec-body li ul li{margin-bottom:6px;font-size:13px}
+.sec-body a{color:var(--or);border-bottom:1px solid rgba(255,140,66,.3);transition:border-color .2s}
+.sec-body a:hover{border-color:var(--or)}
+.sec-body strong{font-weight:700;color:var(--ink)}
+
+/* ── FOOTER ── */
+footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or);margin-top:80px}
+.ftin{max-width:1200px;margin:0 auto;padding:0 56px}
+.fttop{display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ftlogo{display:flex;align-items:center;margin-bottom:18px}
+.ftlogo img{height:22px;filter:brightness(0) invert(1)}
+.ftlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;color:#fff;letter-spacing:.06em}
+.ftlogo-fb em{color:var(--or);font-style:normal}
+.fttag{font-size:12px;color:var(--sil);line-height:1.95;max-width:260px;margin-bottom:16px}
+.ftsns a{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);transition:background .25s}
+.ftsns a:hover{background:var(--or)}
+.ftsns svg{width:15px;height:15px;fill:#fff}
+.ftcol h4{font-family:var(--M);font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.2);text-transform:uppercase;margin-bottom:14px}
+.ftcol ul{list-style:none}.ftcol li{margin-bottom:8px}
+.ftcol a{font-size:12px;color:var(--sil);transition:color .25s}.ftcol a:hover{color:var(--or)}
+.ftbot{display:flex;align-items:center;justify-content:space-between;padding:24px 0;font-size:11px;color:rgba(255,255,255,.25);font-family:var(--M);letter-spacing:.08em}
+.ftbot-r{display:flex;gap:24px}
+.ftbot-r a{color:rgba(255,255,255,.35);transition:color .25s}
+.ftbot-r a:hover{color:var(--or)}
+
+@media(max-width:900px){
+  .fttop{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:640px){
+  nav{padding:14px 20px}
+  .page-head{padding:48px 20px 32px}
+  .content{padding:0 20px 72px}
+  .privacy-card{padding:28px 22px}
+  .fttop{grid-template-columns:1fr;gap:24px}
+  .ftin{padding:0 20px}
+  .ftbot{flex-direction:column;gap:10px;text-align:center;padding:24px 0}
+}
+</style>
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur-r"></div>
-
-<div id="cat-runner" aria-hidden="true">
-  <svg width="100" height="68" viewBox="0 0 100 68" fill="none">
-    <g class="cg">
-      <ellipse cx="48" cy="40" rx="26" ry="15" fill="#ff8c42"/>
-      <circle cx="76" cy="26" r="14" fill="#ff8c42"/>
-      <polygon points="66,16 60,3 73,12" fill="#ff8c42"/>
-      <polygon points="82,12 80,1 90,10" fill="#ff8c42"/>
-      <path d="M22 38 C8 28 3 14 9 6 C14 0 19 4 18 11 C17 17 23 30 22 38Z" fill="#ff8c42"/>
-      <circle cx="79" cy="24" r="2.2" fill="#0a0e1a"/>
-      <line x1="76" y1="32" x2="92" y2="29" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <line x1="76" y1="34" x2="93" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <rect x="60" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="70" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="34" y="51" width="7" height="14" rx="3.5" fill="#ff8c42"/>
-      <rect x="45" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-    </g>
-  </svg>
-</div>
-
-<nav id="nav">
-  <a class="nav-logo" href="index.html">
-    <img class="logo-img" src="images/logo.svg" alt="Connect Pet"
-         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
-    <span class="logo-fb" id="lf" style="display:none">Connect<em>Pet</em></span>
+<nav>
+  <a class="nlogo" href="/">
+    <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nlogo-fb" style="display:none">CONNECT <em>PET</em></span>
   </a>
-  <ul class="nav-links">
-    <li><a href="about.html">について</a></li>
-    <li><a href="service.html">サービス</a></li>
-    <li><a href="carestore.html">にゃんほっと</a></li>
-    <li><a href="homecare.html">HomeCare</a></li>
-    <li><a href="news.html">ニュース</a></li>
-    <li><a href="contact.html">お問い合わせ</a></li>
-  </ul>
-  <button id="mbtn" aria-label="メニューを開く" aria-expanded="false">
-    <span class="mbl"></span><span class="mbl"></span><span class="mbl"></span>
-  </button>
+  <a class="nav-back" href="/">← トップに戻る</a>
 </nav>
 
-<div id="fullmenu" role="dialog" aria-modal="true">
-  <div id="menu-bg"></div>
-  <div id="menu-in">
-    <nav class="m-nav">
-      <a class="m-item" href="index.html"><span class="mn">00</span>トップ</a>
-      <a class="m-item" href="about.html"><span class="mn">01</span>について</a>
-      <a class="m-item" href="service.html"><span class="mn">02</span>サービス</a>
-      <a class="m-item" href="carestore.html"><span class="mn">03</span>にゃんほっと</a>
-      <a class="m-item" href="homecare.html"><span class="mn">04</span>HomeCare</a>
-      <a class="m-item" href="news.html"><span class="mn">05</span>ニュース</a>
-      <a class="m-item" href="contact.html"><span class="mn">06</span>お問い合わせ</a>
-    </nav>
-    <div class="m-foot">
-      <div class="m-foot-row">
-        <a href="legal.html">特定商取引法</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
+<div class="page-head">
+  <div class="page-eyebrow">PRIVACY</div>
+  <h1 class="page-title">プライバシーポリシー</h1>
+  <p class="page-updated">最終更新日：2026年6月</p>
+</div>
+
+<div class="content">
+  <div class="privacy-card">
+
+    <section>
+      <div class="sec-body" style="margin-bottom:8px">
+        <p>株式会社ConnectPet（以下「当社」といいます。）は、本ウェブサイト上で提供するサービス（以下「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」といいます。）を定めます。</p>
       </div>
-      <p class="m-esc">esc or click to close</p>
-    </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">第1条（個人情報）</h2>
+      <div class="sec-body">
+        <p>「個人情報」とは、個人情報保護法にいう「個人情報」を指すものとし、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日、住所、電話番号、連絡先その他の記述等により特定の個人を識別できる情報及び容貌、指紋、声紋にかかるデータ、及び健康保険証の保険者番号などの当該情報単体から特定の個人を識別できる情報（個人識別情報）を指します。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">第2条（個人情報の収集方法）</h2>
+      <div class="sec-body">
+        <p>当社は、ユーザーが利用登録をする際に氏名、生年月日、住所、電話番号、メールアドレス、銀行口座番号、クレジットカード番号、運転免許証番号などの個人情報をお尋ねすることがあります。また、ユーザーと提携先などとの間でなされたユーザーの個人情報を含む取引記録や決済に関する情報を、当社の提携先（情報提供元、広告主、広告配信先などを含みます。以下「提携先」といいます。）などから収集することがあります。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">第3条（個人情報を収集・利用する目的）</h2>
+      <div class="sec-body">
+        <p>当社が個人情報を収集・利用する目的は、以下のとおりです。</p>
+        <ul>
+          <li>当社サービスの提供・運営のため</li>
+          <li>ユーザーからのお問い合わせに回答するため（本人確認を行うことを含む）</li>
+          <li>ユーザーが利用中のサービスの新機能、更新情報、キャンペーン等及び当社が提供する他のサービスの案内のメールを送付するため</li>
+          <li>メンテナンス、重要なお知らせなど必要に応じたご連絡のため</li>
+          <li>利用規約に違反したユーザーや、不正・不当な目的でサービスを利用しようとするユーザーの特定をし、ご利用をお断りするため</li>
+          <li>ユーザーにご自身の登録情報の閲覧や変更、削除、ご利用状況の閲覧を行っていただくため</li>
+          <li>有料サービスにおいて、ユーザーに利用料金を請求するため</li>
+          <li>上記の利用目的に付随する目的</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">第4条（利用目的の変更）</h2>
+      <div class="sec-body">
+        <p>当社は、利用目的が変更前と関連性を有すると合理的に認められる場合に限り、個人情報の利用目的を変更するものとします。</p>
+        <p>利用目的の変更を行った場合には、変更後の目的について、当社所定の方法により、ユーザーに通知し、または本ウェブサイト上に公表するものとします。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">第5条（個人情報の第三者提供）</h2>
+      <div class="sec-body">
+        <p>当社は、次に掲げる場合を除いて、あらかじめユーザーの同意を得ることなく、第三者に個人情報を提供することはありません。ただし、個人情報保護法その他の法令で認められる場合を除きます。</p>
+        <ul>
+          <li>人の生命、身体または財産の保護のために必要がある場合であって、本人の同意を得ることが困難であるとき</li>
+          <li>公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合であって、本人の同意を得ることが困難であるとき</li>
+          <li>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、本人の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき</li>
+          <li>予め次の事項を告知あるいは公表し、かつ当社が個人情報保護委員会に届出をしたとき
+            <ul>
+              <li>利用目的に第三者への提供を含むこと</li>
+              <li>第三者に提供されるデータの項目</li>
+              <li>第三者への提供の手段または方法</li>
+              <li>本人の求めに応じて個人情報の第三者への提供を停止すること</li>
+              <li>本人の求めを受け付ける方法</li>
+            </ul>
+          </li>
+        </ul>
+        <p>前項の定めにかかわらず、次に掲げる場合には、当該情報の提供先は第三者に該当しないものとします。</p>
+        <ul>
+          <li>当社が利用目的の達成に必要な範囲内において個人情報の取扱いの全部または一部を委託する場合</li>
+          <li>合併その他の事由による事業の承継に伴って個人情報が提供される場合</li>
+          <li>個人情報を特定の者との間で共同して利用する場合であって、その旨並びに共同して利用される個人情報の項目、共同して利用する者の範囲、利用する者の利用目的および当該個人情報の管理について責任を有する者の氏名または名称について、あらかじめ本人に通知し、または本人が容易に知り得る状態に置いた場合</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">第6条（個人情報の開示）</h2>
+      <div class="sec-body">
+        <p>当社は、本人から個人情報の開示を求められたときは、本人に対し、遅滞なくこれを開示します。ただし、開示することにより次のいずれかに該当する場合は、その全部または一部を開示しないこともあり、開示しない決定をした場合には、その旨を遅滞なく通知します。なお、個人情報の開示に際しては、1件あたり1,000円の手数料を申し受けます。</p>
+        <ul>
+          <li>本人または第三者の生命、身体、財産その他の権利利益を害するおそれがある場合</li>
+          <li>当社の業務の適正な実施に著しい支障を及ぼすおそれがある場合</li>
+          <li>その他法令に違反することとなる場合</li>
+        </ul>
+        <p>前項の定めにかかわらず、履歴情報および特性情報などの個人情報以外の情報については、原則として開示いたしません。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">第7条（個人情報の訂正および削除）</h2>
+      <div class="sec-body">
+        <p>ユーザーは、当社の保有する自己の個人情報が誤った情報である場合には、当社が定める手続きにより、当社に対して個人情報の訂正、追加または削除（以下「訂正等」といいます。）を請求することができます。</p>
+        <p>当社は、ユーザーから前項の請求を受けてその請求に応じる必要があると判断した場合には、遅滞なく、当該個人情報の訂正等を行うものとします。</p>
+        <p>当社は、前項の規定に基づき訂正等を行った場合、または訂正等を行わない旨の決定をしたときは遅滞なく、これをユーザーに通知します。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">第8条（個人情報の利用停止等）</h2>
+      <div class="sec-body">
+        <p>当社は、本人から、個人情報が、利用目的の範囲を超えて取り扱われているという理由、または不正の手段により取得されたものであるという理由により、その利用の停止または消去（以下「利用停止等」といいます。）を求められた場合には、遅滞なく必要な調査を行います。</p>
+        <p>前項の調査結果に基づき、その請求に応じる必要があると判断した場合には、遅滞なく、当該個人情報の利用停止等を行います。</p>
+        <p>当社は、前項の規定に基づき利用停止等を行った場合、または利用停止等を行わない旨の決定をしたときは、遅滞なく、これをユーザーに通知します。</p>
+        <p>前2項にかかわらず、利用停止等に多額の費用を有する場合その他利用停止等を行うことが困難な場合であって、ユーザーの権利利益を保護するために必要なこれに代わるべき措置をとれる場合は、この代替策を講じるものとします。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">第9条（プライバシーポリシーの変更）</h2>
+      <div class="sec-body">
+        <p>本ポリシーの内容は、法令その他本ポリシーに別段の定めのある事項を除いて、ユーザーに通知することなく、変更することができるものとします。</p>
+        <p>当社が別途定める場合を除いて、変更後のプライバシーポリシーは、本ウェブサイトに掲載したときから効力を生じるものとします。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-title">お問い合わせ窓口</h2>
+      <div class="sec-body">
+        <p>
+          株式会社ConnectPet<br>
+          東京都中央区銀座4丁目13-11 松竹倶楽部ビル4階<br>
+          メール：<a href="mailto:info@connectpet.jp">info@connectpet.jp</a><br>
+          お問い合わせフォーム：<a href="/contact.html">こちら</a>
+        </p>
+      </div>
+    </section>
+
   </div>
 </div>
 
-<main>
-  <div class="page-hero">
-    <div class="page-hero-in">
-      <div class="eyebrow">PRIVACY</div>
-      <h1 class="page-h1">プライバシーポリシー</h1>
-    </div>
-  </div>
-  <div class="cp-in">
-    <p class="cp-p">コンテンツを読み込んでいます...</p>
-  </div>
-  <section id="cta">
-    <div class="cta-in">
-      <div class="sr">
-        <div class="cta-lbl">CONTACT</div>
-        <h2 class="cta-h2">お気軽にご相談ください。</h2>
-      </div>
-      <div class="cta-btns sr d2">
-        <a class="btn-w magnetic" href="contact.html">無料相談をする</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<a id="line-cta" href="https://lin.ee/connectpet" target="_blank" rel="noopener" aria-label="LINEで相談する">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
-  <span>LINE相談</span>
-</a>
-
 <footer>
-  <div class="ft-in">
-    <div class="ft-top">
+  <div class="ftin">
+    <div class="fttop">
       <div>
-        <div class="ft-name">Connect <em>Pet</em></div>
-        <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
-        <div class="ft-sns">
-          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <div class="ftlogo">
+          <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="ftlogo-fb" style="display:none">CONNECT <em>PET</em></span>
+        </div>
+        <p class="fttag">ペットの殺処分ゼロをビジネスで実現し続ける、<br>ソーシャルスタートアップカンパニー。</p>
+        <div class="ftsns">
+          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
         </div>
       </div>
-      <div class="ft-col"><h4>Pages</h4><ul>
-        <li><a href="index.html">トップ</a></li>
-        <li><a href="about.html">について</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="news.html">ニュース</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
+      <div class="ftcol"><h4>Pages</h4><ul>
+        <li><a href="/#top">トップ</a></li><li><a href="/#about">私たちについて</a></li>
+        <li><a href="/#team">チーム紹介</a></li>
+        <li><a href="/#policy">ポリシー</a></li><li><a href="/#news">ニュース</a></li>
+        <li><a href="/contact.html">お問い合わせ</a></li>
       </ul></div>
-      <div class="ft-col"><h4>Services</h4><ul>
-        <li><a href="carestore.html">にゃんほっと</a></li>
-        <li><a href="carestore-cat.html">保護猫を迎える</a></li>
-        <li><a href="homecare.html">HomeCare</a></li>
-      </ul></div>
-      <div class="ft-col"><h4>Legal</h4><ul>
-        <li><a href="legal.html">特定商取引法</a></li>
-        <li><a href="privacy.html">プライバシーポリシー</a></li>
+      <div class="ftcol"><h4>Legal</h4><ul>
+        <li><a href="/legal.html">特定商取引法</a></li>
+        <li><a href="/privacy.html">プライバシーポリシー</a></li>
+        <li><a href="mailto:info@connectpet.jp">info@connectpet.jp</a></li>
       </ul></div>
     </div>
-    <div class="ft-bot">
-      <span>&copy; 2025 株式会社 Connect Pet. All rights reserved.</span>
-      <div class="ft-bot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
+    <div class="ftbot">
+      <span>&copy; CONNECT PET, Inc</span>
+      <div class="ftbot-r"><a href="/legal.html">特定商取引法</a><a href="/privacy.html">プライバシーポリシー</a></div>
     </div>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="common.js"></script>
 </body>
 </html>

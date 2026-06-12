@@ -2,150 +2,192 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Connect Pet</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>特定商取引法に基づく表示 | 株式会社 Connect Pet</title>
+<meta name="description" content="株式会社Connect Petの特定商取引法に基づく表示です。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="common.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --w:#ffffff;--f1:#fdf8f3;--f2:#faeee5;
+  --or:#ff8c42;--or2:#e87530;
+  --nv:#0a0d18;--ink:#1b2138;--ink2:#4a526a;--sil:#8fa0b5;
+  --ln:rgba(27,33,56,.08);
+  --S:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+  --B:'Noto Sans JP',sans-serif;
+  --M:'DM Mono',monospace;
+  --e1:cubic-bezier(.16,1,.3,1);
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--f1);color:var(--ink);font-family:var(--B);
+  -webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:500;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--ln);
+  padding:18px 56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nlogo{display:flex;align-items:center}
+.nlogo img{height:24px;width:auto}
+.nlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;color:var(--ink);letter-spacing:.06em}
+.nlogo-fb em{color:var(--or);font-style:normal}
+.nav-back{
+  font-family:var(--M);font-size:11px;letter-spacing:.14em;color:var(--sil);
+  display:flex;align-items:center;gap:8px;transition:color .25s;
+}
+.nav-back:hover{color:var(--or)}
+
+/* ── HEADER ── */
+.page-head{padding:72px 56px 48px;max-width:880px;margin:0 auto}
+.page-eyebrow{
+  font-family:var(--M);font-size:10px;letter-spacing:.28em;color:var(--or);
+  display:flex;align-items:center;gap:12px;margin-bottom:18px;
+}
+.page-eyebrow::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.page-title{
+  font-family:var(--S);font-size:clamp(28px,4.2vw,46px);font-weight:900;
+  color:var(--ink);line-height:1.3;letter-spacing:-.01em;
+}
+
+/* ── TABLE ── */
+.content{max-width:880px;margin:0 auto;padding:0 56px 96px}
+.legal-table{width:100%;border-collapse:collapse;background:var(--w);border-radius:16px;overflow:hidden;box-shadow:0 2px 20px rgba(27,33,56,.05)}
+.legal-table tr{border-bottom:1px solid var(--ln)}
+.legal-table tr:last-child{border-bottom:none}
+.legal-table th{
+  font-family:var(--B);font-size:13px;font-weight:700;color:var(--ink);
+  text-align:left;vertical-align:top;
+  padding:22px 24px;width:200px;
+  background:var(--f2);letter-spacing:.04em;
+}
+.legal-table td{
+  font-size:13.5px;line-height:2;color:var(--ink2);
+  padding:22px 24px;
+}
+.legal-table td a{color:var(--or);border-bottom:1px solid rgba(255,140,66,.3);transition:border-color .2s}
+.legal-table td a:hover{border-color:var(--or)}
+.note{font-size:12px;color:var(--sil);line-height:1.9;margin-top:28px}
+
+/* ── FOOTER ── */
+footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or);margin-top:80px}
+.ftin{max-width:1200px;margin:0 auto;padding:0 56px}
+.fttop{display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ftlogo{display:flex;align-items:center;margin-bottom:18px}
+.ftlogo img{height:22px;filter:brightness(0) invert(1)}
+.ftlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;color:#fff;letter-spacing:.06em}
+.ftlogo-fb em{color:var(--or);font-style:normal}
+.fttag{font-size:12px;color:var(--sil);line-height:1.95;max-width:260px;margin-bottom:16px}
+.ftsns a{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);transition:background .25s}
+.ftsns a:hover{background:var(--or)}
+.ftsns svg{width:15px;height:15px;fill:#fff}
+.ftcol h4{font-family:var(--M);font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.2);text-transform:uppercase;margin-bottom:14px}
+.ftcol ul{list-style:none}.ftcol li{margin-bottom:8px}
+.ftcol a{font-size:12px;color:var(--sil);transition:color .25s}.ftcol a:hover{color:var(--or)}
+.ftbot{display:flex;align-items:center;justify-content:space-between;padding:24px 0;font-size:11px;color:rgba(255,255,255,.25);font-family:var(--M);letter-spacing:.08em}
+.ftbot-r{display:flex;gap:24px}
+.ftbot-r a{color:rgba(255,255,255,.35);transition:color .25s}
+.ftbot-r a:hover{color:var(--or)}
+
+@media(max-width:900px){
+  .fttop{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:640px){
+  nav{padding:14px 20px}
+  .page-head{padding:48px 20px 32px}
+  .content{padding:0 20px 72px}
+  .legal-table,.legal-table tbody,.legal-table tr,.legal-table th,.legal-table td{display:block;width:100%}
+  .legal-table th{border-bottom:1px solid var(--ln);padding:14px 18px 6px}
+  .legal-table td{padding:6px 18px 18px}
+  .fttop{grid-template-columns:1fr;gap:24px}
+  .ftin{padding:0 20px}
+  .ftbot{flex-direction:column;gap:10px;text-align:center;padding:24px 0}
+}
+</style>
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur-r"></div>
-
-<div id="cat-runner" aria-hidden="true">
-  <svg width="100" height="68" viewBox="0 0 100 68" fill="none">
-    <g class="cg">
-      <ellipse cx="48" cy="40" rx="26" ry="15" fill="#ff8c42"/>
-      <circle cx="76" cy="26" r="14" fill="#ff8c42"/>
-      <polygon points="66,16 60,3 73,12" fill="#ff8c42"/>
-      <polygon points="82,12 80,1 90,10" fill="#ff8c42"/>
-      <path d="M22 38 C8 28 3 14 9 6 C14 0 19 4 18 11 C17 17 23 30 22 38Z" fill="#ff8c42"/>
-      <circle cx="79" cy="24" r="2.2" fill="#0a0e1a"/>
-      <line x1="76" y1="32" x2="92" y2="29" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <line x1="76" y1="34" x2="93" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <rect x="60" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="70" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="34" y="51" width="7" height="14" rx="3.5" fill="#ff8c42"/>
-      <rect x="45" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-    </g>
-  </svg>
-</div>
-
-<nav id="nav">
-  <a class="nav-logo" href="index.html">
-    <img class="logo-img" src="images/logo.svg" alt="Connect Pet"
-         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
-    <span class="logo-fb" id="lf" style="display:none">Connect<em>Pet</em></span>
+<nav>
+  <a class="nlogo" href="/">
+    <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nlogo-fb" style="display:none">CONNECT <em>PET</em></span>
   </a>
-  <ul class="nav-links">
-    <li><a href="about.html">について</a></li>
-    <li><a href="service.html">サービス</a></li>
-    <li><a href="carestore.html">にゃんほっと</a></li>
-    <li><a href="homecare.html">HomeCare</a></li>
-    <li><a href="news.html">ニュース</a></li>
-    <li><a href="contact.html">お問い合わせ</a></li>
-  </ul>
-  <button id="mbtn" aria-label="メニューを開く" aria-expanded="false">
-    <span class="mbl"></span><span class="mbl"></span><span class="mbl"></span>
-  </button>
+  <a class="nav-back" href="/">← トップに戻る</a>
 </nav>
 
-<div id="fullmenu" role="dialog" aria-modal="true">
-  <div id="menu-bg"></div>
-  <div id="menu-in">
-    <nav class="m-nav">
-      <a class="m-item" href="index.html"><span class="mn">00</span>トップ</a>
-      <a class="m-item" href="about.html"><span class="mn">01</span>について</a>
-      <a class="m-item" href="service.html"><span class="mn">02</span>サービス</a>
-      <a class="m-item" href="carestore.html"><span class="mn">03</span>にゃんほっと</a>
-      <a class="m-item" href="homecare.html"><span class="mn">04</span>HomeCare</a>
-      <a class="m-item" href="news.html"><span class="mn">05</span>ニュース</a>
-      <a class="m-item" href="contact.html"><span class="mn">06</span>お問い合わせ</a>
-    </nav>
-    <div class="m-foot">
-      <div class="m-foot-row">
-        <a href="legal.html">特定商取引法</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
-      </div>
-      <p class="m-esc">esc or click to close</p>
-    </div>
-  </div>
+<div class="page-head">
+  <div class="page-eyebrow">LEGAL</div>
+  <h1 class="page-title">特定商取引法に基づく表示</h1>
 </div>
 
-<main>
-  <div class="page-hero">
-    <div class="page-hero-in">
-      <div class="eyebrow">LEGAL</div>
-      <h1 class="page-h1">特定商取引法</h1>
-    </div>
-  </div>
-  <div class="cp-in">
-    <p class="cp-p">コンテンツを読み込んでいます...</p>
-  </div>
-  <section id="cta">
-    <div class="cta-in">
-      <div class="sr">
-        <div class="cta-lbl">CONTACT</div>
-        <h2 class="cta-h2">お気軽にご相談ください。</h2>
-      </div>
-      <div class="cta-btns sr d2">
-        <a class="btn-w magnetic" href="contact.html">無料相談をする</a>
-      </div>
-    </div>
-  </section>
-</main>
+<div class="content">
+  <table class="legal-table">
+    <tr><th>販売会社名</th><td>株式会社ConnectPet</td></tr>
+    <tr><th>所在地</th><td>東京都中央区銀座4丁目13-11 松竹倶楽部ビル4階</td></tr>
+    <tr><th>電話番号</th><td>03-5005-0166<br>受付時間 10:00〜18:00（土日祝除く）</td></tr>
+    <tr><th>メールアドレス</th><td><a href="mailto:info@connectpet.jp">info@connectpet.jp</a></td></tr>
+    <tr><th>運営統括責任者</th><td>三浦朋之</td></tr>
+    <tr><th>商品代金以外の必要料金</th><td>消費税、送料（エリア・プランにより変動）</td></tr>
+    <tr><th>返品・交換・キャンセル等</th><td>
+      ご契約したプランの物品がご自宅に到着した日から起算して30日を経過しても解約のお申し出がない場合は、自動トイレ専用猫砂が3ヶ月分、約3ヶ月おきに届く定期便に切り替わる3年契約に自動更新となり、その後、3年契約が完了するまで原則解約はできません。
+    </td></tr>
+    <tr><th>返品・交換時期</th><td>
+      商品到着より30日以内に、梱包材へ印字されているQRコードを読み込み、返品手続きを行なってください。
+    </td></tr>
+    <tr><th>返品・交換時の送料</th><td>お客様ご本人の負担となります。</td></tr>
+    <tr><th>引渡時期</th><td>お申込後、5営業日以内に発送いたします。</td></tr>
+    <tr><th>お支払い方法</th><td>クレジットカード決済</td></tr>
+    <tr><th>決済期間</th><td>35か月</td></tr>
+    <tr><th>販売価格</th><td>プラン紹介ページをご参照ください。</td></tr>
+  </table>
 
-<a id="line-cta" href="https://lin.ee/connectpet" target="_blank" rel="noopener" aria-label="LINEで相談する">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
-  <span>LINE相談</span>
-</a>
+  <p class="note">
+    本表示の内容は予告なく変更される場合があります。最新の情報は本ページをご確認ください。
+  </p>
+</div>
 
 <footer>
-  <div class="ft-in">
-    <div class="ft-top">
+  <div class="ftin">
+    <div class="fttop">
       <div>
-        <div class="ft-name">Connect <em>Pet</em></div>
-        <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
-        <div class="ft-sns">
-          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <div class="ftlogo">
+          <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="ftlogo-fb" style="display:none">CONNECT <em>PET</em></span>
+        </div>
+        <p class="fttag">ペットの殺処分ゼロをビジネスで実現し続ける、<br>ソーシャルスタートアップカンパニー。</p>
+        <div class="ftsns">
+          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
         </div>
       </div>
-      <div class="ft-col"><h4>Pages</h4><ul>
-        <li><a href="index.html">トップ</a></li>
-        <li><a href="about.html">について</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="news.html">ニュース</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
+      <div class="ftcol"><h4>Pages</h4><ul>
+        <li><a href="/#top">トップ</a></li><li><a href="/#about">私たちについて</a></li>
+        <li><a href="/#team">チーム紹介</a></li>
+        <li><a href="/#policy">ポリシー</a></li><li><a href="/#news">ニュース</a></li>
+        <li><a href="/contact.html">お問い合わせ</a></li>
       </ul></div>
-      <div class="ft-col"><h4>Services</h4><ul>
-        <li><a href="carestore.html">にゃんほっと</a></li>
-        <li><a href="carestore-cat.html">保護猫を迎える</a></li>
-        <li><a href="homecare.html">HomeCare</a></li>
-      </ul></div>
-      <div class="ft-col"><h4>Legal</h4><ul>
-        <li><a href="legal.html">特定商取引法</a></li>
-        <li><a href="privacy.html">プライバシーポリシー</a></li>
+      <div class="ftcol"><h4>Legal</h4><ul>
+        <li><a href="/legal.html">特定商取引法</a></li>
+        <li><a href="/privacy.html">プライバシーポリシー</a></li>
+        <li><a href="mailto:info@connectpet.jp">info@connectpet.jp</a></li>
       </ul></div>
     </div>
-    <div class="ft-bot">
-      <span>&copy; 2025 株式会社 Connect Pet. All rights reserved.</span>
-      <div class="ft-bot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
+    <div class="ftbot">
+      <span>&copy; CONNECT PET, Inc</span>
+      <div class="ftbot-r"><a href="/legal.html">特定商取引法</a><a href="/privacy.html">プライバシーポリシー</a></div>
     </div>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="common.js"></script>
 </body>
 </html>
