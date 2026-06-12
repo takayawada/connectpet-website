@@ -220,6 +220,10 @@ footer{background:var(--nv);padding:32px 48px;margin-top:0;display:flex;align-it
   .hero-stats{gap:24px}
   .cta-banner{flex-direction:column;padding:36px 24px}
   .cta-banner-btn{width:100%;text-align:center}
+  /* 性別タブを1段下げる */
+  #statusTabs{flex-basis:100%}
+  .filter-sep:first-of-type{display:none}
+  #genderTabs{flex-basis:100%;margin-top:8px}
 }
 </style>
 </head>
@@ -251,14 +255,12 @@ footer{background:var(--nv);padding:32px 48px;margin-top:0;display:flex;align-it
 
 <div class="filter-wrap">
   <div class="filter-inner">
-    <span class="filter-label">ステータス</span>
     <div class="filter-tabs" id="statusTabs">
       <button class="ftab active" data-status="">すべて</button>
       <button class="ftab" data-status="available">在籍中</button>
       <button class="ftab" data-status="adopted">譲渡済み</button>
     </div>
     <div class="filter-sep"></div>
-    <span class="filter-label">性別</span>
     <div class="filter-tabs" id="genderTabs">
       <button class="ftab active" data-gender="">すべて</button>
       <button class="ftab" data-gender="male">オス</button>
@@ -358,6 +360,7 @@ function renderPage(p){
     const checkDots = CHECKS.map(ch=>`<div class="check-dot${c[ch.key]?' done':''}" title="${ch.label}"></div>`).join('');
     const gClass = c.gender==='male'?'gender-male':c.gender==='female'?'gender-female':'';
     const gLabel = c.gender==='male'?'オス':c.gender==='female'?'メス':'';
+    const ageDisplay = c.age ? (/[歳月年後]/.test(c.age) ? c.age : c.age + '歳') : '';
     return `
       <a class="cat-card${adopted?' adopted':''}" href="/cat-post.html?id=${c.id}">
         <div class="card-photo">
@@ -369,7 +372,7 @@ function renderPage(p){
           <h2 class="card-name">${c.name||'名前未設定'}</h2>
           <div class="card-tags">
             ${gLabel?`<span class="tag ${gClass}">${gLabel}</span>`:''}
-            ${c.age?`<span class="tag">${c.age}</span>`:''}
+            ${ageDisplay?`<span class="tag">${ageDisplay}</span>`:''}
             ${c.color?`<span class="tag">${c.color}</span>`:''}
             ${c.origin?`<span class="tag">📍${c.origin}</span>`:''}
           </div>
