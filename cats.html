@@ -337,6 +337,12 @@ function applyFilter(){
     if(fColor  && c.color!==fColor)   return false;
     return true;
   });
+  /* 在籍中を先頭、譲渡済みを最後に。各グループ内は新着順（既にcreated_at.descで取得済み） */
+  filtered.sort((a,b)=>{
+    const aAdopted = a.status==='adopted' ? 1 : 0;
+    const bAdopted = b.status==='adopted' ? 1 : 0;
+    return aAdopted - bAdopted;
+  });
   document.getElementById('filteredCount').textContent = filtered.length;
   renderPage(1);
 }
