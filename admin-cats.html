@@ -53,7 +53,17 @@ a{color:inherit;text-decoration:none}
 .btn-new{background:var(--or);color:#fff;border:none;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:700;font-family:var(--B);cursor:pointer}
 .btn-new:hover{background:#e87530}
 .cat-list{list-style:none;max-height:calc(100vh - 160px);overflow-y:auto}
-.cat-item{padding:12px 18px;border-bottom:1px solid var(--f2);cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:10px}
+.cat-item{padding:10px 18px;border-bottom:1px solid var(--f2);cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:10px}
+.cat-item.dragging{opacity:.4;background:var(--f3)}
+.cat-item.drag-over{border-top:2px solid var(--or)}
+.cat-item.adopted-item{opacity:.6}
+.list-drag-handle{
+  cursor:grab;flex-shrink:0;color:var(--bd);font-size:14px;
+  padding:2px 4px;border-radius:4px;transition:color .2s;letter-spacing:-1px;
+  user-select:none;
+}
+.cat-item:hover .list-drag-handle{color:var(--ink2)}
+.cat-item.adopted-item .list-drag-handle{display:none}
 .cat-item:hover{background:var(--f1)}
 .cat-item.active{background:#fff4ee;border-left:3px solid var(--or)}
 .cat-item-thumb{width:38px;height:38px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--f2)}
@@ -342,20 +352,37 @@ async function loadCats(){
   renderList();
 }
 
+/* ── 並び順 localStorage ── */
+function loadOrder(){ return JSON.parse(localStorage.getItem('cp_cat_order')||'[]') }
+function saveOrder(ids){ localStorage.setItem('cp_cat_order',JSON.stringify(ids)) }
+function getSortedCats(){
+  const order=loadOrder();
+  const available=allCats.filter(c=>c.status!=='adopted');
+  const adopted=allCats.filter(c=>c.status==='adopted');
+  return [
+    ...order.map(id=>available.find(c=>c.id===id)).filter(Boolean),
+    ...available.filter(c=>!order.includes(c.id)),
+    ...adopted
+  ];
+}
+let listDragIdx=null, listTouchEl=null, listTouchStartIdx=null;
+
 function renderList(){
   const ul=document.getElementById('catList');
-  if(!allCats.length){ ul.innerHTML='<li class="list-empty">登録された猫がありません</li>'; return; }
-  ul.innerHTML=allCats.map(c=>{
-    /* photos: JSONB配列・文字列・null全て対応 */
+  const cats=getSortedCats();
+  if(!cats.length){ ul.innerHTML='<li class="list-empty">登録された猫がありません</li>'; return; }
+  ul.innerHTML=cats.map((c,i)=>{
     let photos=[];
     if(Array.isArray(c.photos)) photos=c.photos;
-    else if(typeof c.photos==='string'&&c.photos&&c.photos!=='[]') try{ photos=JSON.parse(c.photos) }catch(e){}
+    else if(typeof c.photos==='string'&&c.photos) try{ photos=JSON.parse(c.photos) }catch(e){}
     const thumb=photos[0]||'';
     const isAdopted=c.status==='adopted';
-    return `<li class="cat-item${currentId===c.id?' active':''}" data-id="${c.id}">
+    return `<li class="cat-item${currentId===c.id?' active':''}${isAdopted?' adopted-item':''}"
+              data-id="${c.id}" data-idx="${i}" ${!isAdopted?'draggable="true"':''}>
+      <span class="list-drag-handle" title="ドラッグで並び替え">⠿</span>
       ${thumb
-        ?`<a href="/cat-post.html?id=${c.id}" target="_blank" onclick="event.stopPropagation()" title="公開ページを見る" style="flex-shrink:0">
-            <img class="cat-item-thumb" src="${thumb}" alt="${c.name||''}" style="cursor:pointer;transition:opacity .2s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
+        ?`<a href="/cat-post.html?id=${c.id}" target="_blank" onclick="event.stopPropagation()" style="flex-shrink:0">
+            <img class="cat-item-thumb" src="${thumb}" alt="${c.name||''}" style="transition:opacity .2s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
           </a>`
         :`<div class="cat-item-thumb" style="background:var(--f2);display:flex;align-items:center;justify-content:center;font-size:20px">🐱</div>`
       }
@@ -366,7 +393,44 @@ function renderList(){
       <button class="status-toggle-btn${isAdopted?' adopted':''}" data-id="${c.id}" onclick="toggleStatus(event,${c.id})">${isAdopted?'譲渡済み':'在籍中'}</button>
     </li>`;
   }).join('');
-  ul.querySelectorAll('.cat-item').forEach(el=>el.addEventListener('click',()=>editCat(parseInt(el.dataset.id))));
+
+  ul.querySelectorAll('.cat-item').forEach(el=>{
+    el.addEventListener('click',()=>editCat(parseInt(el.dataset.id)));
+  });
+
+  /* ドラッグ&ドロップ（在籍中のみ） */
+  ul.querySelectorAll('.cat-item[draggable="true"]').forEach(el=>{
+    const idx=parseInt(el.dataset.idx);
+    el.addEventListener('dragstart',e=>{ listDragIdx=idx; el.classList.add('dragging'); e.dataTransfer.effectAllowed='move' });
+    el.addEventListener('dragend',()=>{ el.classList.remove('dragging'); ul.querySelectorAll('.cat-item').forEach(x=>x.classList.remove('drag-over')) });
+    el.addEventListener('dragover',e=>{ e.preventDefault(); el.classList.add('drag-over') });
+    el.addEventListener('dragleave',()=>el.classList.remove('drag-over'));
+    el.addEventListener('drop',e=>{ e.preventDefault(); el.classList.remove('drag-over'); if(listDragIdx!==null&&listDragIdx!==idx) reorderCats(listDragIdx,idx) });
+    el.addEventListener('touchstart',e=>{ listTouchEl=el; listTouchStartIdx=idx; el.classList.add('dragging') },{passive:true});
+    el.addEventListener('touchmove',e=>{
+      e.preventDefault();
+      const t=e.touches[0];
+      const over=document.elementFromPoint(t.clientX,t.clientY)?.closest('.cat-item[draggable="true"]');
+      ul.querySelectorAll('.cat-item').forEach(x=>x.classList.remove('drag-over'));
+      if(over&&over!==listTouchEl) over.classList.add('drag-over');
+    },{passive:false});
+    el.addEventListener('touchend',e=>{
+      const t=e.changedTouches[0];
+      const target=document.elementFromPoint(t.clientX,t.clientY)?.closest('.cat-item[draggable="true"]');
+      ul.querySelectorAll('.cat-item').forEach(x=>x.classList.remove('drag-over','dragging'));
+      if(target&&target!==listTouchEl) reorderCats(listTouchStartIdx,parseInt(target.dataset.idx));
+      listTouchEl=null;
+    },{passive:true});
+  });
+}
+
+function reorderCats(fromIdx,toIdx){
+  const available=getSortedCats().filter(c=>c.status!=='adopted');
+  const moved=available.splice(fromIdx,1)[0];
+  if(!moved) return;
+  available.splice(toIdx,0,moved);
+  saveOrder(available.map(c=>c.id));
+  renderList();
 }
 
 /* NEW */
