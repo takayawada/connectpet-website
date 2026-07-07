@@ -13,8 +13,10 @@
     { "src": "/cats",        "dest": "/cats.html" },
     { "src": "/cat-post",    "dest": "/cat-post.html" },
     { "src": "/admin",       "dest": "/admin.html" },
-    { "src": "/admin-cats",  "dest": "/admin-cats.html" },
-    { "src": "/contact",     "dest": "/contact.html" },
+    { "src": "/admin-cats",    "dest": "/admin-cats.html" },
+    { "src": "/chatbot-dify",  "dest": "/chatbot-dify.html" },
+    { "src": "/chatbot-tayori","dest": "/chatbot-tayori.html" },
+    { "src": "/contact",       "dest": "/contact.html" },
     { "src": "/legal",       "dest": "/legal.html" },
     { "src": "/privacy",     "dest": "/privacy.html" }
   ]

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIチャット（Dify）| Connect Pet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#ff8c42;--nv:#0b0e1a;--w:#fff;
+  --f1:#fdf8f3;--f2:#faeee5;
+  --ink:#1b2138;--ink2:#4a526a;--sil:#94a0b8;--ln:rgba(27,33,56,.08);
+  --S:'Zen Kaku Gothic New',sans-serif;
+  --B:'Noto Sans JP',sans-serif;
+  --M:'DM Mono',monospace;
+}
+body{font-family:var(--B);background:var(--f1);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+nav{position:sticky;top:0;z-index:500;background:rgba(255,255,255,.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--ln);padding:15px 48px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo img{height:22px;width:auto}
+.nav-logo-fb{font-family:var(--S);font-size:14px;font-weight:700;color:var(--nv)}
+.nav-logo-fb em{color:var(--or);font-style:normal}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-link{font-family:var(--M);font-size:11px;letter-spacing:.14em;color:var(--sil);transition:color .2s}
+.nav-link:hover{color:var(--or)}
+.nav-link.active{color:var(--or);font-weight:700}
+
+.page-head{padding:48px 48px 24px;max-width:900px;margin:0 auto;text-align:center}
+.page-eyebrow{font-family:var(--M);font-size:10px;letter-spacing:.28em;color:var(--or);margin-bottom:14px}
+.page-title{font-family:var(--S);font-size:clamp(24px,3.5vw,38px);font-weight:900;color:var(--ink);margin-bottom:10px}
+.page-sub{font-size:13px;color:var(--sil);line-height:1.8}
+.badge-dify{display:inline-block;background:#1677ff;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;margin-top:12px;letter-spacing:.06em}
+
+.bot-wrap{max-width:800px;margin:0 auto;padding:24px 48px 96px}
+.bot-frame{background:var(--w);border-radius:16px;overflow:hidden;box-shadow:0 4px 28px rgba(27,33,56,.08);border:1px solid var(--ln)}
+.bot-frame iframe{width:100%;height:700px;border:none;display:block}
+
+footer{background:var(--nv);padding:32px 48px;display:flex;align-items:center;justify-content:space-between}
+.ft-logo img{height:18px;filter:brightness(0) invert(1);opacity:.6}
+.ft-copy{font-family:var(--M);font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.1em}
+
+@media(max-width:640px){
+  nav{padding:13px 20px}
+  .page-head{padding:36px 20px 20px}
+  .bot-wrap{padding:16px 20px 72px}
+  .bot-frame iframe{height:500px}
+  footer{padding:24px 20px;flex-direction:column;gap:10px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nav-logo-fb" style="display:none">CONNECT <em>PET</em></span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="/">トップ</a>
+    <a class="nav-link active" href="/chatbot-dify.html">Dify</a>
+    <a class="nav-link" href="/chatbot-tayori.html">Tayori</a>
+  </div>
+</nav>
+
+<div class="page-head">
+  <div class="page-eyebrow">AI CHATBOT</div>
+  <h1 class="page-title">AIチャットボット</h1>
+  <p class="page-sub">Connect Petについて、何でもお気軽にご質問ください。</p>
+  <span class="badge-dify">Dify</span>
+</div>
+
+<div class="bot-wrap">
+  <div class="bot-frame">
+    <iframe src="https://udify.app/chatbot/q6SKucbs7SaXfFvP" allow="microphone"></iframe>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-logo"><img src="images/connect_pet_logo.png" alt="CONNECT PET" onerror="this.style.display='none'"></div>
+  <span class="ft-copy">&copy; CONNECT PET, Inc</span>
+</footer>
+
+</body>
+</html>
