@@ -106,5 +106,31 @@ footer{background:var(--nv);padding:32px 48px;display:flex;align-items:center;ju
 })();
 </script>
 
+<!-- チャット自動オープン ＋ 閉じたらLINEへ遷移（クライアント提供ロジック） -->
+<script>
+var checkChat = setInterval(function() {
+    var btn = document.querySelector('.tayori-ai-chatbot-app-tayori-ai-chatbot-icon');
+    if (btn) {
+        btn.click();
+        clearInterval(checkChat);
+        monitorChatClose();
+    }
+}, 500);
+setTimeout(function() { clearInterval(checkChat); }, 10000);
+
+function monitorChatClose() {
+    var observer = new MutationObserver(function() {
+        var chatWindow = document.querySelector('.tayori-ai-chatbot-app-tayori-ai-chatbot-icon');
+        if (chatWindow && window.getComputedStyle(chatWindow).display !== 'none') {
+            window.close();
+            if (!window.closed) {
+                location.href = 'https://line.me/R/';
+            }
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+}
+</script>
+
 </body>
 </html>
