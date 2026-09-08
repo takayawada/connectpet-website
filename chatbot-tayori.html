@@ -96,7 +96,7 @@ footer{background:var(--nv);padding:32px 48px;display:flex;align-items:center;ju
 
 <!-- Tayori AI チャットボット -->
 <script>
-(function(){
+(()=> {
   var a=document.getElementsByTagName('script')[0];
   var d=document.createElement('script');
   d.type='text/javascript';
@@ -106,36 +106,25 @@ footer{background:var(--nv);padding:32px 48px;display:flex;align-items:center;ju
 })();
 </script>
 
-<!-- チャット自動オープン ＋ 閉じたらLINEへ遷移（クライアント提供ロジック） -->
+<!-- チャット自動オープン（クライアント提供ロジック） -->
 <script>
-var checkChat = setInterval(function() {
+var checkChat = setInterval(() => {
     var btn = document.querySelector('.tayori-ai-chatbot-app-tayori-ai-chatbot-icon');
     if (btn) {
         btn.click();
         clearInterval(checkChat);
-        monitorChatClose();
     }
 }, 500);
-setTimeout(function() { clearInterval(checkChat); }, 10000);
+setTimeout(() => { clearInterval(checkChat); }, 10000);
 
-function monitorChatClose() {
-    var observer = new MutationObserver(function() {
-        var chatWindow = document.querySelector('.tayori-ai-chatbot-app-tayori-ai-chatbot-icon');
-        if (chatWindow && window.getComputedStyle(chatWindow).display !== 'none') {
-            window.close();
-            if (!window.closed) {
-                location.href = 'https://line.me/R/';
-            }
-        }
-    });
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
-}
+/* チャットを閉じたらLINEへ遷移（クライアント提供ロジック）
+   閉じるボタン(.tayori-ai-chatbot-app-btn-close)のクリックをdocument委譲で検知する。
+   旧実装はアイコンの表示状態を監視していたため、自動オープン直後の表示変化を
+   「閉じた」と誤検知し、着地直後にLINEへ遷移してしまうバグがあった。 */
+document.addEventListener('click', e => {
+  if (e.target.closest('.tayori-ai-chatbot-app-btn-close')) location.href = 'https://lin.ee/connectpet';
+});
 </script>
-
-<!-- Tayoriチャットボットの閉じるボタンを非表示 -->
-<style>
-.tayori-ai-chatbot-app-btn-close{display:none!important}
-</style>
 
 </body>
 </html>
