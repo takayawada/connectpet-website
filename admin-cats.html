@@ -316,6 +316,12 @@ a{color:inherit;text-decoration:none}
 const SB_URL = 'https://ifccjxzsoozipldjnehu.supabase.co';
 const SB_KEY = 'sb_publishable_DXxwbYEqzJlTitVPo9Cciw_UCU6sa7b';
 
+/* catsテーブルのRLSメモ: Supabase Auth移行に伴い、public_read(select, 全件)と
+   authenticated向けinsert/update/deleteをcatsテーブルに追加済み（Supabase側、SQL Editorで実行）。
+   news-imagesバケットのストレージポリシー(authenticated insert/update/select)は
+   admin.html移行時に追加済みのものを流用しており、追加のバケット側変更は不要だった。
+   動作確認: 新規登録(画像/動画アップロード含む)・編集保存・削除すべて正常。 */
+
 /* SESSION（Supabase Auth） */
 function getSession(){ try{ return JSON.parse(sessionStorage.getItem('cp_session')||'null') }catch(e){ return null } }
 function setSession(s){ if(s) sessionStorage.setItem('cp_session', JSON.stringify(s)); else sessionStorage.removeItem('cp_session') }
