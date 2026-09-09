@@ -69,25 +69,7 @@ p,li{word-break:break-all;overflow-wrap:break-word}
     animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important;scroll-behavior:auto!important;
   }
-  #catr{display:none!important}
 }
-
-/* ━━━ CAT RUNNER (右→左・オレンジのシルエット、メニュー展開時) ━━━ */
-#catr{
-  position:fixed;top:80px;left:0;z-index:900;
-  pointer-events:none;opacity:0;
-  width:92px;height:54px;
-  transform:translateX(calc(100vw + 140px));
-}
-#catr svg{width:100%;height:100%;display:block;overflow:visible;
-  animation:catbob .26s ease-in-out infinite alternate}
-#catr .leg-a{animation:legA .24s steps(1) infinite}
-#catr .leg-b{animation:legB .24s steps(1) infinite}
-#catr.go{opacity:1;animation:catslide .88s var(--ease) forwards}
-@keyframes catslide{to{transform:translateX(calc(-100vw - 140px))}}
-@keyframes catbob{to{transform:translateY(-6px)}}
-@keyframes legA{0%,49%{opacity:1}50%,100%{opacity:0}}
-@keyframes legB{0%,49%{opacity:0}50%,100%{opacity:1}}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    NAV
@@ -163,7 +145,8 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 .mnav{display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:36px}
 .mlink{
   display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:9px 0;opacity:0;transform:translateY(16px);transition:color var(--df) var(--ease);
+  padding:9px 0;opacity:0;transform:translateY(16px);
+  transition:color var(--df) var(--ease),opacity var(--df) var(--ease),transform var(--df) var(--ease);
 }
 .mlink-en{
   font-family:var(--S);font-size:clamp(22px,3.8vw,50px);
@@ -172,19 +155,18 @@ p,li{word-break:break-all;overflow-wrap:break-word}
 .mlink-ja{font-size:11px;color:rgba(27,33,56,.38);letter-spacing:.14em;transition:color var(--df) var(--ease)}
 .mlink:hover .mlink-en{color:var(--or2)}
 .mlink:hover .mlink-ja{color:var(--or)}
-#menu.open .mlink{animation:mslide var(--df) var(--ease) forwards}
-#menu.open .mlink:nth-child(1){animation-delay:.05s}
-#menu.open .mlink:nth-child(2){animation-delay:.1s}
-#menu.open .mlink:nth-child(3){animation-delay:.15s}
-#menu.open .mlink:nth-child(4){animation-delay:.2s}
-#menu.open .mlink:nth-child(5){animation-delay:.25s}
-#menu.open .mlink:nth-child(6){animation-delay:.3s}
-#menu.open .mlink:nth-child(7){animation-delay:.35s}
-@keyframes mslide{to{opacity:1;transform:translateY(0)}}
+#menu.open .mlink{opacity:1;transform:translateY(0)}
+#menu.open .mlink:nth-child(1){transition-delay:.5s}
+#menu.open .mlink:nth-child(2){transition-delay:.55s}
+#menu.open .mlink:nth-child(3){transition-delay:.6s}
+#menu.open .mlink:nth-child(4){transition-delay:.65s}
+#menu.open .mlink:nth-child(5){transition-delay:.7s}
+#menu.open .mlink:nth-child(6){transition-delay:.75s}
+#menu.open .mlink:nth-child(7){transition-delay:.8s}
 .mfooter{
   display:flex;flex-direction:column;align-items:center;gap:10px;
   opacity:0;transform:translateY(8px);
-  transition:opacity var(--df) .52s,transform var(--df) .52s;
+  transition:opacity var(--df) .85s,transform var(--df) .85s;
 }
 #menu.open .mfooter{opacity:1;transform:translateY(0)}
 .mfoot-row{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
@@ -664,29 +646,6 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <div id="c1"></div>
 <div id="c2"></div>
 
-<!-- CAT RUNNER -->
-<div id="catr" aria-hidden="true">
-  <svg viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- tail -->
-    <path d="M86,28 C97,20 99,7 91,3" stroke="var(--or)" stroke-width="6" stroke-linecap="round"/>
-    <!-- legs: 2フレーム交互切替でランサイクルを表現 -->
-    <g class="leg-a">
-      <path d="M23,39 L10,55" stroke="var(--or)" stroke-width="6" stroke-linecap="round"/>
-      <path d="M63,39 L79,55" stroke="var(--or)" stroke-width="6" stroke-linecap="round"/>
-    </g>
-    <g class="leg-b">
-      <path d="M23,39 L32,55" stroke="var(--or)" stroke-width="6" stroke-linecap="round"/>
-      <path d="M63,39 L52,55" stroke="var(--or)" stroke-width="6" stroke-linecap="round"/>
-    </g>
-    <!-- body -->
-    <path d="M12,34 C10,19 30,9 50,11 C70,13 89,19 90,29 C90,36 78,39 68,36 C58,40 30,42 20,40 C14,40 12,38 12,34 Z" fill="var(--or)"/>
-    <!-- head + ears -->
-    <path d="M5,15 L10,3 L15,14 Z" fill="var(--or)"/>
-    <path d="M14,13 L21,2 L23,13 Z" fill="var(--or)"/>
-    <circle cx="14" cy="21" r="10" fill="var(--or)"/>
-  </svg>
-</div>
-
 <!-- NAV -->
 <nav id="nav">
   <a class="nlogo" href="#top">
@@ -736,19 +695,13 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <section id="top">
 <div id="hero">
   <div class="hs on">
-    <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6"
-         alt=""
-         onerror="this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1920x1080_v-frms_webp_2474af04-.webp'">
+    <img src="images/T%20Image%2008_09_40.png" alt="">
   </div>
   <div class="hs">
-    <img src="https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4"
-         alt=""
-         onerror="this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp'">
+    <img src="images/imageyyy.png" alt="">
   </div>
   <div class="hs">
-    <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6"
-         alt=""
-         onerror="this.src='images/_studio-cms-assets_projects_nBW2APpeav_s-1366x768_v-fms_webp_3de3b185-a2f0-4166-.webp'">
+    <img src="images/T%20Image%2008_09_40.png" alt="">
   </div>
   <div class="hov"></div>
   <div class="hleft">
@@ -807,8 +760,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <!-- ABOUT -->
 <section id="about">
   <div class="abg" id="abg">
-    <img src="https://storage.googleapis.com/production-os-assets/assets/91e575f0-e275-4bf8-8fb6-04f75bb197f6"
-         alt="" onerror="this.src='images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x1200_v-frms_webp_7a75fcff-.webp'">
+    <img src="images/imageyyy.png" alt="">
   </div>
   <div class="aov"></div>
   <div class="ain">
@@ -1067,10 +1019,10 @@ document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseent
 const nav=document.getElementById('nav');
 lenis.on('scroll',({scroll})=>nav.classList.toggle('sc',scroll>80));
 /* MENU */
-const mb=document.getElementById('mb'),menu=document.getElementById('menu'),catr=document.getElementById('catr');
+const mb=document.getElementById('mb'),menu=document.getElementById('menu');
 let mo=false;
 function origin(){const r=mb.getBoundingClientRect();document.documentElement.style.setProperty('--mox',r.left+r.width/2+'px');document.documentElement.style.setProperty('--moy',r.top+r.height/2+'px')}
-function openMenu(){origin();mo=true;catr.classList.remove('go');void catr.offsetWidth;catr.classList.add('go');catr.style.opacity='1';catr.addEventListener('animationend',function cb(){catr.removeEventListener('animationend',cb);catr.style.opacity='0';catr.classList.remove('go')});setTimeout(()=>menu.classList.add('open'),130);mb.classList.add('x');lenis.stop()}
+function openMenu(){origin();mo=true;setTimeout(()=>menu.classList.add('open'),130);mb.classList.add('x');lenis.stop()}
 function closeMenu(){mo=false;menu.classList.remove('open');mb.classList.remove('x');lenis.start()}
 mb.addEventListener('click',()=>mo?closeMenu():openMenu());
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&mo)closeMenu()});
