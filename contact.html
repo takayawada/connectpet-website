@@ -2,421 +2,471 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける</title>
-<meta name="description" content="ConnectPetは、ペットの殺処分ゼロをビジネスで実現し続ける、 ソーシャルスタートアップカンパニーです ">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>お問い合わせ | 株式会社 Connect Pet</title>
+<meta name="description" content="株式会社Connect Petへのお問い合わせはこちらから。取材・提携、事業・サービス、出資・融資、採用に関するご相談を承っております。">
+<meta property="og:title"       content="お問い合わせ | 株式会社 Connect Pet">
+<meta property="og:description" content="株式会社Connect Petへのお問い合わせはこちらから。">
+<meta property="og:type"        content="website">
+<!-- TODO: favicon未対応（index.html側と同じ課題。favicon専用の小さいアイコン素材の用意が必要） -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="common.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700;900&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   DESIGN TOKENS（index.htmlと共通）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --w:   #ffffff;
+  --f1:  #fdf8f3;
+  --f2:  #faeee5;
+  --f3:  #f2e1d3;
+  --or:  #ff8c42;
+  --or2: #e87530;
+  --rose:#cc7055;
+  --nv:  #0a0d18;
+  --ink: #1b2138;
+  --ink2:#4a526a;
+  --sil: #8fa0b5;
+  --ln:  rgba(27,33,56,.08);
+  --err: #d64545;
+  --S:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+  --B:'Noto Sans JP',sans-serif;
+  --M:'DM Mono',monospace;
+  /* motion system — award-web: 全編でこの3種のdurationと2種のeaseのみ使う */
+  --ease:  cubic-bezier(.165,.84,.44,1);
+  --easeio:cubic-bezier(.45,0,.55,1);
+  --df:.4s;
+  --db:.8s;
+  --ds:1.3s;
+}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{
+  background:var(--f1);color:var(--ink);
+  font-family:var(--B);cursor:none;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  font-feature-settings:"palt" 1;
+}
+a{text-decoration:none;color:inherit;cursor:none}
+img{display:block;max-width:100%;height:auto}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+
+/* ━━━ CURSOR ━━━ */
+#c1,#c2{position:fixed;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
+#c1{width:8px;height:8px;background:var(--or);z-index:10000}
+#c2{width:32px;height:32px;border:1.5px solid rgba(255,140,66,.38);z-index:9999;
+  transition:width var(--df) var(--ease),height var(--df) var(--ease),border-color var(--df) var(--ease)}
+#c2.on{width:52px;height:52px;border-color:rgba(255,140,66,.7)}
+@media(hover:none){#c1,#c2{display:none}*{cursor:auto!important}}
+
+/* ━━━ REDUCED MOTION ━━━ */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   NAV（サブページ共通の簡易ナビ）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#nav{
+  position:sticky;top:0;z-index:600;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 56px;background:rgba(253,248,243,.94);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--ln);
+}
+.nlogo{display:flex;align-items:center}
+.nlogo img{height:24px;width:auto}
+.nlogo-fb{font-family:var(--S);font-size:14px;font-weight:700;color:var(--ink);letter-spacing:.05em}
+.nlogo-fb em{color:var(--or);font-style:normal}
+.nback{
+  font-family:var(--M);font-size:11px;letter-spacing:.1em;color:var(--sil);
+  transition:color var(--df) var(--ease);
+}
+.nback:hover{color:var(--or)}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SHARED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.sw{max-width:1160px;margin:0 auto;padding:0 56px}
+.rv{opacity:0;transform:translateY(22px);transition:opacity var(--db) var(--ease),transform var(--db) var(--ease)}
+.rv.d2{transition-delay:.12s}
+.rv.vis{opacity:1;transform:translateY(0)}
+.lbl{
+  font-family:var(--M);font-size:10px;letter-spacing:.28em;color:rgba(255,255,255,.65);
+  display:flex;align-items:center;gap:12px;margin-bottom:14px;
+}
+.lbl::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.lbl-c{justify-content:center}
+.lbl-c::before,.lbl-c::after{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PAGE HERO（オレンジの帯・円モチーフ）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#phero{
+  background:var(--or);padding:88px 0 72px;position:relative;overflow:hidden;
+}
+#phero::before,#phero::after{content:'';position:absolute;border-radius:50%;pointer-events:none;border:1px solid rgba(255,255,255,.14)}
+#phero::before{width:420px;height:420px;right:-100px;top:-140px}
+#phero::after{width:220px;height:220px;left:-60px;bottom:-90px}
+.phero-in{
+  position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 24px;
+  text-align:center;display:flex;flex-direction:column;align-items:center;
+}
+.ph1{
+  font-family:var(--S);font-size:clamp(32px,5vw,58px);font-weight:900;
+  color:#fff;letter-spacing:-.02em;margin-bottom:18px;
+}
+.psub{font-size:14px;line-height:2;color:rgba(255,255,255,.82)}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONTACT GRID
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#cwrap{padding:88px 0 120px}
+.cgrid{
+  max-width:1080px;margin:0 auto;padding:0 24px;
+  display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:start;
+}
+
+/* ── FORM ── */
+.cform-wrap{
+  background:var(--w);border-radius:20px;padding:48px 44px;
+  box-shadow:0 4px 32px rgba(27,33,56,.06);
+}
+.ffield{margin-bottom:24px}
+.ffield label{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--S);font-size:13px;font-weight:700;color:var(--ink);
+  margin-bottom:10px;
+}
+.req{
+  font-family:var(--M);font-size:9px;letter-spacing:.1em;color:#fff;
+  background:var(--or);padding:2px 8px;border-radius:10px;
+}
+.ffield input,.ffield select,.ffield textarea{
+  width:100%;padding:13px 16px;border:1.5px solid var(--ln);border-radius:8px;
+  background:var(--f1);outline:none;font-size:14px;
+  transition:border-color var(--df) var(--ease),background var(--df) var(--ease);
+}
+.ffield input:focus,.ffield select:focus,.ffield textarea:focus{border-color:var(--or);background:var(--w)}
+.ffield textarea{resize:vertical;min-height:140px;line-height:1.8}
+.ffield select{appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238fa0b5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;
+}
+.fcheck{
+  display:flex;align-items:flex-start;gap:10px;margin-bottom:28px;
+  font-size:13px;color:var(--ink2);line-height:1.6;cursor:pointer;
+}
+.fcheck input{width:16px;height:16px;margin-top:2px;accent-color:var(--or);flex-shrink:0;cursor:pointer}
+.fcheck a{color:var(--or);border-bottom:1px solid rgba(255,140,66,.4)}
+.fsubmit{
+  display:inline-flex;align-items:center;gap:12px;width:100%;justify-content:center;
+  font-family:var(--B);font-size:14px;font-weight:700;color:#fff;
+  background:var(--nv);padding:16px;border:none;border-radius:8px;cursor:pointer;
+  letter-spacing:.06em;transition:background var(--df) var(--ease),transform var(--df) var(--ease);
+}
+.fsubmit:hover{background:var(--or)}
+.fsubmit-arr{width:16px;height:1.5px;background:#fff;position:relative;flex-shrink:0}
+.fsubmit-arr::after{
+  content:'';position:absolute;right:-1px;top:-3.5px;width:7px;height:7px;
+  border-right:1.5px solid #fff;border-top:1.5px solid #fff;transform:rotate(45deg);
+}
+.finvalid{border-color:var(--err)!important}
+
+/* 送信完了 */
+#cdone{display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 0}
+#cdone[hidden]{display:none}
+.cdone-icon{
+  width:64px;height:64px;border-radius:50%;background:var(--or);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px;
+}
+.cdone-title{font-family:var(--S);font-size:20px;font-weight:800;color:var(--ink);margin-bottom:10px}
+.cdone-sub{font-size:13.5px;line-height:2;color:var(--ink2);margin-bottom:24px}
+.cdone-back{
+  font-family:var(--M);font-size:11px;letter-spacing:.14em;color:var(--or);
+  border-bottom:1px solid rgba(255,140,66,.4);padding-bottom:4px;
+}
+
+/* ── INFO CARD ── */
+.cinfo-card{
+  background:var(--nv);border-radius:20px;padding:40px 36px;color:#fff;
+  position:relative;overflow:hidden;
+}
+.cinfo-card::before{content:'';position:absolute;width:200px;height:200px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.06);right:-70px;top:-70px;pointer-events:none}
+.cinfo-list{position:relative;z-index:1;display:flex;flex-direction:column;gap:22px;margin-bottom:28px}
+.cinfo-list li{display:flex;gap:14px;align-items:flex-start}
+.cinfo-ic{
+  width:36px;height:36px;border-radius:50%;background:rgba(255,140,66,.16);
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;
+}
+.cinfo-lbl{display:block;font-family:var(--M);font-size:9px;letter-spacing:.16em;color:rgba(255,255,255,.4);margin-bottom:5px}
+.cinfo-val{display:block;font-size:14px;font-weight:700;line-height:1.6}
+.cinfo-val a{color:#fff;transition:color var(--df) var(--ease)}
+.cinfo-val a:hover{color:var(--or)}
+.cinfo-sub{display:block;font-size:11.5px;color:rgba(255,255,255,.45);margin-top:3px}
+
+.cinfo-map{position:relative;z-index:1;border-radius:12px;overflow:hidden;margin-bottom:24px}
+.map-ph{
+  height:140px;background:var(--f2);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;
+}
+.map-ph-pin{font-size:22px}
+.map-ph-text{font-family:var(--M);font-size:10px;letter-spacing:.1em;color:var(--sil)}
+
+.line-btn{
+  position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;background:#06c755;color:#fff;padding:14px;border-radius:8px;
+  font-family:var(--B);font-size:13.5px;font-weight:700;letter-spacing:.04em;
+  transition:background var(--df) var(--ease),transform var(--df) var(--ease);
+}
+.line-btn:hover{background:#05b34c;transform:translateY(-2px)}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FOOTER（index.htmlと共通）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
+.ftin{max-width:1240px;margin:0 auto;padding:0 56px}
+.fttop{display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ftlogo{height:22px;margin-bottom:12px;display:flex;align-items:center}
+.ftlogo img{height:22px;opacity:.8;filter:brightness(0) invert(1)}
+.ftlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;color:#fff;letter-spacing:.04em}
+.ftlogo-fb em{color:var(--or);font-style:normal}
+.fttag{font-size:12px;color:var(--sil);line-height:1.95;max-width:260px;margin-bottom:16px}
+.ftsns{display:flex;gap:10px}
+.ftsns a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;transition:all var(--df) var(--ease)}
+.ftsns a:hover{background:rgba(255,140,66,.18);border-color:rgba(255,140,66,.4)}
+.ftsns svg{width:13px;height:13px;fill:var(--sil);transition:fill var(--df) var(--ease)}
+.ftsns a:hover svg{fill:var(--or)}
+.ftcol h4{font-family:var(--M);font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.2);text-transform:uppercase;margin-bottom:14px}
+.ftcol ul{list-style:none}.ftcol li{margin-bottom:8px}
+.ftcol a{font-size:12px;color:var(--sil);transition:color var(--df) var(--ease)}.ftcol a:hover{color:var(--or)}
+.ftbot{display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:11px;color:rgba(255,255,255,.15)}
+.ftbot a{color:rgba(255,255,255,.15);transition:color var(--df) var(--ease)}.ftbot a:hover{color:var(--sil)}
+.ftbot-r{display:flex;gap:16px}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media(max-width:1080px){
+  #nav{padding:16px 28px}
+  .cgrid{grid-template-columns:1fr;gap:28px}
+  .fttop{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:640px){
+  #nav{padding:14px 20px}
+  #phero{padding:64px 0 52px}
+  .phero-in{padding:0 20px}
+  #cwrap{padding:56px 0 88px}
+  .cgrid{padding:0 20px}
+  .cform-wrap{padding:32px 24px;border-radius:16px}
+  .cinfo-card{padding:32px 24px;border-radius:16px}
+  .ftin{padding:0 20px}
+  .fttop{grid-template-columns:1fr;gap:24px}
+  .ftbot{flex-direction:column;gap:10px;text-align:center}.ftbot-r{justify-content:center}
+}
+</style>
 </head>
 <body>
+<div id="c1"></div>
+<div id="c2"></div>
 
-<div id="cur"></div>
-<div id="cur-r"></div>
-
-<div id="cat-runner" aria-hidden="true">
-  <svg width="100" height="68" viewBox="0 0 100 68" fill="none">
-    <g class="cg">
-      <ellipse cx="48" cy="40" rx="26" ry="15" fill="#ff8c42"/>
-      <circle cx="76" cy="26" r="14" fill="#ff8c42"/>
-      <polygon points="66,16 60,3 73,12" fill="#ff8c42"/>
-      <polygon points="82,12 80,1 90,10" fill="#ff8c42"/>
-      <path d="M22 38 C8 28 3 14 9 6 C14 0 19 4 18 11 C17 17 23 30 22 38Z" fill="#ff8c42"/>
-      <circle cx="79" cy="24" r="2.2" fill="#0a0e1a"/>
-      <line x1="76" y1="32" x2="92" y2="29" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <line x1="76" y1="34" x2="93" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <rect x="60" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="70" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="34" y="51" width="7" height="14" rx="3.5" fill="#ff8c42"/>
-      <rect x="45" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-    </g>
-  </svg>
-</div>
-
+<!-- NAV -->
 <nav id="nav">
-  <a class="nav-logo" href="index.html">
-    <img class="logo-img" src="images/logo.svg" alt="Connect Pet"
-         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
-    <span class="logo-fb" id="lf" style="display:none">Connect<em>Pet</em></span>
+  <a class="nlogo" href="index.html">
+    <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+         onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nlogo-fb" style="display:none">CONNECT <em>PET</em></span>
   </a>
-  <ul class="nav-links">
-    <li><a href="about.html">について</a></li>
-    <li><a href="service.html">サービス</a></li>
-    <li><a href="carestore.html">にゃんほっと</a></li>
-    <li><a href="homecare.html">HomeCare</a></li>
-    <li><a href="news.html">ニュース</a></li>
-    <li><a href="contact.html">お問い合わせ</a></li>
-  </ul>
-  <button id="mbtn" aria-label="メニューを開く" aria-expanded="false">
-    <span class="mbl"></span><span class="mbl"></span><span class="mbl"></span>
-  </button>
+  <a class="nback" href="index.html">← トップに戻る</a>
 </nav>
 
-<div id="fullmenu" role="dialog" aria-modal="true">
-  <div id="menu-bg"></div>
-  <div id="menu-in">
-    <nav class="m-nav">
-      <a class="m-item" href="index.html"><span class="mn">00</span>トップ</a>
-      <a class="m-item" href="about.html"><span class="mn">01</span>について</a>
-      <a class="m-item" href="service.html"><span class="mn">02</span>サービス</a>
-      <a class="m-item" href="carestore.html"><span class="mn">03</span>にゃんほっと</a>
-      <a class="m-item" href="homecare.html"><span class="mn">04</span>HomeCare</a>
-      <a class="m-item" href="news.html"><span class="mn">05</span>ニュース</a>
-      <a class="m-item" href="contact.html"><span class="mn">06</span>お問い合わせ</a>
-    </nav>
-    <div class="m-foot">
-      <div class="m-foot-row">
-        <a href="legal.html">特定商取引法</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
-      </div>
-      <p class="m-esc">esc or click to close</p>
-    </div>
+<!-- HERO -->
+<header id="phero">
+  <div class="phero-in">
+    <div class="lbl lbl-c">CONTACT</div>
+    <h1 class="ph1">お問い合わせ</h1>
+    <p class="psub">取材・提携、事業・サービス、出資・融資、採用に関するご相談を承っております。<br>下記フォームまたはLINEよりお気軽にご連絡ください。</p>
   </div>
-</div>
+</header>
 
 <main>
-  <div class="page-hero">
-    <div class="page-hero-in">
-      <div class="eyebrow">06 — CONTACT</div>
-      <h1 class="page-h1">お問い合わせ</h1>
-    </div>
-  </div>
-  <div class="cp-in">
-    
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">株式会社 Connect Pet | ペットの殺処分ゼロをビジネスで実現し続ける 読み込まれました</p>
-    </div>
-    
-  </div>
+<section id="cwrap">
+  <div class="cgrid">
 
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Contact</p>
-    </div>
-    
-  </div>
+    <!-- FORM -->
+    <div class="cform-wrap rv">
+      <form id="cform" novalidate>
+        <div class="ffield">
+          <label for="fName">お名前 <span class="req">必須</span></label>
+          <input type="text" id="fName" name="name" required placeholder="山田 太郎">
+        </div>
+        <div class="ffield">
+          <label for="fEmail">メールアドレス <span class="req">必須</span></label>
+          <input type="email" id="fEmail" name="email" required placeholder="example@mail.com">
+        </div>
+        <div class="ffield">
+          <label for="fReason">お問い合わせ種別</label>
+          <select id="fReason" name="reason">
+            <option value="">選択してください</option>
+            <option value="media">取材・提携に関して</option>
+            <option value="business">事業・サービスに関して</option>
+            <option value="invest">出資・融資に関して</option>
+            <option value="recruit">採用に関して</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+        <div class="ffield">
+          <label for="fMsg">お問い合わせ内容 <span class="req">必須</span></label>
+          <textarea id="fMsg" name="message" rows="6" required placeholder="お問い合わせ内容をご記入ください"></textarea>
+        </div>
+        <label class="fcheck">
+          <input type="checkbox" id="fAgree" required>
+          <span><a href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します</span>
+        </label>
+        <button type="submit" class="fsubmit magnetic">送信する<span class="fsubmit-arr"></span></button>
+      </form>
 
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">お問い合わせ</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">名前 必須</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">メールアドレス 必須</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">メールアドレス</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">問い合わせ理由</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">取材・提携に関して</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">事業・サービスに関して</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">出資・融資に関して</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">採用に関して</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">お問い合わせ内容 必須</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">お問い合わせ内容</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">プライバシーポリシー に同意します</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">プライバシーポリシー</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">に同意します</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">About Us 私たちについて</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">About Us</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">私たちについて</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Service サービス紹介</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Service</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">サービス紹介</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Our Team チーム紹介</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Our Team</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">チーム紹介</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Our Policy 私たちのポリシー</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Our Policy</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">私たちのポリシー</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">News お知らせ</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Recruit 採用情報</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Recruit</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Contact お問い合わせ</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">特定商取引法に基づく表示</p>
-    </div>
-    
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">©CONNECT PET, Inc</p>
-    </div>
-    
-  </div>
-  </div>
-  <section id="cta">
-    <div class="cta-in">
-      <div class="sr">
-        <div class="cta-lbl">CONTACT</div>
-        <h2 class="cta-h2">お気軽にご相談ください。</h2>
-      </div>
-      <div class="cta-btns sr d2">
-        <a class="btn-w magnetic" href="contact.html">無料相談をする</a>
+      <!-- 送信完了（ダミー動作。実際にはどこにも送信していません） -->
+      <div id="cdone" hidden>
+        <div class="cdone-icon">✓</div>
+        <p class="cdone-title">送信しました</p>
+        <p class="cdone-sub">お問い合わせいただきありがとうございます。<br>担当より追ってご連絡いたします。</p>
+        <a class="cdone-back" href="index.html">トップに戻る →</a>
       </div>
     </div>
-  </section>
+
+    <!-- INFO -->
+    <div class="cinfo-wrap rv d2">
+      <div class="cinfo-card">
+        <div class="lbl">CONTACT INFO</div>
+        <ul class="cinfo-list">
+          <li>
+            <span class="cinfo-ic">📞</span>
+            <div>
+              <span class="cinfo-lbl">電話</span>
+              <!-- TODO: クライアントの実連絡先に差し替え -->
+              <span class="cinfo-val">03-0000-0000</span>
+              <span class="cinfo-sub">平日 10:00〜18:00（土日祝休み）</span>
+            </div>
+          </li>
+          <li>
+            <span class="cinfo-ic">✉️</span>
+            <div>
+              <span class="cinfo-lbl">メール</span>
+              <!-- TODO: クライアントの実連絡先に差し替え -->
+              <span class="cinfo-val"><a href="mailto:info@example.com">info@example.com</a></span>
+            </div>
+          </li>
+          <li>
+            <span class="cinfo-ic">📍</span>
+            <div>
+              <span class="cinfo-lbl">所在地</span>
+              <!-- TODO: クライアントの実連絡先に差し替え -->
+              <span class="cinfo-val">〒100-0001 東京都千代田区千代田1-1 サンプルビル5F</span>
+            </div>
+          </li>
+        </ul>
+
+        <!-- TODO: クライアントの実連絡先確定後、実際の地図（Google Maps埋め込み等）に差し替え -->
+        <div class="cinfo-map">
+          <div class="map-ph">
+            <span class="map-ph-pin">📍</span>
+            <span class="map-ph-text">MAP（仮表示）</span>
+          </div>
+        </div>
+
+        <a class="line-btn" href="https://lin.ee/connectpet" target="_blank" rel="noopener">
+          LINEで相談する
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
 </main>
 
-<a id="line-cta" href="https://lin.ee/connectpet" target="_blank" rel="noopener" aria-label="LINEで相談する">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
-  <span>LINE相談</span>
-</a>
-
+<!-- FOOTER -->
 <footer>
-  <div class="ft-in">
-    <div class="ft-top">
+  <div class="ftin">
+    <div class="fttop">
       <div>
-        <div class="ft-name">Connect <em>Pet</em></div>
-        <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
-        <div class="ft-sns">
-          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <div class="ftlogo">
+          <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+               onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="ftlogo-fb" style="display:none">CONNECT <em>PET</em></span>
+        </div>
+        <p class="fttag">ペットの殺処分ゼロをビジネスで実現し続ける、<br>ソーシャルスタートアップカンパニー。</p>
+        <div class="ftsns">
+          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
         </div>
       </div>
-      <div class="ft-col"><h4>Pages</h4><ul>
+      <div class="ftcol"><h4>Pages</h4><ul>
         <li><a href="index.html">トップ</a></li>
-        <li><a href="about.html">について</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="news.html">ニュース</a></li>
+        <li><a href="index.html#about">私たちについて</a></li>
+        <li><a href="index.html#services">サービス</a></li>
+        <li><a href="index.html#news">ニュース</a></li>
         <li><a href="contact.html">お問い合わせ</a></li>
       </ul></div>
-      <div class="ft-col"><h4>Services</h4><ul>
-        <li><a href="carestore.html">にゃんほっと</a></li>
-        <li><a href="carestore-cat.html">保護猫を迎える</a></li>
-        <li><a href="homecare.html">HomeCare</a></li>
-      </ul></div>
-      <div class="ft-col"><h4>Legal</h4><ul>
+      <div class="ftcol"><h4>Legal</h4><ul>
         <li><a href="legal.html">特定商取引法</a></li>
         <li><a href="privacy.html">プライバシーポリシー</a></li>
+        <li><a href="mailto:info@connectpet.jp">info@connectpet.jp</a></li>
       </ul></div>
     </div>
-    <div class="ft-bot">
-      <span>&copy; 2025 株式会社 Connect Pet. All rights reserved.</span>
-      <div class="ft-bot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
+    <div class="ftbot">
+      <span>&copy; CONNECT PET, Inc</span>
+      <div class="ftbot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
     </div>
   </div>
 </footer>
 
+<!-- ━━━ SCRIPTS ━━━ -->
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="common.js"></script>
+<script>
+/* MOTION PREFERENCE */
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* LENIS */
+const lenis=new Lenis({duration:reduceMotion?0:1.15,easing:t=>Math.min(1,1.001-2**(-10*t)),smoothWheel:true,wheelMultiplier:1,touchMultiplier:2});
+gsap.registerPlugin(ScrollTrigger);
+gsap.ticker.add(time=>lenis.raf(time*1000));
+gsap.ticker.lagSmoothing(0);
+lenis.on('scroll',ScrollTrigger.update);
+/* CURSOR */
+const c1=document.getElementById('c1'),c2=document.getElementById('c2');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function loop(){c1.style.cssText=`left:${mx}px;top:${my}px`;rx+=(mx-rx)*.17;ry+=(my-ry)*.17;c2.style.cssText=`left:${rx}px;top:${ry}px`;requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,input,select,textarea').forEach(el=>{el.addEventListener('mouseenter',()=>c2.classList.add('on'));el.addEventListener('mouseleave',()=>c2.classList.remove('on'))});
+/* SCROLL REVEAL */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{threshold:.07,rootMargin:'0px 0px -28px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+/* MAGNETIC — reduced motionでは無効 */
+if(matchMedia('(hover:hover)').matches && !reduceMotion){
+  document.querySelectorAll('.magnetic').forEach(btn=>{
+    btn.addEventListener('mousemove',function(e){const r=this.getBoundingClientRect();gsap.to(this,{x:(e.clientX-r.left-r.width/2)*.2,y:(e.clientY-r.top-r.height/2)*.2,duration:.3,ease:'power2.out'})});
+    btn.addEventListener('mouseleave',function(){gsap.to(this,{x:0,y:0,duration:.6,ease:'elastic.out(1,.5)'})});
+  });
+}
+/* フォント/画像読み込み後にScrollTrigger座標を再計算 */
+window.addEventListener('load',()=>ScrollTrigger.refresh());
+document.fonts?.ready.then(()=>ScrollTrigger.refresh());
+
+/* ── FORM（ダミー送信。実際にはどこにも送信しません） ── */
+const cform=document.getElementById('cform'),cdone=document.getElementById('cdone');
+cform.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!cform.checkValidity()){ cform.reportValidity(); return; }
+  cform.hidden=true;
+  cdone.hidden=false;
+});
+</script>
 </body>
 </html>
