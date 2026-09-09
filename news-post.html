@@ -92,6 +92,9 @@ nav{
 }
 .post-date{font-family:var(--M);font-size:11px;color:var(--or);letter-spacing:.14em}
 
+.post-video{margin-bottom:40px;border-radius:12px;overflow:hidden;background:var(--f2)}
+.post-video video{width:100%;display:block}
+
 /* ── BODY CONTENT ── */
 .post-body{
   font-size:16px;line-height:2.1;color:var(--ink2);
@@ -264,6 +267,10 @@ function render(n){
     ? `<div class="hero"><img src="${n.image_url}" alt="${n.title||''}"><div class="hero-grad"></div></div>`
     : '';
 
+  const videoHtml = n.video_url
+    ? `<div class="post-video"><video src="${n.video_url}" controls playsinline></video></div>`
+    : '';
+
   document.getElementById('root').innerHTML = `
     ${heroHtml}
     <div class="article-wrap">
@@ -272,6 +279,7 @@ function render(n){
       <div class="post-meta-row">
         <span class="post-date">${fmt(n.published_at)}</span>
       </div>
+      ${videoHtml}
       <div class="post-body">${n.body||''}</div>
       <div class="post-footer">
         <a class="back-link" href="/#news">

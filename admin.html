@@ -491,7 +491,9 @@ document.getElementById('btnNew').onclick = ()=> {
   document.getElementById('fDate').value = new Date().toISOString().split('T')[0];
   document.getElementById('fSlug').value = '';
   document.getElementById('fImage').value = '';
+  document.getElementById('fVideo').value = '';
   resetUploadUI();
+  resetVideoUI();
   quill.setText('');
   renderList();
 };
@@ -507,8 +509,10 @@ function editPost(id){
   document.getElementById('fDate').value  = n.published_at||'';
   document.getElementById('fSlug').value  = n.slug||'';
   document.getElementById('fImage').value = n.image_url||'';
+  document.getElementById('fVideo').value = n.video_url||'';
   quill.clipboard.dangerouslyPasteHTML(n.body||'');
   if(n.image_url){ showImagePreview(n.image_url) } else { resetUploadUI() }
+  if(n.video_url){ showVideoPreview(n.video_url) } else { resetVideoUI() }
   renderList();
 }
 
@@ -520,6 +524,7 @@ async function savePost(publish){
     title,
     body:         quill.root.innerHTML,
     image_url:    document.getElementById('fImage').value||null,
+    video_url:    document.getElementById('fVideo').value||null,
     published_at: document.getElementById('fDate').value||null,
     slug:         document.getElementById('fSlug').value.trim()||slugify(title),
     is_published: publish,
@@ -612,9 +617,18 @@ document.getElementById('videoInput').onchange = function(){ if(this.files[0]) u
 document.getElementById('videoRemoveBtn').onclick = (e)=> {
   e.stopPropagation();
   document.getElementById('fVideo').value='';
+  resetVideoUI();
+};
+
+function resetVideoUI(){
   document.getElementById('videoPreviewWrap').style.display='none';
   document.getElementById('videoEmpty').style.display='flex';
-};
+}
+function showVideoPreview(url){
+  document.getElementById('videoEmpty').style.display='none';
+  document.getElementById('videoPreviewEl').src=url;
+  document.getElementById('videoPreviewWrap').style.display='block';
+}
 
 async function uploadVideo(file){
   if(file.size > 52428800){ showToast('ファイルサイズが50MBを超えています','err'); return; }
@@ -631,10 +645,9 @@ async function uploadVideo(file){
     if(!res.ok) throw new Error(await res.text());
     const url=`${SB_URL}/storage/v1/object/public/news-images/${name}`;
     document.getElementById('fVideo').value=url;
-    document.getElementById('videoPreviewEl').src=url;
-    document.getElementById('videoPreviewWrap').style.display='block';
+    showVideoPreview(url);
     showToast('動画をアップロードしました','ok');
-  }catch(e){ document.getElementById('videoEmpty').style.display='flex'; showToast('動画アップロード失敗','err') }
+  }catch(e){ resetVideoUI(); showToast('動画アップロード失敗','err') }
 }
 
 /* ── AI GENERATION ── */
