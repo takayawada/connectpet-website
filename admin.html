@@ -341,6 +341,12 @@ body{font-family:var(--B);background:var(--f1);color:var(--ink);min-height:100vh
 const SB_URL = 'https://ifccjxzsoozipldjnehu.supabase.co';
 const SB_KEY = 'sb_publishable_DXxwbYEqzJlTitVPo9Cciw_UCU6sa7b';
 
+/* news-imagesバケットのRLSメモ（Supabase Auth移行時の実地確認より）:
+   画像/動画アップロードはx-upsert:trueを送るため、Postgres RLSは
+   INSERT/UPDATEポリシーだけでなくSELECTポリシーの充足も要求する
+   （ON CONFLICT DO UPDATEの競合行チェックのため）。
+   authenticatedロールにinsert/update/selectの3ポリシーが必要（既存のanon向けポリシーは変更不要）。 */
+
 /* ── SESSION（Supabase Auth） ── */
 function getSession(){ try{ return JSON.parse(sessionStorage.getItem('cp_session')||'null') }catch(e){ return null } }
 function setSession(s){ if(s) sessionStorage.setItem('cp_session', JSON.stringify(s)); else sessionStorage.removeItem('cp_session') }
