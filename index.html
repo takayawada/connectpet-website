@@ -894,9 +894,13 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     <div class="tcards">
       <div class="tcard rv d1">
         <div class="tph">
+          <!-- TODO: 実写真サイズ確定まで仮置きのオレンジ正方形プレースホルダー。確定後は下のimg要素に戻す
           <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-946x1034_v-fs_webp_b80dcd69-b74.webp"
                alt="三浦朋之 代表取締役/CEO"
                onerror="this.onerror=null;this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
+          -->
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 500 500'%3E%3Crect width='500' height='500' fill='rgb(255,140,66)'/%3E%3Ccircle cx='250' cy='190' r='70' fill='%23fff' opacity='.55'/%3E%3Cpath d='M110,430 C110,320 390,320 390,430 Z' fill='%23fff' opacity='.55'/%3E%3C/svg%3E"
+               alt="三浦朋之 代表取締役/CEO（仮画像）">
         </div>
         <div class="tinfo">
           <p class="tname">三浦 朋之</p>
@@ -1117,7 +1121,8 @@ if(matchMedia('(hover:hover)').matches && !reduceMotion){
   ];
   const fmt=d=>{if(!d)return '';const p=d.split('-');return `${p[0]}.${p[1]}.${p[2]}`};
   const card=n=>{
-    const u=`/news-post.html?id=${n.id}`;
+    /* FALLBACKデータにはidがなくslugしかないため、idがない場合はslug先へリンクする（id=undefined事故の修正） */
+    const u=n.id!=null?`/news-post.html?id=${n.id}`:n.slug;
     return `<a class="nc" href="${u}"><div class="ncimg"><img src="${n.image_url||OG}" alt="" loading="lazy" onerror="this.src='${OG}'"></div><div class="ncb"><span class="ncd">${fmt(n.published_at)}</span><h3 class="nct">${n.title||''}</h3><span class="ncm">続きを読む</span></div></a>`};
   const track=document.getElementById('newsTrack');
   if(!track)return;
