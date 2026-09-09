@@ -24,9 +24,9 @@ a{color:inherit;text-decoration:none}
 .login-logo img{height:28px;width:auto}
 .login-sub{font-size:13px;color:var(--ink2);text-align:center;margin-bottom:28px}
 .lbl{font-size:12px;font-weight:700;display:block;margin-bottom:8px;letter-spacing:.06em}
-.linput{width:100%;padding:12px 16px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:var(--B);outline:none;transition:border-color .2s}
+.linput{width:100%;padding:12px 16px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:var(--B);outline:none;transition:border-color .2s;margin-bottom:16px}
 .linput:focus{border-color:var(--or)}
-.lbtn{width:100%;margin-top:16px;padding:14px;background:var(--or);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;font-family:var(--B);cursor:pointer}
+.lbtn{width:100%;padding:14px;background:var(--or);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;font-family:var(--B);cursor:pointer}
 .lbtn:hover{background:#e87530}
 .lerr{color:var(--err);font-size:12px;margin-top:10px;text-align:center;display:none}
 
@@ -164,10 +164,12 @@ a{color:inherit;text-decoration:none}
   <div class="login-box">
     <div class="login-logo"><img src="images/connect_pet_logo.png" alt="CONNECT PET"></div>
     <p class="login-sub">猫管理画面</p>
+    <label class="lbl">メールアドレス</label>
+    <input class="linput" type="email" id="emailInput" placeholder="メールアドレスを入力" autocomplete="username">
     <label class="lbl">パスワード</label>
-    <input class="linput" type="password" id="pwInput" placeholder="パスワードを入力">
+    <input class="linput" type="password" id="pwInput" placeholder="パスワードを入力" autocomplete="current-password">
     <button class="lbtn" id="loginBtn">ログイン</button>
-    <p class="lerr" id="loginErr">パスワードが違います</p>
+    <p class="lerr" id="loginErr">メールアドレスまたはパスワードが正しくありません</p>
   </div>
 </div>
 
@@ -180,7 +182,7 @@ a{color:inherit;text-decoration:none}
       <span class="header-tab active">🐱 在籍猫管理</span>
     </div>
     <div class="header-right">
-      <a class="header-link" href="/" target="_blank">サイトを見る →</a>
+      <a class="header-link" href="/cats.html" id="siteViewBtn" target="_blank">サイトを見る →</a>
       <button class="logout-btn" id="logoutBtn">ログアウト</button>
     </div>
   </header>
@@ -313,11 +315,28 @@ a{color:inherit;text-decoration:none}
 <script>
 const SB_URL = 'https://ifccjxzsoozipldjnehu.supabase.co';
 const SB_KEY = 'sb_publishable_DXxwbYEqzJlTitVPo9Cciw_UCU6sa7b';
-const PASS   = 'connectpet2024';
 
-/* SESSION */
-function isLoggedIn(){ return sessionStorage.getItem('cp_admin')==='1' }
-function setLogin(v){ v?sessionStorage.setItem('cp_admin','1'):sessionStorage.removeItem('cp_admin') }
+/* SESSION（Supabase Auth） */
+function getSession(){ try{ return JSON.parse(sessionStorage.getItem('cp_session')||'null') }catch(e){ return null } }
+function setSession(s){ if(s) sessionStorage.setItem('cp_session', JSON.stringify(s)); else sessionStorage.removeItem('cp_session') }
+function isLoggedIn(){ return !!getSession()?.access_token }
+
+async function refreshSession(){
+  const s = getSession();
+  if(!s || !s.refresh_token) return false;
+  try{
+    const res = await fetch(`${SB_URL}/auth/v1/token?grant_type=refresh_token`,{
+      method:'POST',
+      headers:{ 'apikey':SB_KEY, 'Content-Type':'application/json' },
+      body: JSON.stringify({ refresh_token: s.refresh_token })
+    });
+    const data = await res.json();
+    if(!res.ok || !data.access_token) return false;
+    setSession({ access_token:data.access_token, refresh_token:data.refresh_token, expires_at:Date.now()+data.expires_in*1000 });
+    return true;
+  }catch(e){ return false }
+}
+
 if(isLoggedIn()){ showApp() } else { showLogin() }
 
 /* カスタム毛色の復元 */
@@ -329,19 +348,51 @@ if(isLoggedIn()){ showApp() } else { showLogin() }
 function showLogin(){ document.getElementById('loginScreen').style.display='flex'; document.getElementById('appScreen').style.display='none' }
 function showApp(){ document.getElementById('loginScreen').style.display='none'; document.getElementById('appScreen').style.display='block'; loadCats() }
 
-document.getElementById('loginBtn').onclick=()=> { if(document.getElementById('pwInput').value===PASS){ setLogin(true);showApp() }else{ document.getElementById('loginErr').style.display='block' } }
+document.getElementById('loginBtn').onclick=async ()=> {
+  const email = document.getElementById('emailInput').value.trim();
+  const password = document.getElementById('pwInput').value;
+  document.getElementById('loginErr').style.display='none';
+  try{
+    const res = await fetch(`${SB_URL}/auth/v1/token?grant_type=password`,{
+      method:'POST',
+      headers:{ 'apikey':SB_KEY, 'Content-Type':'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if(!res.ok || !data.access_token) throw new Error(data.error_description||data.msg||'login failed');
+    setSession({ access_token:data.access_token, refresh_token:data.refresh_token, expires_at:Date.now()+data.expires_in*1000 });
+    showApp();
+  }catch(e){
+    document.getElementById('loginErr').style.display='block';
+  }
+}
+document.getElementById('emailInput').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('loginBtn').click() })
 document.getElementById('pwInput').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('loginBtn').click() })
-document.getElementById('logoutBtn').onclick=()=> { setLogin(false);showLogin() }
+document.getElementById('logoutBtn').onclick=()=> {
+  const s = getSession();
+  if(s?.access_token) fetch(`${SB_URL}/auth/v1/logout`,{method:'POST',headers:{'apikey':SB_KEY,'Authorization':`Bearer ${s.access_token}`}}).catch(()=>{});
+  setSession(null); showLogin();
+}
+/* サイトを見る: 編集中の猫がいればその詳細ページへ、未保存の新規登録中なら一覧へ */
+document.getElementById('siteViewBtn').addEventListener('click', function(){
+  this.href = currentId!=null ? `/cat-post.html?id=${currentId}` : '/cats.html';
+});
 
 /* STATE */
 let allCats=[], currentId=null, currentPhotos=[];
 
-/* SUPABASE */
+/* SUPABASE（ログイン済みユーザーのトークンで認証） */
 async function sb(path, method='GET', body=null){
-  const res=await fetch(`${SB_URL}/rest/v1/${path}`,{
-    method, headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Content-Type':'application/json','Prefer':method==='POST'?'return=representation':'return=minimal'},
+  const opts={
+    method, headers:{'apikey':SB_KEY,'Authorization':`Bearer ${getSession()?.access_token}`,'Content-Type':'application/json','Prefer':method==='POST'?'return=representation':'return=minimal'},
     body:body?JSON.stringify(body):null
-  });
+  };
+  let res=await fetch(`${SB_URL}/rest/v1/${path}`, opts);
+  if(res.status===401 && await refreshSession()){
+    opts.headers['Authorization']=`Bearer ${getSession().access_token}`;
+    res=await fetch(`${SB_URL}/rest/v1/${path}`, opts);
+  }
+  if(res.status===401){ setSession(null); showLogin(); throw new Error('セッションが切れました。再度ログインしてください') }
   if(res.status===204) return null;
   return res.json();
 }
@@ -622,7 +673,7 @@ async function uploadFile(file, type){
     const name=`${type}-${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
     const res=await fetch(`${SB_URL}/storage/v1/object/news-images/${name}`,{
       method:'POST',
-      headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Content-Type':file.type,'x-upsert':'true'},
+      headers:{'apikey':SB_KEY,'Authorization':`Bearer ${getSession()?.access_token}`,'Content-Type':file.type,'x-upsert':'true'},
       body:file
     });
     if(!res.ok) throw new Error(await res.text());
