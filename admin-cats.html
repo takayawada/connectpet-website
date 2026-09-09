@@ -321,7 +321,7 @@ function setLogin(v){ v?sessionStorage.setItem('cp_admin','1'):sessionStorage.re
 if(isLoggedIn()){ showApp() } else { showLogin() }
 
 /* カスタム毛色の復元 */
-(function(){
+(()=> {
   const saved=JSON.parse(localStorage.getItem('cp_colors')||'[]');
   const dl=document.getElementById('colorList');
   saved.forEach(c=>{ const o=document.createElement('option');o.value=c;dl.appendChild(o) });
@@ -329,9 +329,9 @@ if(isLoggedIn()){ showApp() } else { showLogin() }
 function showLogin(){ document.getElementById('loginScreen').style.display='flex'; document.getElementById('appScreen').style.display='none' }
 function showApp(){ document.getElementById('loginScreen').style.display='none'; document.getElementById('appScreen').style.display='block'; loadCats() }
 
-document.getElementById('loginBtn').onclick=function(){ if(document.getElementById('pwInput').value===PASS){ setLogin(true);showApp() }else{ document.getElementById('loginErr').style.display='block' } }
+document.getElementById('loginBtn').onclick=()=> { if(document.getElementById('pwInput').value===PASS){ setLogin(true);showApp() }else{ document.getElementById('loginErr').style.display='block' } }
 document.getElementById('pwInput').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('loginBtn').click() })
-document.getElementById('logoutBtn').onclick=function(){ setLogin(false);showLogin() }
+document.getElementById('logoutBtn').onclick=()=> { setLogin(false);showLogin() }
 
 /* STATE */
 let allCats=[], currentId=null, currentPhotos=[];
@@ -434,7 +434,7 @@ function reorderCats(fromIdx,toIdx){
 }
 
 /* NEW */
-document.getElementById('btnNew').onclick=function(){
+document.getElementById('btnNew').onclick=()=> {
   currentId=null; currentPhotos=[];
   document.getElementById('editorMode').textContent='新規追加';
   document.getElementById('btnDel').style.display='none';
@@ -631,7 +631,7 @@ async function uploadFile(file, type){
 }
 
 /* SAVE */
-document.getElementById('btnSave').onclick=async function(){
+document.getElementById('btnSave').onclick=async ()=> {
   const name=document.getElementById('fName').value.trim();
   if(!name){showToast('名前を入力してください','err');return}
   const data={
@@ -684,7 +684,7 @@ document.getElementById('btnSave').onclick=async function(){
 };
 
 /* DELETE */
-document.getElementById('btnDel').onclick=async function(){
+document.getElementById('btnDel').onclick=async ()=> {
   if(!currentId||!confirm('この猫の情報を削除しますか？')) return;
   try{
     await sb(`cats?id=eq.${currentId}`,'DELETE');

@@ -358,7 +358,7 @@ function showApp(){
 if(isLoggedIn()) showApp(); else showLogin();
 
 /* ── LOGIN ── */
-document.getElementById('loginBtn').onclick = function(){
+document.getElementById('loginBtn').onclick = ()=> {
   if(document.getElementById('pwInput').value === PASS){
     setLogin(true); showApp();
   } else {
@@ -366,7 +366,7 @@ document.getElementById('loginBtn').onclick = function(){
   }
 };
 document.getElementById('pwInput').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('loginBtn').click() });
-document.getElementById('logoutBtn').onclick = function(){ setLogin(false); showLogin() };
+document.getElementById('logoutBtn').onclick = ()=> { setLogin(false); showLogin() };
 
 /* ── QUILL ── */
 const quill = new Quill('#quillEditor',{
@@ -435,7 +435,7 @@ function renderList(){
 }
 
 /* ── NEW POST ── */
-document.getElementById('btnNew').onclick = function(){
+document.getElementById('btnNew').onclick = ()=> {
   currentId = null;
   document.getElementById('editorMode').textContent = '新規作成';
   document.getElementById('btnDelete').style.display = 'none';
@@ -498,7 +498,7 @@ document.getElementById('btnDraft').onclick   = ()=>savePost(false);
 document.getElementById('btnPublish').onclick = ()=>savePost(true);
 
 /* ── DELETE ── */
-document.getElementById('btnDelete').onclick = async function(){
+document.getElementById('btnDelete').onclick = async ()=> {
   if(!currentId||!confirm('この記事を削除しますか？')) return;
   try{
     await sbRequest(`news?id=eq.${currentId}`,'DELETE',null,'return=minimal');
@@ -515,7 +515,7 @@ uploadZone.addEventListener('dragover', e=>{ e.preventDefault(); uploadZone.clas
 uploadZone.addEventListener('dragleave', ()=>uploadZone.classList.remove('drag'));
 uploadZone.addEventListener('drop', e=>{ e.preventDefault(); uploadZone.classList.remove('drag'); const f=e.dataTransfer.files[0]; if(f&&f.type.startsWith('image/')) uploadFile(f) });
 document.getElementById('fileInput').onchange = function(){ if(this.files[0]) uploadFile(this.files[0]) };
-document.getElementById('uploadRemoveBtn').onclick = function(e){ e.stopPropagation(); document.getElementById('fImage').value=''; resetUploadUI() };
+document.getElementById('uploadRemoveBtn').onclick = (e)=> { e.stopPropagation(); document.getElementById('fImage').value=''; resetUploadUI() };
 
 async function uploadFile(file){
   showProgressUI();
@@ -561,7 +561,7 @@ videoZone.addEventListener('dragover', e=>{e.preventDefault(); videoZone.style.b
 videoZone.addEventListener('dragleave', ()=>videoZone.style.borderColor='');
 videoZone.addEventListener('drop', e=>{e.preventDefault(); const f=e.dataTransfer.files[0]; if(f&&f.type.startsWith('video/')) uploadVideo(f)});
 document.getElementById('videoInput').onchange = function(){ if(this.files[0]) uploadVideo(this.files[0]) };
-document.getElementById('videoRemoveBtn').onclick = function(e){
+document.getElementById('videoRemoveBtn').onclick = (e)=> {
   e.stopPropagation();
   document.getElementById('fVideo').value='';
   document.getElementById('videoPreviewWrap').style.display='none';
@@ -620,7 +620,7 @@ JSON形式で返してください：{"title":"タイトル","body":"<p>本文HT
 }
 
 /* ── UTILS ── */
-function slugify(s){ return s.toLowerCase().replace(/\s+/g,'-').replace(/[^\w\-]/g,'').slice(0,60)||'post-'+Date.now() }
+function slugify(s){ return s.toLowerCase().replace(/\s+/g,'-').replace(/[^\w-]/g,'').slice(0,60)||'post-'+Date.now() }
 function showToast(msg,type){
   const t=document.getElementById('toast');
   t.textContent=msg; t.className='toast '+type;
