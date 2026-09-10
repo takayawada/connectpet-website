@@ -507,7 +507,7 @@ p,li{word-break:break-all;overflow-wrap:break-word}
   transition:transform var(--df) var(--ease),box-shadow var(--df) var(--ease);
 }
 .tcard:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(27,33,56,.1)}
-.tph{height:300px;overflow:hidden;background:var(--f2)}
+.tph{display:block;height:300px;overflow:hidden;background:var(--f2)}
 .tph img{width:100%;height:100%;object-fit:cover;transition:transform var(--db) var(--ease)}
 .tcard:hover .tph img{transform:scale(1.04)}
 .tinfo{padding:20px 20px 22px}
@@ -839,15 +839,11 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
     </div>
     <div class="tcards">
       <div class="tcard rv d1">
-        <div class="tph">
-          <!-- TODO: 実写真サイズ確定まで仮置きのオレンジ正方形プレースホルダー。確定後は下のimg要素に戻す
+        <a class="tph" href="team.html" target="_blank" rel="noopener">
           <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-946x1034_v-fs_webp_b80dcd69-b74.webp"
                alt="三浦朋之 代表取締役/CEO"
                onerror="this.onerror=null;this.src='https://storage.googleapis.com/production-os-assets/assets/3c137654-fc86-45a6-9b63-a412495605c4'">
-          -->
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 500 500'%3E%3Crect width='500' height='500' fill='rgb(255,140,66)'/%3E%3Ccircle cx='250' cy='190' r='70' fill='%23fff' opacity='.55'/%3E%3Cpath d='M110,430 C110,320 390,320 390,430 Z' fill='%23fff' opacity='.55'/%3E%3C/svg%3E"
-               alt="三浦朋之 代表取締役/CEO（仮画像）">
-        </div>
+        </a>
         <div class="tinfo">
           <p class="tname">三浦 朋之</p>
           <p class="trole">代表取締役 / CEO</p>

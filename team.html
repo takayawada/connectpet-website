@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>私たちについて | 株式会社 Connect Pet</title>
-<meta name="description" content="ペットの殺処分ゼロを、ビジネスで実現し続ける。株式会社Connect Petのミッションとバリューをご紹介します。">
-<meta property="og:title"       content="私たちについて | 株式会社 Connect Pet">
-<meta property="og:description" content="ペットの殺処分ゼロを、ビジネスで実現し続ける。株式会社Connect Petのミッションとバリューをご紹介します。">
+<title>メンバー紹介 | 株式会社 Connect Pet</title>
+<meta name="description" content="株式会社Connect Petのメンバーをご紹介します。代表取締役/CEO 三浦朋之のプロフィールとご挨拶。">
+<meta property="og:title"       content="メンバー紹介 | 株式会社 Connect Pet">
+<meta property="og:description" content="株式会社Connect Petのメンバーをご紹介します。">
 <meta property="og:type"        content="website">
 <!-- TODO: favicon未対応（index.html側と同じ課題。favicon専用の小さいアイコン素材の用意が必要） -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700;900&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   DESIGN TOKENS（index.html/contact.htmlと共通）
+   DESIGN TOKENS（index.html/about.html/contact.htmlと共通）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -87,7 +87,6 @@ img{display:block;max-width:100%;height:auto}
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SHARED
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.sw{max-width:1160px;margin:0 auto;padding:0 56px}
 .rv{opacity:0;transform:translateY(22px);transition:opacity var(--db) var(--ease),transform var(--db) var(--ease)}
 .rv.d2{transition-delay:.12s}
 .rv.vis{opacity:1;transform:translateY(0)}
@@ -121,46 +120,29 @@ img{display:block;max-width:100%;height:auto}
 .psub{font-size:14px;line-height:2;color:rgba(255,255,255,.82)}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   MISSION（写真＋テキストの2カラム）
+   BOARD MEMBER（写真＋プロフィールの2カラム）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#mission{padding:104px 0}
-.ms-grid{
+#board{padding:104px 0}
+.bhead{max-width:1160px;margin:0 auto 56px;padding:0 56px}
+.bh2{font-family:var(--S);font-size:clamp(24px,3vw,36px);font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.b-grid{
   max-width:1160px;margin:0 auto;padding:0 56px;
-  display:grid;grid-template-columns:1fr 460px;gap:72px;align-items:center;
+  display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start;
 }
-.ms-h2{
-  font-family:var(--S);font-size:clamp(26px,3.4vw,44px);font-weight:800;
-  color:var(--ink);line-height:1.4;letter-spacing:-.01em;margin-bottom:20px;
-}
-.ms-catch{font-size:13px;color:var(--or);letter-spacing:.04em;margin-bottom:22px;font-weight:700}
-.ms-body{font-size:14.5px;line-height:2.2;color:var(--ink2);display:flex;flex-direction:column;gap:18px}
-.ms-photo{border-radius:20px;overflow:hidden;box-shadow:0 12px 44px rgba(27,33,56,.12)}
-.ms-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:1006/1200}
+.b-photo{border-radius:20px;overflow:hidden;box-shadow:0 12px 44px rgba(27,33,56,.12)}
+.b-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:548/600}
+.b-name{font-family:var(--S);font-size:clamp(22px,2.6vw,30px);font-weight:800;color:var(--ink);margin-bottom:6px}
+.b-role{font-family:var(--M);font-size:11px;color:var(--or);letter-spacing:.14em;margin-bottom:32px}
+.b-profile-lbl{font-family:var(--M);font-size:10px;letter-spacing:.2em;color:var(--sil);text-transform:uppercase;margin-bottom:16px}
+.b-body{font-size:14px;line-height:2.2;color:var(--ink2);display:flex;flex-direction:column;gap:16px}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   VALUE（3カードグリッド）
+   GREETING（ご挨拶）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#value{background:var(--f2);padding:104px 0}
-.vhead{max-width:1160px;margin:0 auto 52px;padding:0 56px;text-align:center;display:flex;flex-direction:column;align-items:center}
-.vh2{font-family:var(--S);font-size:clamp(26px,3.4vw,42px);font-weight:800;color:var(--ink);letter-spacing:-.01em}
-.vgrid{max-width:1160px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.vcard{
-  background:var(--w);border-radius:16px;padding:40px 32px;
-  position:relative;overflow:hidden;
-  box-shadow:0 2px 16px rgba(27,33,56,.05);
-  opacity:0;transform:translateY(16px);
-  transition:opacity var(--db) var(--ease),transform var(--db) var(--ease),box-shadow var(--df) var(--ease);
-}
-.vcard.vis{opacity:1;transform:translateY(0)}
-.vcard:nth-child(2){transition-delay:.08s}
-.vcard:nth-child(3){transition-delay:.16s}
-.vcard:hover{box-shadow:0 10px 34px rgba(27,33,56,.1)}
-.vcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--or),rgba(255,140,66,.12))}
-.vno{font-family:var(--M);font-size:11px;letter-spacing:.2em;color:rgba(255,140,66,.4);margin-bottom:14px}
-.vtag{font-family:var(--M);font-size:9px;letter-spacing:.2em;color:var(--or);text-transform:uppercase;margin-bottom:3px}
-.vtag-ja{font-size:12px;color:var(--sil);letter-spacing:.06em;margin-bottom:16px}
-.vtitle{font-family:var(--S);font-size:17px;font-weight:700;color:var(--ink);line-height:1.6;margin-bottom:12px}
-.vbody{font-size:13.5px;line-height:2;color:var(--ink2)}
+#greeting{background:var(--f2);padding:104px 0}
+.g-in{max-width:820px;margin:0 auto;padding:0 56px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.g-h2{font-family:var(--S);font-size:clamp(24px,3vw,36px);font-weight:800;color:var(--ink);margin-bottom:28px}
+.g-body{font-size:14.5px;line-height:2.3;color:var(--ink2)}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    CTA（オレンジ・円モチーフ）
@@ -181,7 +163,7 @@ img{display:block;max-width:100%;height:auto}
 .cta-btn:hover{background:var(--f1);transform:translateY(-2px);box-shadow:0 12px 34px rgba(0,0,0,.15)}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   FOOTER（index.html/contact.htmlと共通）
+   FOOTER（index.html/about.html/contact.htmlと共通）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 .ftin{max-width:1240px;margin:0 auto;padding:0 56px}
@@ -190,12 +172,7 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 .ftlogo img{height:22px;opacity:.8;filter:brightness(0) invert(1)}
 .ftlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;color:#fff;letter-spacing:.04em}
 .ftlogo-fb em{color:var(--or);font-style:normal}
-.fttag{font-size:12px;color:var(--sil);line-height:1.95;max-width:260px;margin-bottom:16px}
-.ftsns{display:flex;gap:10px}
-.ftsns a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;transition:all var(--df) var(--ease)}
-.ftsns a:hover{background:rgba(255,140,66,.18);border-color:rgba(255,140,66,.4)}
-.ftsns svg{width:13px;height:13px;fill:var(--sil);transition:fill var(--df) var(--ease)}
-.ftsns a:hover svg{fill:var(--or)}
+.fttag{font-size:12px;color:var(--sil);line-height:1.95;max-width:260px}
 .ftcol h4{font-family:var(--M);font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.2);text-transform:uppercase;margin-bottom:14px}
 .ftcol ul{list-style:none}.ftcol li{margin-bottom:8px}
 .ftcol a{font-size:12px;color:var(--sil);transition:color var(--df) var(--ease)}.ftcol a:hover{color:var(--or)}
@@ -208,19 +185,18 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media(max-width:1080px){
   #nav{padding:16px 28px}
-  .ms-grid{grid-template-columns:1fr;gap:36px}
-  .ms-photo{max-width:420px;margin:0 auto;order:-1}
-  .vgrid{grid-template-columns:1fr;gap:16px}
+  .b-grid{grid-template-columns:1fr;gap:32px}
+  .b-photo{max-width:280px}
   .fttop{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(max-width:640px){
   #nav{padding:14px 20px}
   #phero{padding:64px 0 52px}
   .phero-in{padding:0 20px}
-  #mission{padding:64px 0}
-  .ms-grid{padding:0 20px}
-  #value{padding:64px 0}
-  .vhead,.vgrid{padding:0 20px}
+  #board{padding:64px 0}
+  .bhead,.b-grid{padding:0 20px}
+  #greeting{padding:64px 0}
+  .g-in{padding:0 20px}
   #cta{padding:72px 0}
   .cta-in{padding:0 20px}
   .ftin{padding:0 20px}
@@ -246,62 +222,44 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
 <!-- HERO -->
 <header id="phero">
   <div class="phero-in">
-    <div class="lbl lbl-c lbl-w">ABOUT US</div>
-    <h1 class="ph1">私たちについて</h1>
-    <p class="psub">ペットの殺処分ゼロを、ビジネスで実現し続ける。</p>
+    <div class="lbl lbl-c lbl-w">OUR TEAM</div>
+    <h1 class="ph1">メンバー紹介</h1>
+    <p class="psub">ペット・人・社会の豊かな共存を目指すメンバーをご紹介します。</p>
   </div>
 </header>
 
 <main>
 
-<!-- MISSION -->
-<section id="mission">
-  <div class="ms-grid">
-    <div class="rv">
-      <div class="lbl">MISSION</div>
-      <h2 class="ms-h2">私たちのミッション</h2>
-      <p class="ms-catch">ペットの殺処分ゼロを、ビジネスで実現し続ける</p>
-      <div class="ms-body">
-        <p>ペット（犬・猫）は現在、15歳以下の子供の数よりも多い約1500万頭の飼育頭数が存在する、社会の構成員です。しかし、その社会の構成員としてのペットが殺処分をされているという社会課題を抱えています。</p>
-        <p>行政・ボランティア・保護団体の方々の努力によって、殺処分数は減少しつつも、常にゼロにならない現状があります。そして、約8割が猫、というのが現状です。</p>
-        <p>殺処分がゼロにならない理由は様々存在しますが、「ペットのお世話（ケア）の負担によるリリース」が大きな要因であり、保護猫の譲渡活動と同時に「飼い主のケアの負担を減らす」ソリューションが求められています。</p>
-        <p>当社は殺処分数の多い猫に特化した、"ペットのケア負担を軽減しながら、猫・飼い主双方が安心・快適に暮らせるソリューション"をビジネスを通じて提供し、「リリースしないペットオーナーを増やすこと」「適切なより多くの譲渡を行うこと」を通じて、ペット殺処分ゼロを実現し続ける社会を創造します。</p>
-      </div>
+<!-- BOARD MEMBER -->
+<section id="board">
+  <div class="bhead rv">
+    <div class="lbl">BOARD MEMBER</div>
+    <h2 class="bh2">役員紹介</h2>
+  </div>
+  <div class="b-grid">
+    <div class="b-photo rv">
+      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-946x1034_v-fs_webp_b80dcd69-b74.webp" alt="三浦朋之 代表取締役/CEO">
     </div>
-    <div class="ms-photo rv d2">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1812x2160_v-frms_webp_925aa1e1-.webp" alt="子猫を抱く人">
+    <div class="rv d2">
+      <p class="b-name">三浦 朋之</p>
+      <p class="b-role">代表取締役 / CEO</p>
+      <p class="b-profile-lbl">PROFILE</p>
+      <div class="b-body">
+        <p>2011年、大学卒業後、広告代理店に約3年勤務の後、独立。</p>
+        <p>中小・ベンチャー企業のマーケティング支援を軸に複数のベンチャー企業のCMO/役員を経験。2021年医療サービスベンチャーの事業売却に携わる。</p>
+        <p>ソーシャルビジネス・グラミン銀行創設者でノーベル平和賞を受賞したムハマド・ユヌス氏率いるグラミングループとの事業開発の経験に感銘を受け、社会課題解決型ビジネスの立ち上げを志す。</p>
+        <p>社会課題解決を志向する会社への事業投資を行う株式会社ウィルウェイのCOO（最高執行責任者）にてBizDev、投資育成を経験。その後、大きな社会課題解決と経済利益を両立するソーシャルスタートアップ型のビジネス創造を実現できるチャンスとしてペットの領域に可能性を感じ、創業。</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- VALUE -->
-<section id="value">
-  <div class="vhead rv">
-    <div class="lbl lbl-c">VALUE</div>
-    <h2 class="vh2">私たちのバリュー</h2>
-  </div>
-  <div class="vgrid">
-    <div class="vcard">
-      <p class="vno">01</p>
-      <p class="vtag">CHALLENGE</p>
-      <p class="vtag-ja">挑戦</p>
-      <h3 class="vtitle">批判を恐れずに、行動する</h3>
-      <p class="vbody">私たちは、ペット・人・社会がWinになる新しい文化と価値観を作っています。これまでの当たり前を変えよう。</p>
-    </div>
-    <div class="vcard">
-      <p class="vno">02</p>
-      <p class="vtag">MODERATION</p>
-      <p class="vtag-ja">中庸</p>
-      <h3 class="vtitle">偏らない、第三の道を探す</h3>
-      <p class="vbody">人もペットも多種多様。だからこそ、多様性を受け入れて、新しい価値を創造しよう。</p>
-    </div>
-    <div class="vcard">
-      <p class="vno">03</p>
-      <p class="vtag">HOSPITALITY</p>
-      <p class="vtag-ja">おもてなし</p>
-      <h3 class="vtitle">常に先を考えて価値を提供する</h3>
-      <p class="vbody">私たちには、仲間が必要。だからこそ、自ら相手の5歩先を考えた行動で安心と感動を提供しよう。</p>
-    </div>
+<!-- GREETING -->
+<section id="greeting">
+  <div class="g-in rv">
+    <div class="lbl lbl-c">MESSAGE</div>
+    <h2 class="g-h2">ご挨拶</h2>
+    <p class="g-body">弊社ホームページを訪れていただき、誠にありがとうございます。ペット（犬・猫）の飼育頭数が15歳以下の子供より多い社会になった現代。ペットは社会の構成員となり、飼い主にとっては家族としての存在になってきました。しかし、その急激な変化に社会の価値観・その変化に対応するインフラが追いついていないことで、多くの社会課題が取り残されたままとなっています。弊社は、そんな課題を解消するソーシャルスタートアップとして、ペット・人・社会の豊かな共存を目指してまいります。</p>
   </div>
 </section>
 
@@ -328,15 +286,11 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
           <span class="ftlogo-fb" style="display:none">CONNECT <em>PET</em></span>
         </div>
         <p class="fttag">ペットの殺処分ゼロをビジネスで実現し続ける、<br>ソーシャルスタートアップカンパニー。</p>
-        <div class="ftsns">
-          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-        </div>
       </div>
       <div class="ftcol"><h4>Pages</h4><ul>
         <li><a href="index.html">トップ</a></li>
         <li><a href="about.html">私たちについて</a></li>
+        <li><a href="team.html">メンバー紹介</a></li>
         <li><a href="index.html#services">サービス</a></li>
         <li><a href="index.html#news">ニュース</a></li>
         <li><a href="contact.html">お問い合わせ</a></li>
@@ -375,7 +329,7 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>c2.classList.add('on'));el.addEventListener('mouseleave',()=>c2.classList.remove('on'))});
 /* SCROLL REVEAL */
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{threshold:.07,rootMargin:'0px 0px -28px 0px'});
-document.querySelectorAll('.rv,.vcard').forEach(el=>io.observe(el));
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 /* フォント/画像読み込み後にScrollTrigger座標を再計算 */
 window.addEventListener('load',()=>ScrollTrigger.refresh());
 document.fonts?.ready.then(()=>ScrollTrigger.refresh());
