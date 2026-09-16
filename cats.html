@@ -30,17 +30,18 @@ nav{
   background:rgba(253,248,243,.96);backdrop-filter:blur(24px);
   border-bottom:1px solid var(--ln);
   padding:14px 48px;display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;row-gap:10px;
 }
 .nav-logo img{height:22px;width:auto}
 .nav-logo-fb{font-family:var(--S);font-size:14px;font-weight:700;color:var(--nv)}
 .nav-logo-fb em{color:var(--or);font-style:normal}
-.nav-links{display:flex;align-items:center;gap:24px}
-.nav-link{font-family:var(--M);font-size:11px;letter-spacing:.14em;color:var(--sil);transition:color .2s}
+.nav-links{display:flex;align-items:center;gap:24px;flex-wrap:wrap;row-gap:8px;justify-content:flex-end}
+.nav-link{font-family:var(--M);font-size:11px;letter-spacing:.14em;color:var(--sil);transition:color .2s;white-space:nowrap}
 .nav-link:hover{color:var(--or)}
 .nav-cta{
   font-family:var(--B);font-size:12px;font-weight:700;
   background:var(--or);color:#fff;padding:9px 20px;border-radius:8px;
-  letter-spacing:.04em;transition:background .2s,transform .2s;
+  letter-spacing:.04em;transition:background .2s,transform .2s;white-space:nowrap;
 }
 .nav-cta:hover{background:var(--or2);transform:translateY(-1px)}
 
@@ -65,7 +66,7 @@ nav{
 
 /* ── FILTER BAR ── */
 .filter-wrap{
-  position:sticky;top:52px;z-index:400;
+  position:sticky;top:var(--navh,52px);z-index:400;
   background:rgba(253,248,243,.97);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--ln);
   padding:14px 48px;
@@ -211,9 +212,11 @@ footer{background:var(--nv);padding:32px 48px;margin-top:0;display:flex;align-it
   .cat-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:640px){
-  nav{padding:12px 20px}
+  nav{padding:12px 16px}
+  .nav-links{gap:14px}
+  .nav-cta{padding:9px 14px}
   .hero{padding:52px 20px 44px}
-  .filter-wrap{padding:12px 20px;top:50px}
+  .filter-wrap{padding:12px 20px}
   .content{padding:36px 20px 72px}
   footer{padding:24px 20px;flex-direction:column;gap:10px}
   .cat-grid{grid-template-columns:1fr}
@@ -300,6 +303,12 @@ footer{background:var(--nv);padding:32px 48px;margin-top:0;display:flex;align-it
 </footer>
 
 <script>
+/* navは折り返しで高さが変わるため、下のsticky要素のtopを実測値に追従させる */
+const navEl = document.querySelector('nav');
+const syncNavH = () => document.documentElement.style.setProperty('--navh', navEl.offsetHeight + 'px');
+syncNavH();
+new ResizeObserver(syncNavH).observe(navEl);
+
 const SB_URL = 'https://ifccjxzsoozipldjnehu.supabase.co';
 const SB_KEY = 'sb_publishable_DXxwbYEqzJlTitVPo9Cciw_UCU6sa7b';
 const PER    = 9;
