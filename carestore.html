@@ -2,1150 +2,638 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>にゃんほっと | 保護猫譲渡特化型施設</title>
-<meta name="description" content="保護猫譲渡特化型施設「にゃんほっと」は、株式会社Connect Petが運営する、最も殺処分数の多い猫の譲渡に特化した施設です。ペットリリースの原因となる「お世話の負荷」を下げる猫ケア家電の体験ショールームを併設しています。">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>にゃんほっと（保護猫譲渡特化型施設） | 株式会社 Connect Pet</title>
+<meta name="description" content="保護猫譲渡特化型施設「にゃんほっと」。猫と生涯安心して暮らせる出会いを提供します。">
+<meta property="og:title"       content="にゃんほっと（保護猫譲渡特化型施設） | 株式会社 Connect Pet">
+<meta property="og:description" content="保護猫譲渡特化型施設「にゃんほっと」。猫と生涯安心して暮らせる出会いを提供します。">
+<meta property="og:type"        content="website">
+<!-- TODO: favicon未対応（index.html側と同じ課題。favicon専用の小さいアイコン素材の用意が必要） -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="common.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700;900&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   DESIGN TOKENS（index.html/about.html/team.htmlと共通）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --w:   #ffffff;
+  --f1:  #fdf8f3;
+  --f2:  #faeee5;
+  --f3:  #f2e1d3;
+  --or:  #ff8c42;
+  --or2: #e87530;
+  --rose:#cc7055;
+  --nv:  #0a0d18;
+  --ink: #1b2138;
+  --ink2:#4a526a;
+  --sil: #8fa0b5;
+  --ln:  rgba(27,33,56,.08);
+  --S:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+  --B:'Noto Sans JP',sans-serif;
+  --M:'DM Mono',monospace;
+  --ease:  cubic-bezier(.165,.84,.44,1);
+  --easeio:cubic-bezier(.45,0,.55,1);
+  --df:.4s;
+  --db:.8s;
+  --ds:1.3s;
+  /* セクション境目のグラデーション高さ */
+  --cs-fade:clamp(96px,14vw,180px);
+}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{
+  background:var(--f1);color:var(--ink);
+  font-family:var(--B);cursor:none;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  font-feature-settings:"palt" 1;
+}
+a{text-decoration:none;color:inherit;cursor:none}
+img{display:block;max-width:100%;height:auto}
+
+/* ━━━ CURSOR ━━━ */
+#c1,#c2{position:fixed;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
+#c1{width:8px;height:8px;background:var(--or);z-index:10000}
+#c2{width:32px;height:32px;border:1.5px solid rgba(255,140,66,.38);z-index:9999;
+  transition:width var(--df) var(--ease),height var(--df) var(--ease),border-color var(--df) var(--ease)}
+#c2.on{width:52px;height:52px;border-color:rgba(255,140,66,.7)}
+@media(hover:none){#c1,#c2{display:none}*{cursor:auto!important}}
+
+/* ━━━ REDUCED MOTION ━━━ */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   NAV
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#nav{
+  position:sticky;top:0;z-index:600;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 56px;background:rgba(253,248,243,.94);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--ln);
+}
+.nlogo{display:flex;align-items:center}
+.nlogo img{height:24px;width:auto}
+.nlogo-fb{font-family:var(--S);font-size:14px;font-weight:700;color:var(--ink);letter-spacing:.05em}
+.nlogo-fb em{color:var(--or);font-style:normal}
+.nback{font-family:var(--M);font-size:11px;letter-spacing:.1em;color:var(--sil);transition:color var(--df) var(--ease)}
+.nback:hover{color:var(--or)}
+
+/* サブブランドのバー：にゃんほっと */
+#subnav{
+  position:sticky;top:61px;z-index:590;background:var(--or);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 56px;
+}
+.sb-brand{display:flex;align-items:center}
+.sb-brand img{height:18px;width:auto;display:block;filter:brightness(0) invert(1)}
+.sb-links{display:flex;gap:26px}
+.sb-links a{font-size:11.5px;color:rgba(255,255,255,.8);transition:color var(--df) var(--ease)}
+.sb-links a:hover{color:#fff}
+@media(max-width:900px){.sb-links{display:none}}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SHARED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.rv{opacity:0;transform:translateY(22px);transition:opacity var(--db) var(--ease),transform var(--db) var(--ease)}
+.rv.d2{transition-delay:.12s}
+.rv.vis{opacity:1;transform:translateY(0)}
+/* ラベル（.lbl系はabout.html/team.htmlと同一定義） */
+.lbl{
+  font-family:var(--M);font-size:10px;letter-spacing:.28em;color:var(--or);
+  display:flex;align-items:center;gap:12px;margin-bottom:14px;
+}
+.lbl::before{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.lbl-w{color:rgba(255,255,255,.65)}
+.lbl-w::before{background:var(--or)}
+.lbl-c{justify-content:center}
+.lbl-c::before,.lbl-c::after{content:'';width:22px;height:1px;background:var(--or);flex-shrink:0}
+.sec-head-wrap{max-width:880px;margin:0 auto 44px;padding:0 24px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.sec-h2{font-family:var(--S);font-size:clamp(26px,3.4vw,42px);font-weight:800;color:var(--ink)}
+.cs-vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HERO → ABOUT（写真の下端をABOUTと同じクリームへ溶かして連続させる）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#phero{position:relative;background:var(--f1)}
+.phero-media{height:min(88vh,720px);min-height:440px;position:relative;overflow:hidden}
+/* 写真に焼き込まれたロゴが全画面幅・モバイル両方で切れない位置 */
+.phero-media img,.phero-media video{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+/* フェードは焼き込みロゴ（写真の縦25〜75%）より下だけにかける */
+.phero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(253,248,243,0) 0%,rgba(253,248,243,0) 78%,rgba(253,248,243,.45) 90%,var(--f1) 100%)}
+
+#about{position:relative;background:var(--f1);padding:clamp(56px,7vw,88px) 0 48px;overflow:hidden}
+/* 施設について：carestore専用の背景（写真スロット＋クリームのスクリム。写真を入れてもオレンジの文字が読めるようにする） */
+.cs-about-visual{position:absolute;inset:0;z-index:0;pointer-events:none}
+.cs-about-visual-photo{position:absolute;inset:0;background:var(--f1)}
+.cs-about-visual-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
+.cs-about-visual-scrim{position:absolute;inset:0;background:linear-gradient(180deg,var(--f1) 0%,rgba(253,248,243,.84) 34%,rgba(253,248,243,.84) 100%)}
+.ab-in{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 56px;text-align:center}
+.ab-h2{font-family:var(--S);font-size:clamp(26px,3.4vw,44px);font-weight:800;color:var(--or);line-height:1.6;margin-bottom:18px}
+/* 本文は小さいため、同じオレンジ系でも一段濃い --or2 で可読性を確保 */
+.ab-body{font-size:13.5px;line-height:2.1;color:var(--or2);opacity:0}
+/* 見出しは意味単位で手動分割（禁則が崩れない）。初期状態は非表示、JSで表示 */
+.ab-line{display:block}
+.ab-w{display:inline-block;opacity:0}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   在籍猫（Supabase連携カルーセル）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#cats-cta{background:var(--f1);padding:104px 24px}
+.cats-carousel-wrap{max-width:1080px;margin:0 auto;position:relative}
+.cats-carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;scrollbar-width:none}
+.cats-carousel::-webkit-scrollbar{display:none}
+/* ドラッグ中・GSAPで移動中はスナップを外す（終了時はカード境界に止めてから戻す） */
+.cats-carousel.is-free{scroll-snap-type:none;user-select:none;-webkit-user-select:none}
+.cat-card{scroll-snap-align:start;flex:0 0 168px;display:block}
+.cat-card-photo{position:relative;width:168px;height:168px;border-radius:16px;overflow:hidden;background:var(--f2)}
+.cat-card-photo img{width:100%;height:100%;object-fit:cover;transition:transform var(--df) var(--ease)}
+.cat-card:hover .cat-card-photo img{transform:scale(1.06)}
+.cat-card-badge{position:absolute;left:10px;top:10px;font-size:10px;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:20px;background:rgba(10,13,24,.72);color:#fff}
+.cat-card-name{margin-top:10px;font-family:var(--S);font-size:13px;font-weight:700;color:var(--ink);text-align:center}
+.cats-empty{font-size:13px;color:var(--ink2);padding:36px 0;text-align:center;width:100%}
+.cats-empty a{color:var(--or);text-decoration:underline}
+.cats-carousel-nav{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+.cats-carousel-nav[hidden]{display:none}
+.cc-arrow{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--ln);background:var(--w);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--ink2);transition:all var(--df) var(--ease);cursor:none}
+.cc-arrow:hover{background:var(--or);border-color:var(--or);color:#fff}
+.cats-more-wrap{display:flex;justify-content:center;margin-top:32px}
+.cc-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--B);font-size:14px;font-weight:700;color:#fff;
+  background:var(--nv);padding:15px 32px;border-radius:8px;letter-spacing:.05em;white-space:nowrap;
+  transition:background var(--df) var(--ease),transform var(--df) var(--ease);
+}
+.cc-btn:hover{background:var(--or);transform:translateY(-2px)}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   施設の特徴（チップ状の並び。SaaS比較表を避ける）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#compare{background:linear-gradient(180deg,var(--f1) 0,var(--f2) var(--cs-fade),var(--f2) calc(100% - var(--cs-fade)),var(--f1) 100%);padding:104px 24px}
+.cp-wrap{max-width:880px;margin:0 auto}
+.cp-cols{display:grid;grid-template-columns:120px 1fr;gap:14px;margin-bottom:14px}
+.cp-cols-title{grid-column:2;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:2px}
+.cp-col-title{font-family:var(--S);font-size:12.5px;font-weight:800;color:var(--ink2);text-align:center;padding-bottom:4px}
+.cp-col-title.us{display:flex;align-items:center;justify-content:center}
+.cp-col-title.us img{height:18px;width:auto;display:block}
+.cp-row{display:grid;grid-template-columns:120px 1fr;gap:14px;margin-bottom:14px;align-items:stretch}
+.cp-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
+.cp-chip{border-radius:16px;padding:18px 18px;display:flex;flex-direction:column;justify-content:center;min-height:112px}
+.cp-chip.axis{background:var(--ink);color:#fff;align-items:center;text-align:center;gap:1px}
+.cp-axis-en{font-family:var(--M);font-size:8.5px;letter-spacing:.14em;color:rgba(255,255,255,.5);text-transform:uppercase}
+.cp-axis-ja{font-family:var(--S);font-size:12.5px;font-weight:700;color:#fff}
+.cp-chip.them{background:var(--w)}
+.cp-chip.us{background:rgba(255,140,66,.12);border:1.5px solid rgba(255,140,66,.4)}
+.cp-tag{display:inline-flex;align-items:center;font-family:var(--M);font-size:9px;letter-spacing:.06em;padding:3px 10px;border-radius:20px;margin-bottom:9px;background:rgba(27,33,56,.06);color:var(--ink2);width:max-content}
+.cp-tag.us{background:var(--or);color:#fff}
+.cp-main{font-family:var(--S);font-size:13px;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:3px}
+.cp-chip.us .cp-main{color:var(--or2)}
+.cp-sub{font-size:10.5px;color:var(--ink2);line-height:1.6}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   施設情報（全幅タイル：左にラベル・右に内容）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#access{background:var(--f1);padding:104px 24px}
+.ac-grid{max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:10px}
+.ac-tile{
+  background:var(--w);border:1px solid var(--ln);border-radius:16px;padding:20px 28px;
+  display:grid;grid-template-columns:176px 1fr;gap:24px;align-items:start;
+}
+.ac-tile.wide{grid-column:1/-1}
+.ac-label{font-family:var(--S);font-size:12.5px;font-weight:700;line-height:1.9;letter-spacing:.04em;color:var(--ink);display:flex;align-items:center;gap:10px}
+.ac-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--or);flex-shrink:0}
+.ac-value{font-size:13.5px;color:var(--ink2);line-height:1.9}
+.ac-muted{color:var(--sil)}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   お問い合わせ（明るい背景）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#cta{background:var(--f2);padding:100px 24px}
+.cta-in{max-width:640px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
+.cta-h2{font-family:var(--S);font-size:clamp(24px,3.6vw,42px);font-weight:800;line-height:1.4;color:var(--ink)}
+.cta-h2 .nb{display:inline-block}
+.cta-body{font-size:13.5px;color:var(--ink2);line-height:2}
+.line-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;
+  background:#06c755;color:#fff;padding:16px 44px;border-radius:8px;
+  font-family:var(--B);font-size:14px;font-weight:700;letter-spacing:.04em;
+  transition:background var(--df) var(--ease),transform var(--df) var(--ease);
+}
+.line-btn:hover{background:#05b34c;transform:translateY(-2px)}
+.cta-sns{display:flex;gap:14px;margin-top:12px}
+.cta-sns a{
+  width:38px;height:38px;border-radius:50%;background:var(--w);
+  border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;
+  transition:background var(--df) var(--ease),border-color var(--df) var(--ease),transform var(--df) var(--ease);
+}
+.cta-sns a:hover{background:var(--or);border-color:var(--or);transform:translateY(-2px)}
+.cta-sns svg{width:16px;height:16px;fill:var(--ink);transition:fill var(--df) var(--ease)}
+.cta-sns a:hover svg{fill:#fff}
+
+/* フローティングLINEボタン（常時表示） */
+.line-float{
+  position:fixed;right:22px;bottom:22px;z-index:500;
+  display:inline-flex;align-items:center;gap:8px;
+  background:#06c755;color:#fff;padding:13px 20px;border-radius:30px;
+  font-family:var(--B);font-size:12.5px;font-weight:700;
+  box-shadow:0 10px 26px rgba(6,199,85,.32);
+  transition:transform var(--df) var(--ease),box-shadow var(--df) var(--ease);
+}
+.line-float:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(6,199,85,.4)}
+.line-float svg{width:15px;height:15px;fill:#fff;flex-shrink:0}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FOOTER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
+.ftin{max-width:1240px;margin:0 auto;padding:0 56px}
+.fttop{display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ftlogo{height:22px;margin-bottom:12px;display:flex;align-items:center}
+.ftlogo img{height:22px;opacity:.8;filter:brightness(0) invert(1)}
+.ftlogo-fb{font-family:var(--S);font-size:15px;font-weight:700;color:#fff;letter-spacing:.04em}
+.ftlogo-fb em{color:var(--or);font-style:normal}
+.fttag{font-size:12px;color:var(--sil);line-height:1.95;max-width:260px}
+.ftcol h4{font-family:var(--M);font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.2);text-transform:uppercase;margin-bottom:14px}
+.ftcol ul{list-style:none}.ftcol li{margin-bottom:8px}
+.ftcol a{font-size:12px;color:var(--sil);transition:color var(--df) var(--ease)}.ftcol a:hover{color:var(--or)}
+.ftbot{display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:11px;color:rgba(255,255,255,.15)}
+.ftbot a{color:rgba(255,255,255,.15);transition:color var(--df) var(--ease)}.ftbot a:hover{color:var(--sil)}
+.ftbot-r{display:flex;gap:16px}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media(max-width:1080px){
+  #nav{padding:16px 28px}
+  #subnav{padding:12px 28px;top:57px}
+  .fttop{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:640px){
+  #nav{padding:14px 20px}
+  #subnav{padding:10px 20px}
+  .sb-brand img{height:15px}
+  .phero-media{height:64vh;min-height:340px}
+  #about{padding:48px 0 40px}
+  .ab-br{display:none}
+  .ab-in{padding:0 24px;text-align:left}
+  #cats-cta{padding:72px 20px}
+  .cat-card{flex:0 0 132px}
+  .cat-card-photo{width:132px;height:132px}
+  #compare{padding:72px 20px}
+  .cp-cols{display:none}
+  .cp-row{grid-template-columns:1fr;gap:10px}
+  .cp-pair{grid-template-columns:1fr;gap:10px}
+  .cp-chip.axis{flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:2px;padding:12px 18px;min-height:auto}
+  .cp-chip{min-height:auto}
+  #access{padding:72px 20px}
+  .ac-tile{grid-template-columns:1fr;gap:4px;padding:18px 20px}
+  #cta{padding:72px 20px}
+  .ftin{padding:0 20px}
+  .fttop{grid-template-columns:1fr;gap:24px}
+  .ftbot{flex-direction:column;gap:10px;text-align:center}.ftbot-r{justify-content:center}
+  .line-float{right:14px;bottom:14px;padding:11px 16px;font-size:11px}
+}
+</style>
 </head>
 <body>
+<div id="c1"></div>
+<div id="c2"></div>
 
-<div id="cur"></div>
-<div id="cur-r"></div>
-
-<div id="cat-runner" aria-hidden="true">
-  <svg width="100" height="68" viewBox="0 0 100 68" fill="none">
-    <g class="cg">
-      <ellipse cx="48" cy="40" rx="26" ry="15" fill="#ff8c42"/>
-      <circle cx="76" cy="26" r="14" fill="#ff8c42"/>
-      <polygon points="66,16 60,3 73,12" fill="#ff8c42"/>
-      <polygon points="82,12 80,1 90,10" fill="#ff8c42"/>
-      <path d="M22 38 C8 28 3 14 9 6 C14 0 19 4 18 11 C17 17 23 30 22 38Z" fill="#ff8c42"/>
-      <circle cx="79" cy="24" r="2.2" fill="#0a0e1a"/>
-      <line x1="76" y1="32" x2="92" y2="29" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <line x1="76" y1="34" x2="93" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
-      <rect x="60" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="70" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-      <rect x="34" y="51" width="7" height="14" rx="3.5" fill="#ff8c42"/>
-      <rect x="45" y="52" width="7" height="13" rx="3.5" fill="#ff8c42"/>
-    </g>
-  </svg>
-</div>
-
+<!-- NAV -->
 <nav id="nav">
-  <a class="nav-logo" href="index.html">
-    <img class="logo-img" src="images/logo.svg" alt="Connect Pet"
-         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
-    <span class="logo-fb" id="lf" style="display:none">Connect<em>Pet</em></span>
+  <a class="nlogo" href="index.html">
+    <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+         onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nlogo-fb" style="display:none">CONNECT <em>PET</em></span>
   </a>
-  <ul class="nav-links">
-    <li><a href="about.html">について</a></li>
-    <li><a href="service.html">サービス</a></li>
-    <li><a href="carestore.html">にゃんほっと</a></li>
-    <li><a href="homecare.html">HomeCare</a></li>
-    <li><a href="news.html">ニュース</a></li>
-    <li><a href="contact.html">お問い合わせ</a></li>
-  </ul>
-  <button id="mbtn" aria-label="メニューを開く" aria-expanded="false">
-    <span class="mbl"></span><span class="mbl"></span><span class="mbl"></span>
-  </button>
+  <a class="nback" href="index.html">← トップに戻る</a>
 </nav>
 
-<div id="fullmenu" role="dialog" aria-modal="true">
-  <div id="menu-bg"></div>
-  <div id="menu-in">
-    <nav class="m-nav">
-      <a class="m-item" href="index.html"><span class="mn">00</span>トップ</a>
-      <a class="m-item" href="about.html"><span class="mn">01</span>について</a>
-      <a class="m-item" href="service.html"><span class="mn">02</span>サービス</a>
-      <a class="m-item" href="carestore.html"><span class="mn">03</span>にゃんほっと</a>
-      <a class="m-item" href="homecare.html"><span class="mn">04</span>HomeCare</a>
-      <a class="m-item" href="news.html"><span class="mn">05</span>ニュース</a>
-      <a class="m-item" href="contact.html"><span class="mn">06</span>お問い合わせ</a>
-    </nav>
-    <div class="m-foot">
-      <div class="m-foot-row">
-        <a href="legal.html">特定商取引法</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="mailto:info@connectpet.jp">info@connectpet.jp</a>
-      </div>
-      <p class="m-esc">esc or click to close</p>
-    </div>
+<!-- SUBNAV：にゃんほっと -->
+<div id="subnav">
+  <div class="sb-brand">
+    <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="にゃんほっと">
+  </div>
+  <div class="sb-links">
+    <a href="#about">施設について</a>
+    <a href="#cats-cta">在籍猫</a>
+    <a href="#compare">施設特徴</a>
+    <a href="#access">アクセス</a>
+    <a href="#cta">お問い合わせ</a>
   </div>
 </div>
 
+<!-- HERO -->
+<header id="phero">
+  <h1 class="cs-vh">にゃんほっと｜保護猫譲渡特化型施設</h1>
+  <div class="phero-media">
+    <!-- TODO: 動画準備でき次第、下記<img>を<video autoplay muted loop playsinline>に差し替え（.phero-media img,video のCSSは共通適用済み）。この写真はロゴ入りのため、動画にロゴが無い場合はロゴの重ね表示を別途検討 -->
+    <img src="images/3c13.png" alt="ベッドで眠る猫と、にゃんほっとのロゴ">
+    <div class="phero-scrim"></div>
+  </div>
+</header>
+
 <main>
-  <div class="page-hero">
-    <div class="page-hero-in">
-      <div class="eyebrow">03 — CARESTORE</div>
-      <h1 class="page-h1">にゃんほっと</h1>
-    </div>
-  </div>
-  <div class="cp-in">
-    
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">にゃんほっと | 保護猫譲渡特化型施設 読み込まれました</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">施設について</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1296x2_13b80e49-119f-4e8b-954f-.svg" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">里親募集中の猫</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-1280x1280_v-fms_webp_0db1ee58-e.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">お問い合わせ</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">About</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">猫と生涯安心して暮らせる出会いを提供します。 にゃんほっとは、保護猫の譲渡に特化した施設であり猫との快適な生活、ペットリリースを減らす猫ケア家電を体験できる施設です。</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">里親募集中の猫たち</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">みけちゃん🎀 女の子</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">みけちゃん🎀</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">うさちゃん🎀 女の子</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">うさちゃん🎀</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">マーチくん🌟 男の子</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">マーチくん🌟</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">きなこちゃん🎀 女の子</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">きなこちゃん🎀</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">もっと見る</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">施設の特徴</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">通常の譲渡団体</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Stance</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">より厳選した譲渡を</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">厳選した里親様に譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">より多くの譲渡を</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">(ケア環境の充実が前提) 単身、共働き、高齢者も 積極譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Position</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">ポジション</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">譲渡まで幅広く</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">猫の保護から譲渡まで 一気通貫で</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">譲渡〜フォロー特化</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">譲渡とフォローに特化/ 里親探しに集中</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Style</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">譲渡会の開催で譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">譲渡会イベントで譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">常設施設で譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">何度も会える 店舗で譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">郊外・地方で譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">都内で譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">人口の多い エリアで展開</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Treat</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">多様な猫を譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">子猫〜大人猫 まで幅広く譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">大人猫中心に譲渡</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">譲渡の進まない大人猫が中心</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Access</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">氏名又は名称</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">保護猫譲渡施設にゃんほっと 大鳥居店</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">東京都大田区西糀谷3-21-3 第5野口ビル</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">11:00-18:00 ＊猫ファーストのため、猫の状態により変更する場合がございます。 ご来店の際には、LINEにて確認されることをお勧め致します。</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">猫ファーストのため、電話設置がありません。詳しくはLINE登録の上お問い合わせください。</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">LINE登録はこちら</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">毎週火曜日・水曜日</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">種別登録番号</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">第一種動物取扱業 25東京都販 第008051号 23東京都保 第008051号</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">登録の有効期限</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">販：令和12年10月31日 保：令和11年6月1日</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">登録年月日</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">販：令和7年11月1日 保：令和6年6月12日</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">動物取扱責任者</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Contact</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">お問い合わせはLINEか、以下フォームから受け付けております。 （＊猫ファーストのため、お電話は受け付けておりません）</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">名前 必須</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">メールアドレス 必須</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">メールアドレス</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">問い合わせ理由</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">取材・提携に関して</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">事業・サービスに関して</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">出資・融資に関して</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">採用に関して</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">お問い合わせ内容 必須</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">お問い合わせ内容</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">プライバシーポリシー に同意します</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">プライバシーポリシー</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">に同意します</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">About Us 私たちについて</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">About Us</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">私たちについて</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Service サービス紹介</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Service</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">サービス紹介</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Our Team チーム紹介</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Our Team</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">チーム紹介</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Our Policy 私たちのポリシー</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Our Policy</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">私たちのポリシー</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">News お知らせ</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Recruit 採用情報</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Recruit</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">Contact お問い合わせ</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">特定商取引法に基づく表示</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section cp-rev sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">©CONNECT PET, Inc</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-
-  <div class="cp-section  sr">
-    <div class="cp-text">
-      
-      <p class="cp-p">譲渡・来店・質問希望はLINEから</p>
-    </div>
-    
-    <div class="cp-img sr d1">
-      <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="">
-    </div>
-  </div>
-  </div>
-  <section id="cta">
-    <div class="cta-in">
-      <div class="sr">
-        <div class="cta-lbl">CONTACT</div>
-        <h2 class="cta-h2">お気軽にご相談ください。</h2>
-      </div>
-      <div class="cta-btns sr d2">
-        <a class="btn-w magnetic" href="contact.html">無料相談をする</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<a id="line-cta" href="https://lin.ee/connectpet" target="_blank" rel="noopener" aria-label="LINEで相談する">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
-  <span>LINE相談</span>
-</a>
 
-<footer>
-  <div class="ft-in">
-    <div class="ft-top">
-      <div>
-        <div class="ft-name">Connect <em>Pet</em></div>
-        <p class="ft-tag">ペットの殺処分ゼロをビジネスで実現し続ける、ソーシャルスタートアップカンパニー。</p>
-        <div class="ft-sns">
-          <a href="https://www.instagram.com/connectpet_nyan/" target="_blank" rel="noopener" aria-label="Instagram @connectpet_nyan">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
+<!-- ABOUT -->
+<section id="about">
+  <div class="cs-about-visual" aria-hidden="true">
+    <!-- TODO: 背景写真待ち。写真が用意できたら .cs-about-visual-photo の中に <img src="images/..." alt=""> を入れる（CSS適用済み。クリームの半透明スクリムが重なり、オレンジの文字が読める状態を保つ） -->
+    <div class="cs-about-visual-photo"></div>
+    <div class="cs-about-visual-scrim"></div>
+  </div>
+  <div class="ab-in">
+    <h2 class="ab-h2">
+      <span class="ab-line"><span class="ab-w">猫と</span><span class="ab-w">生涯</span><span class="ab-w">安心して</span><span class="ab-w">暮らせる</span></span>
+      <span class="ab-line"><span class="ab-w">出会いを</span><span class="ab-w">提供します。</span></span>
+    </h2>
+    <p class="ab-body">にゃんほっとは、保護猫の譲渡に特化した施設であり、猫との快適な生活、<br class="ab-br">ペットリリースを減らす猫ケア家電を体験できる施設です。</p>
+  </div>
+</section>
+
+<!-- 在籍猫 -->
+<section id="cats-cta">
+  <div class="sec-head-wrap rv">
+    <div class="lbl lbl-c">ADOPT A CAT</div>
+    <h2 class="sec-h2">里親募集中の猫たち</h2>
+  </div>
+  <div class="cats-carousel-wrap rv d2">
+    <div class="cats-carousel" id="catsTrack">
+      <p class="cats-empty">読み込み中...</p>
+    </div>
+    <div class="cats-carousel-nav">
+      <button class="cc-arrow" id="ccPrev" aria-label="前へ">‹</button>
+      <button class="cc-arrow" id="ccNext" aria-label="次へ">›</button>
+    </div>
+  </div>
+  <div class="cats-more-wrap">
+    <a class="cc-btn" href="cats.html">在籍猫一覧をもっと見る</a>
+  </div>
+</section>
+
+<!-- 施設の特徴 -->
+<section id="compare">
+  <div class="cp-wrap">
+    <div class="sec-head-wrap rv">
+      <div class="lbl lbl-c">FEATURES</div>
+      <h2 class="sec-h2">施設の特徴</h2>
+    </div>
+
+    <div class="cp-cols rv d2">
+      <div class="cp-cols-title">
+        <div class="cp-col-title">一般的な保護猫団体</div>
+        <div class="cp-col-title us">
+          <img src="images/_studio-design-asset-files_projects_nBW2APpeav_s-552x72_webp_0f4fc151-1f94-4dcd-.webp" alt="にゃんほっと">
         </div>
       </div>
-      <div class="ft-col"><h4>Pages</h4><ul>
+    </div>
+
+    <div class="cp-row rv d2">
+      <div class="cp-chip axis"><span class="cp-axis-en">Stance</span><span class="cp-axis-ja">スタンス</span></div>
+      <div class="cp-pair">
+        <div class="cp-chip them"><span class="cp-tag">一般的な保護猫団体</span><p class="cp-main">より厳選した譲渡を</p><p class="cp-sub">厳選した里親様に譲渡</p></div>
+        <div class="cp-chip us"><span class="cp-tag us">にゃんほっと</span><p class="cp-main">より多くの譲渡を</p><p class="cp-sub">（ケア環境の充実が前提）単身、共働き、高齢者も積極譲渡</p></div>
+      </div>
+    </div>
+    <div class="cp-row rv d2">
+      <div class="cp-chip axis"><span class="cp-axis-en">Position</span><span class="cp-axis-ja">ポジション</span></div>
+      <div class="cp-pair">
+        <div class="cp-chip them"><span class="cp-tag">一般的な保護猫団体</span><p class="cp-main">譲渡まで幅広く</p><p class="cp-sub">猫の保護から譲渡まで一気通貫で</p></div>
+        <div class="cp-chip us"><span class="cp-tag us">にゃんほっと</span><p class="cp-main">譲渡〜フォロー特化</p><p class="cp-sub">譲渡とフォローに特化/里親探しに集中</p></div>
+      </div>
+    </div>
+    <div class="cp-row rv d2">
+      <div class="cp-chip axis"><span class="cp-axis-en">Style</span><span class="cp-axis-ja">スタイル</span></div>
+      <div class="cp-pair">
+        <div class="cp-chip them"><span class="cp-tag">一般的な保護猫団体</span><p class="cp-main">譲渡会の開催で譲渡</p><p class="cp-sub">譲渡会イベントで譲渡</p></div>
+        <div class="cp-chip us"><span class="cp-tag us">にゃんほっと</span><p class="cp-main">常設施設で譲渡</p><p class="cp-sub">何度も会える店舗で譲渡</p></div>
+      </div>
+    </div>
+    <div class="cp-row rv d2">
+      <div class="cp-chip axis"><span class="cp-axis-en">Area</span><span class="cp-axis-ja">エリア</span></div>
+      <div class="cp-pair">
+        <div class="cp-chip them"><span class="cp-tag">一般的な保護猫団体</span><p class="cp-main">郊外・地方で譲渡</p></div>
+        <div class="cp-chip us"><span class="cp-tag us">にゃんほっと</span><p class="cp-main">都内で譲渡</p><p class="cp-sub">人口の多いエリアで展開</p></div>
+      </div>
+    </div>
+    <div class="cp-row rv d2">
+      <div class="cp-chip axis"><span class="cp-axis-en">Treat</span><span class="cp-axis-ja">譲渡猫</span></div>
+      <div class="cp-pair">
+        <div class="cp-chip them"><span class="cp-tag">一般的な保護猫団体</span><p class="cp-main">多様な猫を譲渡</p><p class="cp-sub">子猫〜大人猫まで幅広く譲渡</p></div>
+        <div class="cp-chip us"><span class="cp-tag us">にゃんほっと</span><p class="cp-main">大人猫中心に譲渡</p><p class="cp-sub">譲渡の進まない大人猫が中心</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- アクセス -->
+<section id="access">
+  <div class="sec-head-wrap rv">
+    <div class="lbl lbl-c">ACCESS</div>
+    <h2 class="sec-h2">施設情報</h2>
+  </div>
+  <div class="ac-grid rv d2">
+    <div class="ac-tile wide"><span class="ac-label">名称</span><span class="ac-value">保護猫譲渡特化型施設 にゃんほっと</span></div>
+    <!-- TODO: 住所確定後に追記 -->
+    <div class="ac-tile wide"><span class="ac-label">住所</span><span class="ac-value ac-muted">確定後に掲載いたします</span></div>
+    <div class="ac-tile wide"><span class="ac-label">営業時間</span><span class="ac-value">11:00〜18:00<br>※猫の状態により変更あり</span></div>
+    <div class="ac-tile wide"><span class="ac-label">定休日</span><span class="ac-value">毎週火曜日・水曜日</span></div>
+    <div class="ac-tile wide"><span class="ac-label">電話番号</span><span class="ac-value">猫ファーストのため、電話設置がありません。詳しくはLINEにてお問い合わせください。</span></div>
+    <div class="ac-tile wide"><span class="ac-label">種別登録番号</span><span class="ac-value">第一種動物取扱業　25東京都販 第008051号／23東京都保 第008051号</span></div>
+    <div class="ac-tile wide"><span class="ac-label">登録の有効期限</span><span class="ac-value">販：令和12年10月31日<br>保：令和11年6月1日</span></div>
+    <div class="ac-tile wide"><span class="ac-label">登録年月日</span><span class="ac-value">販：令和7年11月1日<br>保：令和6年6月12日</span></div>
+    <div class="ac-tile wide"><span class="ac-label">動物取扱責任者</span><span class="ac-value">販：鮫島佑菜／保：米澤心寧</span></div>
+  </div>
+</section>
+
+<!-- CTA / お問い合わせ -->
+<section id="cta">
+  <div class="cta-in rv">
+    <div class="lbl lbl-c">CONTACT</div>
+    <h2 class="cta-h2"><span class="nb">譲渡・来店・</span><span class="nb">質問希望はLINEから</span></h2>
+    <p class="cta-body">お問い合わせはLINEにて受け付けております。<br>（＊猫ファーストのため、お電話は受け付けておりません）</p>
+    <a class="line-btn" href="https://page.line.me/110dshlf?oat_content=url&openQrModal=true" target="_blank" rel="noopener">
+      LINEでお問い合わせ
+    </a>
+    <div class="cta-sns">
+      <a href="https://www.instagram.com/nyanhot/" target="_blank" rel="noopener" aria-label="Instagram @nyanhot">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@nyanhot" target="_blank" rel="noopener" aria-label="TikTok @nyanhot">
+        <svg viewBox="0 0 24 24"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.63 0 3.33 2.76 5.71 5.69 5.71 3.14 0 5.69-2.55 5.69-5.71V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.36-1.48z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- フローティングLINEボタン -->
+<a class="line-float" href="https://page.line.me/110dshlf?oat_content=url&openQrModal=true" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.03 2 11.04c0 2.72 1.35 5.15 3.47 6.79L4 22l4.45-1.33c1.13.34 2.33.53 3.57.53 5.52 0 10-4.03 10-9.16C22 6.03 17.52 2 12 2z"/></svg>
+  譲渡・質問はLINEから
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftin">
+    <div class="fttop">
+      <div>
+        <div class="ftlogo">
+          <img src="images/connect_pet_logo.png" alt="CONNECT PET"
+               onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="ftlogo-fb" style="display:none">CONNECT <em>PET</em></span>
+        </div>
+        <p class="fttag">ペットの殺処分ゼロをビジネスで実現し続ける、<br>ソーシャルスタートアップカンパニー。</p>
+      </div>
+      <div class="ftcol"><h4>Pages</h4><ul>
         <li><a href="index.html">トップ</a></li>
-        <li><a href="about.html">について</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="news.html">ニュース</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
-      </ul></div>
-      <div class="ft-col"><h4>Services</h4><ul>
+        <li><a href="about.html">私たちについて</a></li>
+        <li><a href="team.html">メンバー紹介</a></li>
         <li><a href="carestore.html">にゃんほっと</a></li>
-        <li><a href="carestore-cat.html">保護猫を迎える</a></li>
-        <li><a href="homecare.html">HomeCare</a></li>
+        <li><a href="cats.html">在籍猫一覧</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="news.html">ニュース</a></li>
       </ul></div>
-      <div class="ft-col"><h4>Legal</h4><ul>
+      <div class="ftcol"><h4>Legal</h4><ul>
         <li><a href="legal.html">特定商取引法</a></li>
         <li><a href="privacy.html">プライバシーポリシー</a></li>
+        <li><a href="mailto:info@connectpet.jp">info@connectpet.jp</a></li>
       </ul></div>
     </div>
-    <div class="ft-bot">
-      <span>&copy; 2025 株式会社 Connect Pet. All rights reserved.</span>
-      <div class="ft-bot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
+    <div class="ftbot">
+      <span>&copy; CONNECT PET, Inc</span>
+      <div class="ftbot-r"><a href="legal.html">特定商取引法</a><a href="privacy.html">プライバシーポリシー</a></div>
     </div>
   </div>
 </footer>
 
+<!-- ━━━ SCRIPTS ━━━ -->
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="common.js"></script>
+<script>
+/* MOTION PREFERENCE */
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* LENIS */
+const lenis=new Lenis({duration:reduceMotion?0:1.15,easing:t=>Math.min(1,1.001-2**(-10*t)),smoothWheel:true,wheelMultiplier:1,touchMultiplier:2});
+gsap.registerPlugin(ScrollTrigger);
+gsap.ticker.add(time=>lenis.raf(time*1000));
+gsap.ticker.lagSmoothing(0);
+lenis.on('scroll',ScrollTrigger.update);
+/* CURSOR */
+const c1=document.getElementById('c1'),c2=document.getElementById('c2');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function loop(){c1.style.cssText=`left:${mx}px;top:${my}px`;rx+=(mx-rx)*.17;ry+=(my-ry)*.17;c2.style.cssText=`left:${rx}px;top:${ry}px`;requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>c2.classList.add('on'));el.addEventListener('mouseleave',()=>c2.classList.remove('on'))});
+/* ANCHOR SCROLL（サブナビのジャンプリンク） */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.getElementById(a.getAttribute('href').slice(1));if(t){e.preventDefault();lenis.scrollTo(t,{offset:-120,duration:1.1})}})});
+/* SCROLL REVEAL */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{threshold:.07,rootMargin:'0px 0px -28px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+/* フォント/画像読み込み後にScrollTrigger座標を再計算 */
+window.addEventListener('load',()=>ScrollTrigger.refresh());
+document.fonts?.ready.then(()=>ScrollTrigger.refresh());
+
+/* ABOUT導入：見出しは意味単位で blur reveal、本文は少し遅れてブロックごとに浮かび上がる */
+(()=>{
+  const words=gsap.utils.toArray('#about .ab-w');
+  const body=document.querySelector('#about .ab-body');
+  const els=[...words,body];
+  if(reduceMotion){gsap.set(els,{opacity:1});return}
+  /* filterのアニメーションは重いので、モバイルではblurを切ってopacity+移動のみ */
+  const blur=!matchMedia('(max-width:640px)').matches;
+  const fx=px=>blur?{filter:`blur(${px}px)`}:{};
+  gsap.set(els,{willChange:blur?'transform,opacity,filter':'transform,opacity'});
+  gsap.timeline({
+    scrollTrigger:{trigger:'#about .ab-in',start:'top 80%',once:true},
+    onComplete:()=>gsap.set(els,{clearProps:'filter,transform,willChange'})
+  })
+  .fromTo(words,{opacity:0,y:24,...fx(12)},{opacity:1,y:0,...fx(0),duration:.8,ease:'power3.out',stagger:.08})
+  .fromTo(body,{opacity:0,y:16,...fx(6)},{opacity:1,y:0,...fx(0),duration:1.3,ease:'power3.out'},'-=.45');
+})();
+
+/* 猫カルーセル（Supabase cats テーブル：全件。募集中→譲渡済みの順） */
+const SB_URL='https://ifccjxzsoozipldjnehu.supabase.co';
+const SB_KEY='sb_publishable_DXxwbYEqzJlTitVPo9Cciw_UCU6sa7b';
+{
+  const track=document.getElementById('catsTrack');
+  const nav=document.querySelector('.cats-carousel-nav');
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const step=()=>{const c=track.querySelector('.cat-card');return c?c.offsetWidth+(parseFloat(getComputedStyle(track).columnGap)||16):200};
+  const maxX=()=>track.scrollWidth-track.clientWidth;
+  const updateNav=()=>{nav.hidden=maxX()<=2};
+  /* 目標位置をカード境界に丸めてGSAPで移動（ドラッグの慣性・矢印ボタン共通） */
+  const glideTo=x=>{
+    const s=step(),t=Math.max(0,Math.min(maxX(),Math.round(x/s)*s));
+    track.classList.add('is-free');
+    gsap.to(track,{scrollLeft:t,duration:reduceMotion?0:.8,ease:'power3.out',overwrite:true,onComplete:()=>track.classList.remove('is-free')});
+  };
+
+  async function loadCarestoreCats(){
+    try{
+      const res=await fetch(`${SB_URL}/rest/v1/cats?select=id,name,photos,status&order=created_at.desc`,{
+        headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}
+      });
+      const data=await res.json();
+      if(!Array.isArray(data)||!data.length){
+        track.innerHTML='<p class="cats-empty">現在、猫の情報を準備中です。<a href="cats.html">在籍猫一覧はこちら</a></p>';
+      }else{
+        const rank=c=>c.status==='adopted'?1:0;
+        track.innerHTML=[...data].sort((a,b)=>rank(a)-rank(b)).map(c=>{
+          const photo=(Array.isArray(c.photos)&&c.photos[0])?c.photos[0]:'images/connect_pet_logo.png';
+          const name=esc(c.name||'名前未設定');
+          const badge=c.status==='adopted'?'<span class="cat-card-badge">譲渡済み</span>':'';
+          return `<a class="cat-card" href="cat-post.html?id=${encodeURIComponent(c.id)}">
+            <div class="cat-card-photo">${badge}<img src="${esc(photo)}" alt="${name}" loading="lazy" draggable="false"></div>
+            <p class="cat-card-name">${name}</p>
+          </a>`;
+        }).join('');
+      }
+    }catch(e){
+      track.innerHTML='<p class="cats-empty">情報の取得に失敗しました。<a href="cats.html">在籍猫一覧はこちら</a></p>';
+    }
+    updateNav();
+    ScrollTrigger.refresh();
+  }
+  loadCarestoreCats();
+  addEventListener('resize',updateNav);
+
+  /* マウスドラッグ（タッチ・ペンはブラウザ標準の横スクロール＋スナップに任せる） */
+  let down=false,dragged=false,suppress=false,sx=0,sl=0,lx=0,lt=0,vx=0;
+  track.addEventListener('pointerdown',e=>{
+    if(e.pointerType!=='mouse'||e.button!==0)return;
+    down=true;dragged=false;sx=lx=e.clientX;sl=track.scrollLeft;lt=performance.now();vx=0;
+    gsap.killTweensOf(track);
+  });
+  track.addEventListener('pointermove',e=>{
+    if(!down)return;
+    const dx=e.clientX-sx;
+    if(!dragged&&Math.abs(dx)>5){dragged=true;track.classList.add('is-free');track.setPointerCapture(e.pointerId)}
+    if(!dragged)return;
+    track.scrollLeft=sl-dx;
+    const now=performance.now();vx=(e.clientX-lx)/Math.max(1,now-lt);lx=e.clientX;lt=now;
+  });
+  const endDrag=()=>{
+    if(!down)return;down=false;
+    if(!dragged)return;
+    suppress=true;setTimeout(()=>suppress=false,60);
+    glideTo(track.scrollLeft-vx*260);
+  };
+  track.addEventListener('pointerup',endDrag);
+  track.addEventListener('pointercancel',endDrag);
+  /* ドラッグ直後のクリックでは詳細ページへ遷移させない */
+  track.addEventListener('click',e=>{if(suppress){e.preventDefault();e.stopPropagation()}},true);
+  /* トラックパッドの横スワイプはLenisに渡さず、ネイティブの横スクロールに任せる */
+  track.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY))e.stopPropagation()},{passive:true});
+  document.getElementById('ccPrev').addEventListener('click',()=>glideTo(track.scrollLeft-step()));
+  document.getElementById('ccNext').addEventListener('click',()=>glideTo(track.scrollLeft+step()));
+}
+</script>
 </body>
 </html>
