@@ -617,8 +617,12 @@ footer{background:var(--nv);padding:64px 0 0;border-top:2.5px solid var(--or)}
   .hw{filter:none!important;animation:smokeInSP var(--db) var(--ease) forwards}
   .hw.l2{animation-delay:.55s}
   @keyframes smokeInSP{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-  /* 背景画像サイズ調整 */
-  .hs img{height:100%;object-position:center center}
+  /* 背景画像サイズ調整: 縦長画面では横が大きく切れるため、
+     スライドごとに被写体（猫の顔）が中央に来る位置を指定 */
+  .hs img{height:100%}
+  .hs:nth-child(1) img{object-position:30% 60%} /* 眠る猫の顔 */
+  .hs:nth-child(2) img{object-position:36% 62%} /* 手前の猫の顔 */
+  .hs:nth-child(3) img{object-position:30% 60%}
   .sw,.nhd,.ain,.swrap,.tin,.coin,.ctin,.ftin{padding-left:20px;padding-right:20px}
   .fttop{grid-template-columns:1fr;gap:24px}
   .ftbot{flex-direction:column;gap:10px;text-align:center}.ftbot-r{justify-content:center}
